@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <drawable name="black">#FF000000</drawable>
+    <color name="white">#FFFFFFFF</color>
+    <color name="primary">#FF5670FF</color>
+    <drawable name="primary">#FF5670FF</drawable>
+    <color name="backgroundColor">#F4F5F6</color>
+
+
+</resources>

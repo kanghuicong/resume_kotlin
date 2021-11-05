@@ -1,0 +1,391 @@
+[
+    {
+      "className": "XCRTemplate_pdf_0",
+      "xcrMainThemeStr": "ff44546b",
+      "xcrSubThemeStr":"ff44546b",
+      "xcrPreviewImgStr":"template_thum_5_1",
+      "xcrName":"第六个简历",
+      "keys":"经典",
+      "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_1",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_6_1",
+        "xcrName":"第七个简历",
+        "keys":"经典",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_2",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_19_1",
+        "xcrName":"第二十个简历",
+        "keys":"最近更新简洁",
+        "tags":""
+    },
+    
+    {
+        "className": "XCRTemplate_pdf_3",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_7_1",
+        "xcrName":"第八个简历",
+        "keys":"经典",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_4",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_0_1",
+        "xcrName":"第一个简历",
+        "keys":"经典",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_5",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_18_1",
+        "xcrName":"第十九简历",
+        "keys":"简洁",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_6",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_4_1",
+        "xcrName":"第五个简历",
+        "keys":"经典",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_7",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_10_1",
+        "xcrName":"第十一个简历",
+        "keys":"经典",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_8",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_24_1",
+        "xcrName":"第二十五个简历",
+        "keys":"最近更新时尚",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_9",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_8_1",
+        "xcrName":"第九个简历",
+        "keys":"时尚",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_10",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_3_1",
+        "xcrName":"第九个简历",
+        "keys":"简洁",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_11",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_11_1",
+        "xcrName":"第十二个简历",
+        "keys":"时尚",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_12",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_1_1",
+        "xcrName":"第二个简历",
+        "keys":"时尚",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_13",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_2_1",
+        "xcrName":"第三个简历",
+        "keys":"时尚",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_14",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_9_1",
+        "xcrName":"第十个简历",
+        "keys":"简洁",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_15",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_12_1",
+        "xcrName":"第十三个简历",
+        "keys":"时尚",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_16",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_13_1",
+        "xcrName":"第十四个简历",
+        "keys":"简洁",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_17",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_14_1",
+        "xcrName":"第十五个简历",
+        "keys":"简洁",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_18",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_15_1",
+        "xcrName":"第十六个简历",
+        "keys":"时尚",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_19",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_16_1",
+        "xcrName":"第十七个简历",
+        "keys":"简洁",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_20",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_17_1",
+        "xcrName":"第十八个简历",
+        "keys":"简洁",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_21",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_20_1",
+        "xcrName":"第二十一个简历",
+        "keys":"经典最近更新",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_22",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_21_1",
+        "xcrName":"第二十二个简历",
+        "keys":"经典最近更新",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_22",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_21_1",
+        "xcrName":"第二十二个简历",
+        "keys":"经典最近更新",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_23",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_22_1",
+        "xcrName":"第二十三个简历",
+        "keys":"经典最近更新",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_24",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_23_1",
+        "xcrName":"第二十四个简历",
+        "keys":"经典最近更新",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_25",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_25_1",
+        "xcrName":"第二十六个简历",
+        "keys":"经典简洁最近更新",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_26",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_26_1",
+        "xcrName":"第二十七个简历",
+        "keys":"经典简洁最近更新",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_27",
+        "xcrMainThemeStr": "ff44546b",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_27_1",
+        "xcrName":"第二十八个简历",
+        "keys":"经典简洁最近更新",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_28",
+        "xcrMainThemeStr": "ff222222",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_28_1",
+        "xcrName":"第二十九个简历",
+        "keys":"简洁最近更新",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_29",
+        "xcrMainThemeStr": "ff222222",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_29_1",
+        "xcrName":"第三十个简历",
+        "keys":"经典最近更新",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_30",
+        "xcrMainThemeStr": "ff222222",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_30_1",
+        "xcrName":"第三十一个简历",
+        "keys":"经典最近更新",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_31",
+        "xcrMainThemeStr": "ff222222",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_31_1",
+        "xcrName":"第三十二个简历",
+        "keys":"经典最近更新",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_32",
+        "xcrMainThemeStr": "ff222222",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_32_1",
+        "xcrName":"第三十三个简历",
+        "keys":"经典最近更新",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_33",
+        "xcrMainThemeStr": "ff222222",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_33_1",
+        "xcrName":"第三十四个简历",
+        "keys":"经典最近更新",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_34",
+        "xcrMainThemeStr": "ff222222",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_34_1",
+        "xcrName":"第三十五个简历",
+        "keys":"经典最近更新",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_35",
+        "xcrMainThemeStr": "ff222222",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_35_1",
+        "xcrName":"第三十六个简历",
+        "keys":"经典最近更新",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_36",
+        "xcrMainThemeStr": "ff222222",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_36_1",
+        "xcrName":"第三十七个简历",
+        "keys":"经典最近更新",
+        "tags":""
+    },
+
+    {
+        "className": "XCRTemplate_pdf_37",
+        "xcrMainThemeStr": "ff222222",
+        "xcrSubThemeStr":"ff44546b",
+        "xcrPreviewImgStr":"template_thum_37_1",
+        "xcrName":"第三十七个简历",
+        "keys":"经典最近更新",
+        "tags":""
+    }
+]

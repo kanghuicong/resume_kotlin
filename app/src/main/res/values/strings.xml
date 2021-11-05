@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Resume</string>
+
+
+    <string name="template_mall">模板商城</string>
+    <string name="resume_info">简历信息</string>
+    <string name="mine">我的</string>
+
+    <string name="login">登录</string>
+    <string name="find_job_success">预祝找工作顺利</string>
+    <string name="settings">设置</string>
+</resources>
