@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kang.resume.R
 import com.kang.resume.adapter.TemplateListAdapter
 import com.kang.resume.base.BaseFragment
+import com.kang.resume.base.BaseViewModel
 import com.kang.resume.config.ValueConfig
 import com.kang.resume.databinding.TemplateFragmentBinding
 
@@ -20,7 +21,7 @@ import com.kang.resume.databinding.TemplateFragmentBinding
  * author:kanghuicong
  */
 
-class TemplateMallFragment : BaseFragment<TemplateFragmentBinding>() {
+class TemplateMallFragment : BaseFragment<TemplateFragmentBinding,BaseViewModel>() {
 
     override fun initLayout(): Int {
         return R.layout.template_fragment
@@ -45,6 +46,10 @@ class TemplateMallFragment : BaseFragment<TemplateFragmentBinding>() {
             TemplateListAdapter(activity, ValueConfig.templateList, R.layout.item_template)
         mBinding.rvTemplate.adapter = adapter
 
+    }
+
+    override fun initViewModel(): BaseViewModel {
+        return BaseViewModel()
     }
 
 

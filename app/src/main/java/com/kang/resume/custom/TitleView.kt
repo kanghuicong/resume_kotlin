@@ -24,14 +24,14 @@ class TitleView constructor(
 
 
     private var iToolClick: IToolClick? = null
+    private val vb = DataBindingUtil.inflate<ViewTitleBinding>(
+        LayoutInflater.from(context),
+        R.layout.view_title,
+        this,
+        true
+    )
 
     init {
-        val vb = DataBindingUtil.inflate<ViewTitleBinding>(
-            LayoutInflater.from(context),
-            R.layout.view_title,
-            this,
-            true
-        )
 
         val typedArray = context.obtainStyledAttributes(
             attrs,
@@ -41,7 +41,7 @@ class TitleView constructor(
         if (typedArray.getBoolean(R.styleable.TitleView_needBack, true)) {
             vb.ivBack.visibility = View.VISIBLE
             vb.ivBack.setOnClickListener {
-
+                (context as Activity).finish()
             }
         } else {
             vb.ivBack.visibility = View.GONE
@@ -55,7 +55,7 @@ class TitleView constructor(
             )
         )
 
-        vb.titleTool.text =(typedArray.getString(R.styleable.TitleView_title_right))
+        vb.titleTool.text = (typedArray.getString(R.styleable.TitleView_title_right))
         vb.titleTool.setTextColor(
             typedArray.getColor(
                 R.styleable.TitleView_title_right_color,
@@ -70,6 +70,10 @@ class TitleView constructor(
         }
     }
 
+    fun setTitle(title: String) :TitleView{
+        vb.titleTxt.text = title
+        return this
+    }
 
     fun setToolClick(iToolClick: IToolClick) {
         this.iToolClick = iToolClick

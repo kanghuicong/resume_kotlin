@@ -4,8 +4,12 @@ plugins {
     id 'kotlin-kapt'
 }
 
+
 kapt {
     generateStubs = true
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
 }
 
 android {
@@ -20,6 +24,7 @@ android {
         versionName "1.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -40,7 +45,7 @@ android {
         jvmTarget = '1.8'
     }
 
-    buildFeatures{
+    buildFeatures {
         dataBinding = true
 // for view binding :
 // viewBinding = true
@@ -48,6 +53,7 @@ android {
 }
 
 dependencies {
+
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
 
     // Dependencies for working with Architecture components
@@ -79,7 +85,7 @@ dependencies {
     // Testing
     testImplementation "junit:junit:$rootProject.junitVersion"
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
-    androidTestImplementation ("androidx.test.espresso:espresso-core:$rootProject.espressoVersion", {
+    androidTestImplementation("androidx.test.espresso:espresso-core:$rootProject.espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     androidTestImplementation "androidx.test.ext:junit:$rootProject.androidxJunitVersion"
@@ -91,6 +97,25 @@ dependencies {
     implementation 'jp.wasabeef:glide-transformations:3.1.1'
 
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
+
+    //api与compiler匹配使用，使用最新版可以保证兼容
+    implementation 'com.alibaba:arouter-api:1.5.2'
+    kapt 'com.alibaba:arouter-compiler:1.5.2'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+
+    implementation 'com.tencent:mmkv-static:1.2.7'
+    implementation 'com.elvishew:xlog:1.8.0'
+
+    implementation("androidx.datastore:datastore:1.0.0")
+    implementation("androidx.datastore:datastore-core:1.0.0")
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+
+    implementation 'com.github.li-xiaojun:XPopup:2.6.7'
+    implementation 'com.github.li-xiaojun:XPopupExt:0.0.8'
 
 }
 

@@ -67,7 +67,7 @@
                     android:gravity="center"
                     android:layout_marginTop="@dimen/dp_5"
                     android:text="@string/template_mall"
-                    android:textColor="@{vm.index==0?@color/primary:@color/black}" />
+                    android:textColor="@{vm.colorTemplate}" />
             </LinearLayout>
 
 
@@ -95,7 +95,7 @@
                     android:gravity="center"
                     android:layout_marginTop="@dimen/dp_5"
                     android:text="@string/resume_info"
-                    android:textColor="@{vm.index==1?@color/primary:@color/black}" />
+                    android:textColor="@{vm.colorResume}" />
             </LinearLayout>
 
             <LinearLayout
@@ -122,7 +122,7 @@
                     android:gravity="center"
                     android:layout_marginTop="@dimen/dp_5"
                     android:text="@string/mine"
-                    android:textColor="@{vm.index==2?@color/primary:@color/black}" />
+                    android:textColor="@{vm.colorMine}" />
             </LinearLayout>
 
         </LinearLayout>

@@ -1,16 +1,28 @@
 package com.kang.resume
 
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import com.kang.resume.base.BaseActivity
+import com.kang.resume.base.BaseFragment
 import com.kang.resume.base.ViewModelProviderFactory
 import com.kang.resume.databinding.MainActivityBinding
+import com.kang.resume.event.LoginBean
+import com.kang.resume.event.LoginLiveData
 import com.kang.resume.mine.MineFragment
 import com.kang.resume.resume.ResumeInfoFragment
+import com.kang.resume.router.RouterConfig
+import com.kang.resume.router.RouterNavigation
 import com.kang.resume.template.TemplateMallFragment
+import com.kang.resume.utils.LocalDataUtils
+import com.lxj.xpopup.XPopup
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.*
 
-class MainActivity : BaseActivity<MainActivityBinding>() {
+class MainActivity : BaseActivity<MainActivityBinding, MainViewModel>() {
 
     var templateMallFragment: TemplateMallFragment? = null
     var resumeInfoFragment: ResumeInfoFragment? = null
@@ -22,14 +34,19 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
         return R.layout.main_activity
     }
 
+    @DelicateCoroutinesApi
     override fun MainActivityBinding.initBinding() {
+        //监听登录状态
+        LoginLiveData.getInstance().observe(activity, Observer {
+            mVm.isLogin.value = it.isLogin
+        })
+
         initialize()
     }
 
     //初始化
+    @DelicateCoroutinesApi
     private fun initialize() {
-        mBinding.vm =
-            ViewModelProviderFactory.getViewModel(this, MainViewModel())
 
         fm = supportFragmentManager
 
@@ -41,17 +58,10 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
             .commit()
 
         //点击事件
-        mBinding.vm?.index?.observe(this, Observer<Int> {
-            val transaction = fm.beginTransaction()
-            if (templateMallFragment != null)
-                transaction.hide(templateMallFragment!!)
-            if (resumeInfoFragment != null)
-                transaction.hide(resumeInfoFragment!!)
-            if (mineFragment != null)
-                transaction.hide(mineFragment!!)
-
+        mVm.index.observe(this, Observer {
             when (it) {
                 0 -> {
+                    val transaction = getTransaction()
                     if (templateMallFragment == null) {
                         templateMallFragment = TemplateMallFragment()
                         transaction.add(
@@ -61,19 +71,39 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
                     } else {
                         transaction.show(templateMallFragment!!)
                     }
+                    transaction.commitAllowingStateLoss()
                 }
                 1 -> {
-                    if (resumeInfoFragment == null) {
-                        resumeInfoFragment = ResumeInfoFragment()
-                        transaction.add(
-                            R.id.fl_main,
-                            resumeInfoFragment!!
-                        )
+                    if (mVm.isLogin.value == true) {
+                        val transaction = getTransaction()
+                        if (resumeInfoFragment == null) {
+                            resumeInfoFragment = ResumeInfoFragment()
+                            transaction.add(
+                                R.id.fl_main,
+                                resumeInfoFragment!!
+                            )
+                        } else {
+                            transaction.show(resumeInfoFragment!!)
+                        }
+                        transaction.commitAllowingStateLoss()
                     } else {
-                        transaction.show(resumeInfoFragment!!)
+                        XPopup.Builder(this)
+                            .dismissOnBackPressed(false)
+                            .dismissOnTouchOutside(false)
+                            .asConfirm(
+                                getString(R.string.tip), getString(R.string.tip_login)
+                            ) {
+                                GlobalScope.launch {
+                                    LocalDataUtils.logout()
+                                    //通知页面更新
+                                    LoginLiveData.getInstance().postValue(LoginBean(false))
+                                }
+                                RouterNavigation.doIntentActivity(RouterConfig.LoginRouter)
+                            }.show()
                     }
                 }
                 2 -> {
+                    val transaction = getTransaction()
                     if (mineFragment == null) {
                         mineFragment = MineFragment()
                         transaction.add(
@@ -83,12 +113,33 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
                     } else {
                         transaction.show(mineFragment!!)
                     }
+                    transaction.commitAllowingStateLoss()
                 }
             }
 
-            transaction.commitAllowingStateLoss()
+
         })
+
+        mVm.queryResumeInfoList()
     }
+
+    override fun initViewModel(): MainViewModel {
+        mBinding.vm =
+            ViewModelProviderFactory.getViewModel(this, MainViewModel())
+        return mBinding.vm!!
+    }
+
+    private fun getTransaction(): FragmentTransaction {
+        val transaction = fm.beginTransaction()
+        if (templateMallFragment != null)
+            transaction.hide(templateMallFragment!!)
+        if (resumeInfoFragment != null)
+            transaction.hide(resumeInfoFragment!!)
+        if (mineFragment != null)
+            transaction.hide(mineFragment!!)
+        return transaction
+    }
+
 
 }
 

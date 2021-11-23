@@ -17,4 +17,15 @@
         <attr name="item_img" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="InfoTitleView">
+        <attr name="info_title" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="InputView">
+        <attr name="input_title" format="string" />
+        <attr name="input_hint" format="string" />
+        <attr name="input_subtitle" format="string" />
+        <attr name="input_need_arrow" format="boolean" />
+        <attr name="is_phone" format="boolean" />
+    </declare-styleable>
 </resources>

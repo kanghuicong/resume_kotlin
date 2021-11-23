@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="com.kang.resume.resume.ResumeInfoModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,22 +17,83 @@
             android:id="@+id/title_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:needBack="false"
-            app:title="@string/resume_info"/>
+            app:title="@string/resume_info" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/title_view"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_view">
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
+
+                <com.kang.resume.custom.info.InfoTitleView
+                    android:id="@+id/info_base"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:info_title="@string/base_info" />
+
+                <com.kang.resume.custom.info.InfoTitleView
+                    android:id="@+id/info_job"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:info_title="@string/job_info" />
+
+                <com.kang.resume.custom.info.InfoTitleView
+                    android:id="@+id/info_education"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:info_title="@string/education_info" />
+
+                <com.kang.resume.custom.info.InfoTitleView
+                    android:id="@+id/info_work"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:info_title="@string/work_info" />
+
+                <com.kang.resume.custom.info.InfoTitleView
+                    android:id="@+id/info_project"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:info_title="@string/project_info" />
+
+
+                <com.kang.resume.custom.info.InfoTitleView
+                    android:id="@+id/info_skill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:info_title="@string/skill_info" />
+
+                <com.kang.resume.custom.info.InfoTitleView
+                    android:id="@+id/info_certificate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:info_title="@string/certificate_info" />
+
+                <com.kang.resume.custom.info.InfoTitleView
+                    android:id="@+id/info_hobby"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:info_title="@string/hobby_info" />
+
+                <com.kang.resume.custom.info.InfoTitleView
+                    android:id="@+id/info_evaluation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:info_title="@string/evaluation_info" />
+
+            </LinearLayout>
         </ScrollView>
 
 

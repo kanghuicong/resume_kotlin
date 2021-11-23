@@ -3,10 +3,68 @@
 
 
     <string name="template_mall">模板商城</string>
+
     <string name="resume_info">简历信息</string>
+    <string name="base_info">基本信息</string>
+    <string name="name">姓名</string>
+    <string name="hint_name">请输入姓名</string>
+    <string name="address">现居地址</string>
+    <string name="birthday">出生年月</string>
+    <string name="hint_birthday">请选择出生年月</string>
+    <string name="city">城市</string>
+    <string name="email">邮箱</string>
+    <string name="hint_email">请输入邮箱</string>
+    <string name="gender">性别</string>
+    <string name="hint_gender">请选择性别</string>
+    <string name="gender_man">男</string>
+    <string name="gender_women">女</string>
+    <string name="height">身高</string>
+    <string name="weight">体重</string>
+    <string name="marry_status">婚姻状况</string>
+    <string name="nation">国家</string>
+    <string name="phone">手机号码</string>
+    <string name="hint_phone">请输入手机号码</string>
+    <string name="political_status">政治面貌</string>
+    <string name="province">籍贯</string>
+    <string name="start_work_time">参加工作时间</string>
+    <string name="hint_start_work_time">请选择参加工作时间</string>
+
+
+
+    <string name="job_info">求职信息</string>
+    <string name="education_info">教育经历</string>
+    <string name="work_info">工作经历</string>
+    <string name="project_info">项目经验</string>
+    <string name="skill_info">专业技能</string>
+    <string name="certificate_info">证书奖项</string>
+    <string name="hobby_info">兴趣爱好</string>
+    <string name="evaluation_info">自我评价</string>
+
     <string name="mine">我的</string>
 
     <string name="login">登录</string>
+    <string name="logout">退出</string>
+    <string name="login_success">登录成功</string>
+    <string name="register">注册</string>
+    <string name="password">密\u3000\u3000码</string>
+    <string name="please_input_password">请输入密码</string>
+    <string name="please_input_right_password">请输入正确密码</string>
+    <string name="password_rule">支持输入6–12位以上包含大小写数字的密码</string>
+    <string name="account">账\u3000\u3000号</string>
+    <string name="please_input_account">请输入手机号码</string>
+    <string name="please_input_right_account">请输入正确的账号</string>
+    <string name="confirm_password">确认密码</string>
+    <string name="please_input_confirm_password">请输入确认密码</string>
+    <string name="please_input_right_confirm_password">两次密码输入不一致</string>
+
+
     <string name="find_job_success">预祝找工作顺利</string>
     <string name="settings">设置</string>
+    <string name="keep">保存</string>
+
+    <string name="loading">加载中</string>
+    <string name="tip">提示</string>
+    <string name="tip_expired">用户信息已过期，请重新登录</string>
+    <string name="tip_login">请先登录</string>
+
 </resources>

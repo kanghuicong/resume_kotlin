@@ -5,7 +5,7 @@
     <data>
         <variable
             name="item"
-            type="com.kang.resume.bean.TemplateBean" />
+            type="com.kang.resume.bean.TemplateCoverListBean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

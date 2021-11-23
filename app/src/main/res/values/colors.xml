@@ -4,8 +4,14 @@
     <drawable name="black">#FF000000</drawable>
     <color name="white">#FFFFFFFF</color>
     <color name="primary">#FF5670FF</color>
+    <color name="primary_80">#805670FF</color>
     <drawable name="primary">#FF5670FF</drawable>
     <color name="backgroundColor">#F4F5F6</color>
 
+    <color name="black25">#252525</color>
+    <color name="black4A">#FF4A4A4A</color>
+    <color name="black94">#FF949494</color>
 
+    <color name="redF5222D">#F5222D</color>
+    <color name="redF12C20_80">#80F7534F</color>
 </resources>
