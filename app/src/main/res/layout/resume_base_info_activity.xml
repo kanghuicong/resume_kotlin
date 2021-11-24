@@ -40,6 +40,51 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tv_avatar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/avatar"
+                        android:padding="@dimen/dp_30"
+                        android:textSize="@dimen/sp_16"
+                        android:textColor="@color/black25"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_60"
+                        android:layout_height="@dimen/dp_60"
+                        app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
+                        app:layout_constraintTop_toTopOf="@+id/tv_avatar"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_avatar"
+                        android:layout_marginEnd="@dimen/dp_20"/>
+
+
+                    <ImageView
+                        android:id="@+id/iv_arrow"
+                        android:layout_width="@dimen/dp_16"
+                        android:layout_height="@dimen/dp_16"
+                        android:background="@mipmap/icon_arrow_right_grey"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_avatar"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_avatar"
+                        android:layout_marginEnd="@dimen/dp_30" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:background="@color/backgroundColor"/>
+
+
                 <com.kang.resume.custom.info.InputView
                     android:id="@+id/input_name"
                     android:layout_width="match_parent"
@@ -61,7 +106,7 @@
                     android:layout_height="wrap_content"
                     app:input_hint="@string/hint_phone"
                     app:input_title="@string/phone"
-                    app:is_phone="true"/>
+                    app:is_number="true"/>
 
                 <com.kang.resume.custom.info.InputView
                     android:id="@+id/input_birthday"
@@ -92,8 +137,61 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <com.kang.resume.custom.info.InputView
+                        android:id="@+id/input_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:input_hint="@string/hint_address"
+                        app:input_title="@string/address"/>
 
 
+                    <com.kang.resume.custom.info.InputView
+                        android:id="@+id/input_marry_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:input_hint="@string/hint_marry_status"
+                        app:input_title="@string/marry_status"
+                        app:input_need_arrow="true"/>
+
+                    <com.kang.resume.custom.info.InputView
+                        android:id="@+id/input_political_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:input_hint="@string/hint_political_status"
+                        app:input_title="@string/political_status"
+                        app:input_need_arrow="true"/>
+
+                    <com.kang.resume.custom.info.InputView
+                        android:id="@+id/input_nation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:input_hint="@string/hint_nation"
+                        app:input_title="@string/nation"/>
+
+                    <com.kang.resume.custom.info.InputView
+                        android:id="@+id/input_province"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:input_hint="@string/hint_province"
+                        app:input_title="@string/province"/>
+
+                    <com.kang.resume.custom.info.InputView
+                        android:id="@+id/input_height"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:input_hint="@string/hint_height"
+                        app:input_title="@string/height"
+                        app:input_subtitle="cm"
+                        app:is_number="true"/>
+
+                    <com.kang.resume.custom.info.InputView
+                        android:id="@+id/input_weight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:input_hint="@string/hint_weight"
+                        app:input_title="@string/weight"
+                        app:input_subtitle="kg"
+                        app:is_number="true"/>
                 </LinearLayout>
 
             </LinearLayout>

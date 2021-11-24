@@ -1,10 +1,7 @@
 package com.kang.resume.http
 
 import android.util.Log
-import androidx.lifecycle.Observer
 import com.google.gson.JsonParseException
-import com.kang.resume.MainApplication
-import com.kang.resume.event.LoginLiveData
 import com.kang.resume.pro.IHttp
 import com.lxj.xpopup.XPopup
 import kotlinx.coroutines.*

@@ -5,6 +5,11 @@ import com.kang.resume.base.BaseViewModel
 import com.kang.resume.base.EventMutableLiveData
 import com.kang.resume.bean.BaseInfoBean
 import com.kang.resume.bean.ResumeInfoBean
+import com.kang.resume.event.UpdateResumeLiveData
+import com.kang.resume.http.ApiResponse
+import com.kang.resume.http.HttpRequest
+import com.kang.resume.pro.IHttp
+import com.kang.resume.pro.IViewModel
 import java.lang.Exception
 import java.util.*
 
@@ -16,6 +21,10 @@ class BaseInfoModel(resumeInfoBean: ResumeInfoBean?) : BaseViewModel() {
 
     //性别 弹窗下标
     var genderIndex = EventMutableLiveData<Int>()
+
+    var marryIndex = EventMutableLiveData<Int>()
+
+    var politicalIndex = EventMutableLiveData<Int>()
 
     //出生年月 弹窗默认数据
     var birthdayDefaultDate: Calendar = Calendar.getInstance()
@@ -34,17 +43,48 @@ class BaseInfoModel(resumeInfoBean: ResumeInfoBean?) : BaseViewModel() {
         }
 
         //数据处理
-        //gender 1:男 对应genderIndex 0
-        //gender 2:女 对应genderIndex 1
         when (baseInfoBean.gender) {
             getString(R.string.gender_man) -> genderIndex.value = 0
             getString(R.string.gender_women) -> genderIndex.value = 1
             else -> genderIndex.value = -1
         }
 
+        when (baseInfoBean.marryStatus) {
+            getString(R.string.marry_status_unmarried) -> marryIndex.value = 0
+            getString(R.string.marry_status_married) -> marryIndex.value = 1
+            getString(R.string.marry_status_secret) -> marryIndex.value = 2
+            else -> marryIndex.value = -1
+        }
+
+        when (baseInfoBean.politicalStatus) {
+            getString(R.string.political_status_cpc_member) -> politicalIndex.value = 0
+            getString(R.string.political_status_probationary_member) -> politicalIndex.value = 1
+            getString(R.string.political_status_youth_member) -> politicalIndex.value = 2
+            getString(R.string.political_status_masses) -> politicalIndex.value = 3
+            getString(R.string.political_status_democratic_parties) -> politicalIndex.value = 4
+            getString(R.string.political_status_others) -> politicalIndex.value = 5
+            else -> politicalIndex.value = -1
+        }
+
+
         birthdayDefaultDate = switchTime(birthdayDefaultDate, baseInfoBean.birthday)
         startWorkTimeDefaultDate = switchTime(startWorkTimeDefaultDate, baseInfoBean.startWorkTime)
 
+    }
+
+    fun keep(baseInfoBean: BaseInfoBean) {
+        launch(object : IViewModel<Any> {
+            override suspend fun launch(): ApiResponse<Any> {
+                return HttpRequest.api().saveOrUpdateBaseInfo(baseInfoBean)
+            }
+        }, (object : IHttp<Any> {
+            override suspend fun success(data: Any?) {
+                finishLiveData.postValue(true)
+                UpdateResumeLiveData.getInstance().postValue(true)
+            }
+
+            override suspend fun failure(response: ApiResponse<Any>) {}
+        }))
     }
 
 

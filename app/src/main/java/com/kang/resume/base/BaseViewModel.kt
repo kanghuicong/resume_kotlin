@@ -29,7 +29,7 @@ open class BaseViewModel : ViewModel() {
     ) {
         if (needStart) loadingLiveData.postValue(true)
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Main) {
             HttpRequest.doHttp(
                 {
                     iViewModel.launch()

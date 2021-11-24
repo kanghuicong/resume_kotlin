@@ -7,6 +7,9 @@
         <variable
             name="vm"
             type="com.kang.resume.resume.ResumeInfoModel" />
+
+        <import type="android.view.View" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,9 +26,32 @@
             app:needBack="false"
             app:title="@string/resume_info" />
 
-        <ScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:visibility="@{vm.resumeInfoList.size()==0?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_view">
+
+            <TextView
+                android:id="@+id/tv_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/create_first"
+                android:padding="@dimen/dp_5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="@{vm.resumeInfoList.size()==0?View.GONE:View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -93,8 +119,24 @@
                     android:layout_height="wrap_content"
                     app:info_title="@string/evaluation_info" />
 
+                <TextView
+                    android:id="@+id/bt_delete_resume"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:layout_marginStart="@dimen/dp_50"
+                    android:layout_marginEnd="@dimen/dp_50"
+                    android:layout_marginBottom="@dimen/dp_30"
+                    android:background="@drawable/bt_red_5_press"
+                    android:gravity="center"
+                    android:padding="@dimen/dp_10"
+                    android:text="@string/delete_resume"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_16"/>
+
+
             </LinearLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,6 +26,6 @@
         <attr name="input_hint" format="string" />
         <attr name="input_subtitle" format="string" />
         <attr name="input_need_arrow" format="boolean" />
-        <attr name="is_phone" format="boolean" />
+        <attr name="is_number" format="boolean" />
     </declare-styleable>
 </resources>

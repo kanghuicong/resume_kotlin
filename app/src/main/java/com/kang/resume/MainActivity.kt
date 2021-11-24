@@ -29,7 +29,6 @@ class MainActivity : BaseActivity<MainActivityBinding, MainViewModel>() {
     var mineFragment: MineFragment? = null
     lateinit var fm: FragmentManager
 
-
     override fun initLayout(): Int {
         return R.layout.main_activity
     }

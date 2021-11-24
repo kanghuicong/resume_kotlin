@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModel
 import com.kang.resume.R
 import com.kang.resume.base.ViewModelProviderFactory
 import com.kang.resume.databinding.ViewTitleBinding
+import com.kang.resume.pro.IClick
 
 /**
  * 类描述：
@@ -23,7 +24,7 @@ class TitleView constructor(
 ) : ConstraintLayout(context, attrs) {
 
 
-    private var iToolClick: IToolClick? = null
+    var iClick: IClick? = null
     private val vb = DataBindingUtil.inflate<ViewTitleBinding>(
         LayoutInflater.from(context),
         R.layout.view_title,
@@ -65,22 +66,16 @@ class TitleView constructor(
 
         typedArray.recycle()
 
-        if (iToolClick != null) {
-            vb.titleTool.setOnClickListener { iToolClick!!.click() }
+        vb.titleTool.setOnClickListener {
+            if (iClick != null) {
+                iClick!!.click(vb.titleTool)
+            }
         }
     }
 
-    fun setTitle(title: String) :TitleView{
+    fun setTitle(title: String): TitleView {
         vb.titleTxt.text = title
         return this
-    }
-
-    fun setToolClick(iToolClick: IToolClick) {
-        this.iToolClick = iToolClick
-    }
-
-    interface IToolClick {
-        fun click()
     }
 }
 

@@ -6,18 +6,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import com.kang.resume.R
+import com.kang.resume.pro.IView
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.impl.LoadingPopupView
+import kotlinx.coroutines.DelicateCoroutinesApi
 
 
 /**
  * 类描述：
  * author:kanghuicong
  */
-abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : Fragment() {
+abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : Fragment(),IView {
 
     lateinit var mBinding: V
 
@@ -25,12 +32,15 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : Fragment(
 
     lateinit var activity: AppCompatActivity
 
-    protected abstract fun initLayout(): Int
 
-    protected abstract fun initViewCreated(view: View)
+    @LayoutRes
+    abstract fun initLayout(): Int
+
+    abstract fun initViewCreated(view: View)
 
     abstract fun initViewModel(): VM
 
+    @DelicateCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,6 +48,8 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : Fragment(
     ): View? {
         mBinding = DataBindingUtil.inflate(inflater, initLayout(), container, false)
         mVm = initViewModel()
+        //初始化弹窗
+        initPopup(activity,mVm,this)
 
         mBinding.lifecycleOwner = this
         return mBinding.root

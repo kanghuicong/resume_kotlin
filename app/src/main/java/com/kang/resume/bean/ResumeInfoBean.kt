@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
  * author:kanghuicong
  */
 data class ResumeInfoBean(
-    @SerializedName("accountId") var accountId: Int = 0,
+    @SerializedName("accountId") var accountId: Int? = null,
     @SerializedName("createTime") var createTime: String? = null,
     @SerializedName("resumeId") var resumeId: Int? = null,
     @SerializedName("resumeCover") var resumeCover: Int? = null,
@@ -29,11 +29,10 @@ data class BaseInfoBean(
     @SerializedName("address") var address: String = "",
     @SerializedName("avatar") var avatar: String = "",
     @SerializedName("birthday") var birthday: String = "",
-    @SerializedName("city") var city: String = "",
     @SerializedName("email") var email: String = "",
     @SerializedName("gender") var gender: String = "",
-    @SerializedName("height") var height: Int = 0,
-    @SerializedName("weight") var weight: Int = 0,
+    @SerializedName("height") var height: String = "",
+    @SerializedName("weight") var weight: String = "",
     @SerializedName("marryStatus") var marryStatus: String = "",
     @SerializedName("name") var name: String = "",
     @SerializedName("nation") var nation: String = "",

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.elvishew.xlog.XLog
 import com.kang.resume.base.BaseViewModel
+import com.kang.resume.base.EventMutableLiveData
 import com.kang.resume.base.ValuableConfig
 import com.kang.resume.bean.ResumeInfoBean
 import com.kang.resume.http.ApiResponse
@@ -12,7 +13,9 @@ import com.kang.resume.http.HttpRequest
 import com.kang.resume.pro.IHttp
 import com.kang.resume.pro.IViewModel
 import com.kang.resume.utils.LocalDataUtils
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * 类描述：
@@ -20,11 +23,13 @@ import kotlinx.coroutines.launch
  */
 class ResumeInfoModel : BaseViewModel() {
 
-    var resumeInfoList = MutableLiveData<List<ResumeInfoBean>>()
+    var resumeInfoList = EventMutableLiveData<List<ResumeInfoBean>>()
     var index = 0
     var resumeInfo = ResumeInfoBean()
 
     init {
+        resumeInfoList.value = ArrayList()
+
         if (ValuableConfig.resumeInfoList == null) {
             queryResumeInfoList()
         } else {
@@ -34,18 +39,21 @@ class ResumeInfoModel : BaseViewModel() {
     }
 
     fun queryResumeInfoList() {
-        viewModelScope.launch {
+        viewModelScope.launch() {
             if (LocalDataUtils.geIsLogin())
-                launchWithNoLoad(object : IViewModel<List<ResumeInfoBean>> {
+                launch(object : IViewModel<List<ResumeInfoBean>> {
                     override suspend fun launch(): ApiResponse<List<ResumeInfoBean>> {
                         return HttpRequest.api().queryResumeInfoList()
                     }
                 }, (object : IHttp<List<ResumeInfoBean>> {
                     override suspend fun success(data: List<ResumeInfoBean>?) {
-                        ValuableConfig.resumeInfoList = data
-                        resumeInfoList.postValue(data)
+                        withContext(Dispatchers.Main) {
+                            ValuableConfig.resumeInfoList = data
+//                            resumeInfoList.postValue(data)
 
-                        initResume()
+                            resumeInfoList.value = data
+                            initResume()
+                        }
                     }
 
                     override suspend fun failure(response: ApiResponse<List<ResumeInfoBean>>) {}
@@ -53,12 +61,44 @@ class ResumeInfoModel : BaseViewModel() {
         }
     }
 
-    fun initResume() {
+    private fun initResume() {
         if (resumeInfoList.value != null && resumeInfoList.value!!.isNotEmpty()) {
-            index = 0
-            resumeInfo = resumeInfoList.value!![0]
-        } else {
-            index = 0
+
+            if (index > resumeInfoList.value!!.size) {
+                index = 0
+            }
+            resumeInfo = resumeInfoList.value!![index]
         }
     }
+
+    //新增一份简历
+    fun createResume() {
+        launch(object : IViewModel<Any> {
+            override suspend fun launch(): ApiResponse<Any> {
+                return HttpRequest.api().saveOrUpdateResume()
+            }
+        }, (object : IHttp<Any> {
+            override suspend fun success(data: Any?) {
+                queryResumeInfoList()
+            }
+
+            override suspend fun failure(response: ApiResponse<Any>) {}
+        }))
+    }
+
+    //删除简历
+    fun deleteResume() {
+        launch(object : IViewModel<Any> {
+            override suspend fun launch(): ApiResponse<Any> {
+                return HttpRequest.api().delResume(resumeInfoList.value!![index].resumeId!!)
+            }
+        }, (object : IHttp<Any> {
+            override suspend fun success(data: Any?) {
+                queryResumeInfoList()
+            }
+
+            override suspend fun failure(response: ApiResponse<Any>) {}
+        }))
+    }
+
 }

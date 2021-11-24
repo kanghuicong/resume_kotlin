@@ -6,12 +6,13 @@
 
     <string name="resume_info">简历信息</string>
     <string name="base_info">基本信息</string>
+    <string name="avatar">头像</string>
     <string name="name">姓名</string>
     <string name="hint_name">请输入姓名</string>
     <string name="address">现居地址</string>
+    <string name="hint_address">请输入现居地址</string>
     <string name="birthday">出生年月</string>
     <string name="hint_birthday">请选择出生年月</string>
-    <string name="city">城市</string>
     <string name="email">邮箱</string>
     <string name="hint_email">请输入邮箱</string>
     <string name="gender">性别</string>
@@ -19,13 +20,28 @@
     <string name="gender_man">男</string>
     <string name="gender_women">女</string>
     <string name="height">身高</string>
+    <string name="hint_height">请输入身高</string>
     <string name="weight">体重</string>
+    <string name="hint_weight">请输入体重</string>
     <string name="marry_status">婚姻状况</string>
-    <string name="nation">国家</string>
+    <string name="hint_marry_status">请选择婚姻状况</string>
+    <string name="marry_status_unmarried">未婚</string>
+    <string name="marry_status_married">已婚</string>
+    <string name="marry_status_secret">保密</string>
+    <string name="nation">民族</string>
+    <string name="hint_nation">请输入民族</string>
     <string name="phone">手机号码</string>
     <string name="hint_phone">请输入手机号码</string>
     <string name="political_status">政治面貌</string>
+    <string name="hint_political_status">请选择政治面貌</string>
+    <string name="political_status_cpc_member">中共党员</string>
+    <string name="political_status_probationary_member">预备党员</string>
+    <string name="political_status_youth_member">共青团员</string>
+    <string name="political_status_masses">群众</string>
+    <string name="political_status_democratic_parties">民主党派</string>
+    <string name="political_status_others">其他</string>
     <string name="province">籍贯</string>
+    <string name="hint_province">请输入籍贯</string>
     <string name="start_work_time">参加工作时间</string>
     <string name="hint_start_work_time">请选择参加工作时间</string>
 
@@ -61,10 +77,14 @@
     <string name="find_job_success">预祝找工作顺利</string>
     <string name="settings">设置</string>
     <string name="keep">保存</string>
+    <string name="create_first">创建第一份简历</string>
+    <string name="delete_resume">删除简历</string>
 
     <string name="loading">加载中</string>
     <string name="tip">提示</string>
     <string name="tip_expired">用户信息已过期，请重新登录</string>
     <string name="tip_login">请先登录</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
 
 </resources>

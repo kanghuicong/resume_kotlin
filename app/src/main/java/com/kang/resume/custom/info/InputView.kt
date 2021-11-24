@@ -58,10 +58,9 @@ class InputView(
             vb.ivArrow.visibility = View.GONE
         }
 
-        val isPhone = typedArray.getBoolean(R.styleable.InputView_is_phone, false)
-        if (isPhone){
+        val isNumber = typedArray.getBoolean(R.styleable.InputView_is_number, false)
+        if (isNumber){
             vb.etInput.inputType = InputType.TYPE_CLASS_NUMBER
-            vb.etInput.filters = arrayOf<InputFilter>(LengthFilter(11))
         }
 
         typedArray.recycle()
@@ -69,6 +68,15 @@ class InputView(
 
     fun setInput(input: String): InputView {
         vb.etInput.setText(input)
+        return this
+    }
+
+    fun getText(): String {
+        return vb.etInput.text.toString()
+    }
+
+    fun setLength(length :Int): InputView{
+        vb.etInput.filters = arrayOf<InputFilter>(LengthFilter(length))
         return this
     }
 

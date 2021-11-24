@@ -10,6 +10,8 @@ import com.kang.resume.base.BaseViewModel
 import com.kang.resume.base.ViewModelProviderFactory
 import com.kang.resume.databinding.ResumeFragmentBinding
 import com.kang.resume.event.LoginLiveData
+import com.kang.resume.event.UpdateResumeLiveData
+import com.kang.resume.pro.ICallBack
 import com.kang.resume.pro.IClick
 import com.kang.resume.router.RouterConfig
 import com.kang.resume.router.RouterNavigation
@@ -27,26 +29,35 @@ class ResumeInfoFragment : BaseFragment<ResumeFragmentBinding, ResumeInfoModel>(
 
     override fun initViewCreated(view: View) {
 
-        //监听登录状态
-        LoginLiveData.getInstance().observe(this, Observer {
+        UpdateResumeLiveData.getInstance().observe(this, {
             mVm.viewModelScope.launch {
-                if (it.isLogin) {
+                if (it) {
                     mVm.queryResumeInfoList()
-                } else {
-
                 }
             }
         })
 
+        //新增一份简历
+        mBinding.tvCreate.setOnClickListener {
+            mVm.createResume()
+        }
+
+        //删除一份简历
+        mBinding.btDeleteResume.setOnClickListener {
+            mVm.deleteResume()
+        }
+
         //基本信息
         mBinding.infoBase.iClick = (object : IClick {
             override fun click(view: View) {
-                XLog.e(mVm.resumeInfo.toString())
-
-                RouterNavigation.doIntentActivity(
-                    RouterConfig.BaseInfoRouter,
-                    mVm.resumeInfo
-                )
+                checkData(object : ICallBack {
+                    override fun callBack() {
+                        RouterNavigation.doIntentActivity(
+                            RouterConfig.BaseInfoRouter,
+                            mVm.resumeInfo
+                        )
+                    }
+                })
             }
         })
 
@@ -105,6 +116,15 @@ class ResumeInfoFragment : BaseFragment<ResumeFragmentBinding, ResumeInfoModel>(
 
             }
         })
+    }
+
+    private fun checkData(iCallBack: ICallBack) {
+        //该简历未创建成功
+        if (mVm.resumeInfo.resumeId == null) {
+            mVm.queryResumeInfoList()
+        } else {
+            iCallBack.callBack()
+        }
     }
 
     override fun initViewModel(): ResumeInfoModel {

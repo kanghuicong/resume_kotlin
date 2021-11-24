@@ -8,6 +8,7 @@ import com.kang.resume.base.EventMutableLiveData
 import com.kang.resume.bean.UserInfoBean
 import com.kang.resume.event.LoginBean
 import com.kang.resume.event.LoginLiveData
+import com.kang.resume.event.UpdateResumeLiveData
 import com.kang.resume.http.ApiResponse
 import com.kang.resume.http.HttpRequest
 import com.kang.resume.pro.IHttp
@@ -106,6 +107,7 @@ class LoginModel : BaseViewModel() {
                     LocalDataUtils.login(data)
                     //通知"我的""设置"页面更新页面
                     LoginLiveData.getInstance().postValue(LoginBean(true, data))
+                    UpdateResumeLiveData.getInstance().postValue(true)
                 }
 
                 //关闭当前页

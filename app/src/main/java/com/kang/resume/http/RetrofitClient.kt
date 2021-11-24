@@ -46,7 +46,7 @@ object RetrofitClient {
         builder.addInterceptor { chain ->
             val request = chain.request()
                 .newBuilder()
-                .addHeader("Content-Type", "application/json;charset=UTF-8")
+//                .addHeader("Content-Type", "application/json;charset=UTF-8")
                 .addHeader("token", token)
                 .build()
             chain.proceed(request);
