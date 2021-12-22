@@ -49,13 +49,14 @@ data class CertificateBean(
 )
 
 data class EducationBean(
-    @SerializedName("educationId") var educationId: Int,
-    @SerializedName("resumeId") var resumeId: Int,
-    @SerializedName("endTime") var endTime: String,
-    @SerializedName("experience") var experience: String,
-    @SerializedName("major") var major: String,
-    @SerializedName("school") var school: String,
-    @SerializedName("startTime") var startTime: String,
+    @SerializedName("educationId") var educationId: Int?,
+    @SerializedName("resumeId") var resumeId: Int?,
+    @SerializedName("school") var school: String = "",
+    @SerializedName("major") var major: String = "",
+    @SerializedName("record") var record: String = "",
+    @SerializedName("startTime") var startTime: String = "",
+    @SerializedName("endTime") var endTime: String = "",
+    @SerializedName("experience") var experience: String = "",
 )
 
 data class HobbyBean(
@@ -65,12 +66,12 @@ data class HobbyBean(
 )
 
 data class JobIntentionBean(
-    @SerializedName("id") var id: Int,
-    @SerializedName("resumeId") var resumeId: Int,
-    @SerializedName("city") var city: String,
-    @SerializedName("entryTime") var entryTime: String,
-    @SerializedName("position") var position: String,
-    @SerializedName("salary") var salary: String,
+    @SerializedName("id") var id: Int?,
+    @SerializedName("resumeId") var resumeId: Int?,
+    @SerializedName("city") var city: String = "",
+    @SerializedName("entryTime") var entryTime: String = "",
+    @SerializedName("position") var position: String = "",
+    @SerializedName("salary") var salary: String = "",
 )
 
 data class ProjectBean(

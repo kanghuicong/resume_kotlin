@@ -45,12 +45,24 @@ class InfoTitleView(
         )
 
         vb.tvInfoTitle.text = typedArray.getString(R.styleable.InfoTitleView_info_title)
+
+        vb.llChildView.visibility = GONE
         typedArray.recycle()
 
     }
 
     fun setChildView(view: View): InfoTitleView {
+        vb.llChildView.removeAllViews()
+        vb.llChildView.visibility = VISIBLE
         vb.llChildView.addView(view)
+        return this
+    }
+
+    fun setChildView(views: List<View>): InfoTitleView {
+        vb.llChildView.removeAllViews()
+        vb.llChildView.visibility = VISIBLE
+        for (view: View in views)
+            vb.llChildView.addView(view)
         return this
     }
 }

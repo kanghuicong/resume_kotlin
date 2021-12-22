@@ -33,6 +33,14 @@
         <activity android:name=".resume.BaseInfoActivity"
             android:screenOrientation="portrait" />
 
+
+        <activity android:name=".resume.JobActivity"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".resume.EducationActivity"
+            android:screenOrientation="portrait" />
+
+
     </application>
 
 </manifest>

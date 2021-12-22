@@ -21,11 +21,11 @@
             android:id="@+id/title_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="@string/base_info"
-            app:title_right="@string/keep"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/base_info"
+            app:title_right="@string/keep" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -44,45 +44,57 @@
                     android:id="@+id/cl_avatar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_avatar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/dp_30"
+                        android:paddingBottom="@dimen/dp_30"
+                        android:layout_marginStart="@dimen/dp_30"
                         android:text="@string/avatar"
-                        android:padding="@dimen/dp_30"
-                        android:textSize="@dimen/sp_16"
                         android:textColor="@color/black25"
+                        android:textSize="@dimen/sp_16"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/tv_optional"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/optional"
+                        android:textColor="@color/black25"
+                        android:textSize="@dimen/sp_16"
+                        app:layout_constraintStart_toEndOf="@+id/tv_avatar"
+                        app:layout_constraintTop_toTopOf="@+id/tv_avatar"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_avatar"/>
 
                     <ImageView
                         android:layout_width="@dimen/dp_60"
                         android:layout_height="@dimen/dp_60"
-                        app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
-                        app:layout_constraintTop_toTopOf="@+id/tv_avatar"
+                        android:layout_marginEnd="@dimen/dp_20"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_avatar"
-                        android:layout_marginEnd="@dimen/dp_20"/>
+                        app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
+                        app:layout_constraintTop_toTopOf="@+id/tv_avatar" />
 
 
                     <ImageView
                         android:id="@+id/iv_arrow"
                         android:layout_width="@dimen/dp_16"
                         android:layout_height="@dimen/dp_16"
+                        android:layout_marginEnd="@dimen/dp_30"
                         android:background="@mipmap/icon_arrow_right_grey"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_avatar"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_avatar"
-                        android:layout_marginEnd="@dimen/dp_30" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_avatar" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
-                    android:background="@color/backgroundColor"/>
+                    android:background="@color/backgroundColor" />
 
 
                 <com.kang.resume.custom.info.InputView
@@ -106,7 +118,7 @@
                     android:layout_height="wrap_content"
                     app:input_hint="@string/hint_phone"
                     app:input_title="@string/phone"
-                    app:is_number="true"/>
+                    app:is_number="true" />
 
                 <com.kang.resume.custom.info.InputView
                     android:id="@+id/input_birthday"
@@ -121,7 +133,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:input_hint="@string/hint_email"
-                    app:input_title="@string/email"/>
+                    app:input_title="@string/email" />
 
 
                 <com.kang.resume.custom.info.InputView
@@ -129,8 +141,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:input_hint="@string/hint_start_work_time"
-                    app:input_title="@string/start_work_time"
-                    app:input_need_arrow="true"/>
+                    app:input_need_arrow="true"
+                    app:input_title="@string/start_work_time" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -142,7 +154,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:input_hint="@string/hint_address"
-                        app:input_title="@string/address"/>
+                        app:input_title="@string/address"
+                        app:is_optional="true" />
 
 
                     <com.kang.resume.custom.info.InputView
@@ -150,50 +163,75 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:input_hint="@string/hint_marry_status"
+                        app:input_need_arrow="true"
                         app:input_title="@string/marry_status"
-                        app:input_need_arrow="true"/>
+                        app:is_optional="true" />
 
                     <com.kang.resume.custom.info.InputView
                         android:id="@+id/input_political_status"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:input_hint="@string/hint_political_status"
+                        app:input_need_arrow="true"
                         app:input_title="@string/political_status"
-                        app:input_need_arrow="true"/>
+                        app:is_optional="true" />
 
                     <com.kang.resume.custom.info.InputView
                         android:id="@+id/input_nation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:input_hint="@string/hint_nation"
-                        app:input_title="@string/nation"/>
+                        app:input_title="@string/nation"
+                        app:is_optional="true" />
 
                     <com.kang.resume.custom.info.InputView
                         android:id="@+id/input_province"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:input_hint="@string/hint_province"
-                        app:input_title="@string/province"/>
+                        app:input_title="@string/province"
+                        app:is_optional="true" />
 
                     <com.kang.resume.custom.info.InputView
                         android:id="@+id/input_height"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:input_hint="@string/hint_height"
-                        app:input_title="@string/height"
                         app:input_subtitle="cm"
-                        app:is_number="true"/>
+                        app:input_title="@string/height"
+                        app:is_number="true"
+                        app:is_optional="true" />
 
                     <com.kang.resume.custom.info.InputView
                         android:id="@+id/input_weight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:input_hint="@string/hint_weight"
-                        app:input_title="@string/weight"
                         app:input_subtitle="kg"
-                        app:is_number="true"/>
+                        app:input_title="@string/weight"
+                        app:is_number="true"
+                        app:is_optional="true" />
+
+
+
                 </LinearLayout>
 
+
+                <TextView
+                    android:id="@+id/bt_delete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:layout_marginStart="@dimen/dp_50"
+                    android:layout_marginEnd="@dimen/dp_50"
+                    android:layout_marginBottom="@dimen/dp_30"
+                    android:background="@drawable/bt_red_5_press"
+                    android:visibility="@{vm.needDelete?View.VISIBLE:View.GONE}"
+                    android:gravity="center"
+                    android:padding="@dimen/dp_10"
+                    android:text="@string/delete"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_16"/>
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>

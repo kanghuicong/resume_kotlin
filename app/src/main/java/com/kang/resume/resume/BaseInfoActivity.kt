@@ -11,8 +11,14 @@ import com.kang.resume.bean.BaseInfoBean
 import com.kang.resume.bean.ResumeInfoBean
 import com.kang.resume.custom.other.RedBookPresenter
 import com.kang.resume.databinding.ResumeBaseInfoActivityBinding
+import com.kang.resume.http.ApiResponse
+import com.kang.resume.http.HttpRequest
 import com.kang.resume.pro.IClick
+import com.kang.resume.resume.base.IDelete
+import com.kang.resume.resume.base.IKeep
 import com.kang.resume.router.RouterConfig
+import com.kang.resume.utils.ToastUtil
+import com.kang.resume.utils.VerifyUtils
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopupext.listener.TimePickerListener
 import com.lxj.xpopupext.popup.TimePickerPopup
@@ -73,7 +79,6 @@ class BaseInfoActivity : BaseActivity<ResumeBaseInfoActivityBinding, BaseInfoMod
                         text ->
                         run {
                             mVm.genderIndex.value = position
-                            mVm.baseInfoBean.gender = text
                             mBinding.inputGender.setInput(text)
                         }
                     }.show()
@@ -93,12 +98,12 @@ class BaseInfoActivity : BaseActivity<ResumeBaseInfoActivityBinding, BaseInfoMod
                                 }
 
                                 override fun onTimeConfirm(date: Date, view: View?) {
-                                    mVm.baseInfoBean.birthday = mVm.switchDate(date)
-                                    mBinding.inputBirthday.setInput(mVm.baseInfoBean.birthday)
+                                    val time = mVm.switchDate(date)
+                                    mBinding.inputBirthday.setInput(time)
 
                                     mVm.switchTime(
                                         mVm.birthdayDefaultDate,
-                                        mVm.baseInfoBean.birthday
+                                        time
                                     )
                                 }
                             })
@@ -120,13 +125,12 @@ class BaseInfoActivity : BaseActivity<ResumeBaseInfoActivityBinding, BaseInfoMod
 
                                 override fun onTimeConfirm(date: Date, view: View?) {
                                     //点击确认时间
-
-                                    mVm.baseInfoBean.startWorkTime = mVm.switchDate(date)
-                                    mBinding.inputStartWorkTime.setInput(mVm.baseInfoBean.startWorkTime)
+                                    val time = mVm.switchDate(date)
+                                    mBinding.inputStartWorkTime.setInput(time)
 
                                     mVm.switchTime(
                                         mVm.startWorkTimeDefaultDate,
-                                        mVm.baseInfoBean.startWorkTime
+                                        time
                                     )
 
                                 }
@@ -152,7 +156,6 @@ class BaseInfoActivity : BaseActivity<ResumeBaseInfoActivityBinding, BaseInfoMod
                         text ->
                         run {
                             mVm.marryIndex.value = position
-                            mVm.baseInfoBean.marryStatus = text
                             mBinding.inputMarryStatus.setInput(text)
                         }
                     }.show()
@@ -180,7 +183,6 @@ class BaseInfoActivity : BaseActivity<ResumeBaseInfoActivityBinding, BaseInfoMod
                         text ->
                         run {
                             mVm.politicalIndex.value = position
-                            mVm.baseInfoBean.politicalStatus = text
                             mBinding.inputPoliticalStatus.setInput(text)
                         }
                     }.show()
@@ -190,6 +192,36 @@ class BaseInfoActivity : BaseActivity<ResumeBaseInfoActivityBinding, BaseInfoMod
         //保存
         mBinding.titleView.iClick = (object : IClick {
             override fun click(view: View) {
+
+                if (VerifyUtils.isEmpty(mBinding.inputName.getText())) {
+                    ToastUtil.show(getString(R.string.hint_name))
+                    return
+                }
+
+                if (VerifyUtils.isEmpty(mBinding.inputGender.getText())) {
+                    ToastUtil.show(getString(R.string.hint_gender))
+                    return
+                }
+
+                if (VerifyUtils.isEmpty(mBinding.inputPhone.getText())) {
+                    ToastUtil.show(getString(R.string.hint_phone))
+                    return
+                }
+
+                if (VerifyUtils.isEmpty(mBinding.inputBirthday.getText())) {
+                    ToastUtil.show(getString(R.string.hint_birthday))
+                    return
+                }
+
+                if (VerifyUtils.isEmpty(mBinding.inputEmail.getText())) {
+                    ToastUtil.show(getString(R.string.hint_email))
+                    return
+                }
+
+                if (VerifyUtils.isEmpty(mBinding.inputStartWorkTime.getText())) {
+                    ToastUtil.show(getString(R.string.hint_start_work_time))
+                    return
+                }
 
                 val baseInfoBean = BaseInfoBean(
                     mVm.baseInfoBean.id, mVm.baseInfoBean.resumeId,
@@ -209,18 +241,34 @@ class BaseInfoActivity : BaseActivity<ResumeBaseInfoActivityBinding, BaseInfoMod
                     startWorkTime = mBinding.inputStartWorkTime.getText()
                 )
 
-                mVm.keep(baseInfoBean)
+                mVm.keep(object : IKeep {
+                    override suspend fun keep(): ApiResponse<Any> {
+                        return HttpRequest.api().saveOrUpdateBaseInfo(baseInfoBean)
+                    }
+                })
             }
         })
+
+        //删除
+        mBinding.btDelete.setOnClickListener {
+            mVm.delete(activity,object : IDelete {
+                override suspend fun delete(): ApiResponse<Any> {
+                    return HttpRequest.api().delBaseInfo(mVm.baseInfoBean.resumeId!!)
+                }
+            })
+        }
     }
 
     override fun initLayout(): Int {
         return R.layout.resume_base_info_activity
     }
 
+    override fun isInput(): Boolean {
+        return true
+    }
 
     override fun initViewModel(): BaseInfoModel {
-        val resumeInfoBean: ResumeInfoBean = formJson()
+        val resumeInfoBean: ResumeInfoBean? = getData()
 
         initData(resumeInfoBean)
 

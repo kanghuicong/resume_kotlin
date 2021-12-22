@@ -48,7 +48,46 @@
 
 
     <string name="job_info">求职信息</string>
+    <string name="job_position">期望职位</string>
+    <string name="hint_job_position">请输入期望职位</string>
+    <string name="job_city">期望城市</string>
+    <string name="hint_job_city">请选择期望城市</string>
+    <string name="job_salary">期望薪资</string>
+    <string name="hint_job_salary">请输入期望薪资</string>
+    <string name="job_time">到岗时间</string>
+    <string name="hint_job_time">请选择到岗时间</string>
+    <string name="job_time_anytime">随时到岗</string>
+    <string name="job_time_7_days">1周以内</string>
+    <string name="job_time_1_month">1个月内</string>
+    <string name="job_time_3_month">3个月内</string>
+    <string name="job_time_no">时间另议</string>
+
+
     <string name="education_info">教育经历</string>
+    <string name="school">学校</string>
+    <string name="hint_education_school">请输入学校</string>
+    <string name="record">学历</string>
+    <string name="hint_record_record">请选择学历</string>
+
+    <string name="junior_high_school">初中及以下</string>
+    <string name="high_school">高中</string>
+    <string name="technical_secondary_school">中专</string>
+    <string name="junior_college">大专</string>
+    <string name="undergraduate">本科</string>
+    <string name="master">硕士</string>
+    <string name="doctor">博士</string>
+    <string name="postdoc">博士后</string>
+    <string name="other">其他</string>
+    <string name="major">专业</string>
+    <string name="hint_education_major">请输入专业</string>
+    <string name="education_start_time">开始时间</string>
+    <string name="hint_education_start_time">请选择开始时间</string>
+    <string name="education_end_time">结束时间</string>
+    <string name="hint_education_end_time">请选择结束时间</string>
+    <string name="experience_at_school">在校经历</string>
+    <string name="hint_education_experience">请输入在校经历</string>
+
+
     <string name="work_info">工作经历</string>
     <string name="project_info">项目经验</string>
     <string name="skill_info">专业技能</string>
@@ -79,12 +118,18 @@
     <string name="keep">保存</string>
     <string name="create_first">创建第一份简历</string>
     <string name="delete_resume">删除简历</string>
+    <string name="tip_delete_resume">确定删除这份简历吗</string>
+    <string name="tip_input_back">退出将不会保存当前输入内容，确定退出？</string>
+    <string name="tip_delete">确定删除吗</string>
 
+    <string name="unfilled">未填写</string>
+    <string name="optional">（选填）</string>
     <string name="loading">加载中</string>
     <string name="tip">提示</string>
     <string name="tip_expired">用户信息已过期，请重新登录</string>
     <string name="tip_login">请先登录</string>
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
+    <string name="delete">删除</string>
 
 </resources>

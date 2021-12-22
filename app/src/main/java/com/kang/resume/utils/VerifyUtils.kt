@@ -15,8 +15,13 @@ object VerifyUtils {
     private const val REGEX_EMAIL = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*\$"
 
     /// 检查是否是手机号
-    fun verifyPhone(phone:String?):Boolean{
-        return !(phone == null || phone == "" || phone.length !=11)
+    fun isEmpty(str: String?): Boolean {
+        return str == null || str == ""
+    }
+
+    /// 检查是否是手机号
+    fun verifyPhone(phone: String?): Boolean {
+        return !(phone == null || phone == "" || phone.length != 11)
     }
 
 
@@ -43,7 +48,7 @@ object VerifyUtils {
     }
 
     /// 检查验证码是否正确
-    fun verifySendCode(code:String?):Boolean{
+    fun verifySendCode(code: String?): Boolean {
         return !(code == null || code == "")
     }
 

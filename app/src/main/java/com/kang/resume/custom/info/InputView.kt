@@ -38,7 +38,13 @@ class InputView(
             R.styleable.InputView
         )
 
-        vb.tvInputTitle.text = typedArray.getString(R.styleable.InputView_input_title)
+        val isOptional = typedArray.getBoolean(R.styleable.InputView_is_optional, false)
+        if (isOptional) {
+            vb.tvInputTitle.text =
+                typedArray.getString(R.styleable.InputView_input_title) + context.getString(R.string.optional)
+        } else {
+            vb.tvInputTitle.text = typedArray.getString(R.styleable.InputView_input_title)
+        }
         vb.etInput.hint = typedArray.getString(R.styleable.InputView_input_hint)
         vb.tvSubtitle.text = typedArray.getString(R.styleable.InputView_input_subtitle)
 
@@ -59,9 +65,12 @@ class InputView(
         }
 
         val isNumber = typedArray.getBoolean(R.styleable.InputView_is_number, false)
-        if (isNumber){
+        if (isNumber) {
             vb.etInput.inputType = InputType.TYPE_CLASS_NUMBER
         }
+
+
+
 
         typedArray.recycle()
     }
@@ -75,7 +84,7 @@ class InputView(
         return vb.etInput.text.toString()
     }
 
-    fun setLength(length :Int): InputView{
+    fun setLength(length: Int): InputView {
         vb.etInput.filters = arrayOf<InputFilter>(LengthFilter(length))
         return this
     }

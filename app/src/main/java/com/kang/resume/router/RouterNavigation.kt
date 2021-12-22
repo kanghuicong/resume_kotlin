@@ -23,4 +23,13 @@ object RouterNavigation {
             .withObject(RouterConfig.data, data)
             .navigation()
     }
+
+    //带参跳转
+    fun doIntentActivity(path: String, data: ResumeInfoBean?, otherData:Any?) {
+        ARouter.getInstance()
+            .build(path)
+            .withObject(RouterConfig.data, data)
+            .withObject(RouterConfig.otherData, otherData)
+            .navigation()
+    }
 }

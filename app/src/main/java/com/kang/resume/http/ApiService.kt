@@ -1,8 +1,6 @@
 package com.kang.resume.http
 
-import com.kang.resume.bean.BaseInfoBean
-import com.kang.resume.bean.ResumeInfoBean
-import com.kang.resume.bean.UserInfoBean
+import com.kang.resume.bean.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import retrofit2.http.*
@@ -49,5 +47,26 @@ interface ApiService {
     //新增或编辑简历用户基础信息
     @POST("/resume/saveOrUpdateBaseInfo")
     suspend fun saveOrUpdateBaseInfo(@Body baseInfoBean: BaseInfoBean): ApiResponse<Any>
+
+    //删除用户基础信息
+    @POST("/resume/delBaseInfo/{resumeId}")
+    suspend fun delBaseInfo(@Path("resumeId") resumeId: Int): ApiResponse<Any>
+
+    //新增或编辑职位
+    @POST("/resume/saveOrUpdateJobIntention")
+    suspend fun saveOrUpdateJobIntention(@Body jobIntentionBean: JobIntentionBean): ApiResponse<Any>
+
+    //删除职位
+    @POST("/resume/delJobIntention/{resumeId}")
+    suspend fun delJobIntention(@Path("resumeId") resumeId: Int): ApiResponse<Any>
+
+
+    //新增或编辑教育经历
+    @POST("/resume/saveOrUpdateEducation")
+    suspend fun saveOrUpdateEducation(@Body educationBean: EducationBean): ApiResponse<Any>
+
+    //删除教育经历
+    @POST("/resume/delCertificate/{educationId}")
+    suspend fun delCertificate(@Path("educationId") educationId: Int): ApiResponse<Any>
 
 }

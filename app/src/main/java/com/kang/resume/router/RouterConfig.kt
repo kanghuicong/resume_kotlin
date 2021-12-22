@@ -6,9 +6,12 @@ package com.kang.resume.router
  */
 object RouterConfig {
     const val data = "data"
+    const val otherData = "otherData"
 
     const val LoginRouter = "/login/LoginActivity"
     const val MineSettingRouter = "/login/MineSettingActivity"
 
     const val BaseInfoRouter = "/resume/BaseInfoActivity"
+    const val JobRouter = "/resume/JobActivity"
+    const val EducationRouter = "/resume/EducationActivity"
 }

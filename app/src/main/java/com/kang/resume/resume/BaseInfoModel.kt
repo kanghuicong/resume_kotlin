@@ -10,6 +10,7 @@ import com.kang.resume.http.ApiResponse
 import com.kang.resume.http.HttpRequest
 import com.kang.resume.pro.IHttp
 import com.kang.resume.pro.IViewModel
+import com.kang.resume.resume.base.BaseResumeViewModel
 import java.lang.Exception
 import java.util.*
 
@@ -17,7 +18,7 @@ import java.util.*
  * 类描述：
  * author:kanghuicong
  */
-class BaseInfoModel(resumeInfoBean: ResumeInfoBean?) : BaseViewModel() {
+class BaseInfoModel(resumeInfoBean: ResumeInfoBean?) : BaseResumeViewModel() {
 
     //性别 弹窗下标
     var genderIndex = EventMutableLiveData<Int>()
@@ -32,14 +33,17 @@ class BaseInfoModel(resumeInfoBean: ResumeInfoBean?) : BaseViewModel() {
     //参加工作时间 弹窗默认数据
     var startWorkTimeDefaultDate: Calendar = Calendar.getInstance()
 
-
     var baseInfoBean = BaseInfoBean(null, null)
 
     init {
         //赋值操作
         //....
         if (resumeInfoBean?.baseInfo != null) {
+            needDelete.value = true
             baseInfoBean = resumeInfoBean.baseInfo!!
+        }else{
+            needDelete.value = false
+            baseInfoBean.resumeId = resumeInfoBean?.resumeId
         }
 
         //数据处理
@@ -72,54 +76,4 @@ class BaseInfoModel(resumeInfoBean: ResumeInfoBean?) : BaseViewModel() {
 
     }
 
-    fun keep(baseInfoBean: BaseInfoBean) {
-        launch(object : IViewModel<Any> {
-            override suspend fun launch(): ApiResponse<Any> {
-                return HttpRequest.api().saveOrUpdateBaseInfo(baseInfoBean)
-            }
-        }, (object : IHttp<Any> {
-            override suspend fun success(data: Any?) {
-                finishLiveData.postValue(true)
-                UpdateResumeLiveData.getInstance().postValue(true)
-            }
-
-            override suspend fun failure(response: ApiResponse<Any>) {}
-        }))
-    }
-
-
-    fun switchDate(date: Date): String {
-        return try {
-            //2020年12月12日 12时12分12秒
-            val dataTime = date.toLocaleString()
-            //2020年12月12日
-            val ary = dataTime.split(" ")
-
-            ary[0]
-        } catch (e: Exception) {
-            ""
-        }
-    }
-
-    fun switchTime(calendar: Calendar, time: String?): Calendar {
-        if (time == null || time == "") return calendar
-        try {
-            var mTime = time
-            mTime = mTime.replace("年", "-")
-            mTime = mTime.replace("月", "-")
-            mTime = mTime.replace("日", "")
-
-            val dateAry = mTime.split("-")
-
-            calendar.set(
-                dateAry[0].toInt(),
-                dateAry[1].toInt() - 1,
-                dateAry[2].toInt()
-            )
-
-            return calendar
-        } catch (e: Exception) {
-            return calendar
-        }
-    }
 }

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.kang.resume.resume.EducationModel" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <com.kang.resume.custom.TitleView
+            android:id="@+id/title_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/education_info"
+            app:title_right="@string/keep" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <com.kang.resume.custom.info.InputView
+                    android:id="@+id/input_school"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:input_hint="@string/hint_education_school"
+                    app:input_title="@string/school" />
+
+                <com.kang.resume.custom.info.InputView
+                    android:id="@+id/input_record"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:input_hint="@string/hint_record_record"
+                    app:input_need_arrow="true"
+                    app:input_title="@string/record" />
+
+                <com.kang.resume.custom.info.InputView
+                    android:id="@+id/input_major"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:input_hint="@string/hint_education_major"
+                    app:input_title="@string/major" />
+
+                <com.kang.resume.custom.info.InputView
+                    android:id="@+id/input_start_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:input_hint="@string/hint_education_start_time"
+                    app:input_need_arrow="true"
+                    app:input_title="@string/education_start_time" />
+
+                <com.kang.resume.custom.info.InputView
+                    android:id="@+id/input_end_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:input_hint="@string/hint_education_end_time"
+                    app:input_need_arrow="true"
+                    app:input_title="@string/education_end_time" />
+
+                <com.kang.resume.custom.info.InputView
+                    android:id="@+id/input_experience"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:input_hint="@string/hint_education_experience"
+                    app:input_title="@string/experience_at_school"
+                    app:is_optional="true" />
+
+
+                <TextView
+                    android:id="@+id/bt_delete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_50"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:layout_marginEnd="@dimen/dp_50"
+                    android:layout_marginBottom="@dimen/dp_30"
+                    android:background="@drawable/bt_red_5_press"
+                    android:gravity="center"
+                    android:padding="@dimen/dp_10"
+                    android:text="@string/delete"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_16"
+                    android:visibility="@{vm.needDelete?View.VISIBLE:View.GONE}" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+</layout>

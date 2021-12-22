@@ -86,4 +86,18 @@ interface IView {
             })
         })
     }
+
+    fun initInputDialog(activity: Activity,){
+        XPopup.Builder(activity)
+            .isDestroyOnDismiss(true)
+            .asConfirm(
+                activity.getString(R.string.tip),
+                activity.getString(R.string.tip_input_back),
+                activity.getString(R.string.cancel),
+                activity.getString(R.string.confirm),
+                {
+                    activity.finish()
+                }, null, false
+            ).show()
+    }
 }
