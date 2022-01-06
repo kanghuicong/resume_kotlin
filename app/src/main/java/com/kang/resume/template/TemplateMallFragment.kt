@@ -13,7 +13,8 @@ import com.kang.resume.R
 import com.kang.resume.adapter.TemplateListAdapter
 import com.kang.resume.base.BaseFragment
 import com.kang.resume.base.BaseViewModel
-import com.kang.resume.config.ValueConfig
+import com.kang.resume.base.ValueConfig
+
 import com.kang.resume.databinding.TemplateFragmentBinding
 
 /**

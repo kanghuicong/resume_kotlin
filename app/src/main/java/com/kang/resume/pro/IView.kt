@@ -10,10 +10,8 @@ import com.kang.resume.event.LoginLiveData
 import com.kang.resume.router.RouterConfig
 import com.kang.resume.router.RouterNavigation
 import com.kang.resume.utils.LocalDataUtils
-import com.kang.resume.utils.ToastUtil
 import com.lxj.xpopup.XPopup
-import com.lxj.xpopup.core.BasePopupView
-import com.lxj.xpopup.impl.LoadingPopupView
+import com.vondear.rxtool.view.RxToast
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -81,8 +79,8 @@ interface IView {
             }
 
             mVm.toastLiveData.observe(owner, Observer {
-                if (it is Int) ToastUtil.show(activity.getString(it))
-                if (it is String) ToastUtil.show(it)
+                if (it is Int) RxToast.normal(activity.getString(it))
+                if (it is String) RxToast.normal(it)
             })
         })
     }

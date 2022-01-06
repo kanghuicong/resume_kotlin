@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_preview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.kang.resume.preview.custom.ClipConstraintLayout
+            android:id="@+id/cl_previews"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/hint_resume"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="个人简历"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/hint_tip"
+                app:layout_constraintBottom_toBottomOf="@+id/hint_tip"/>
+
+            <TextView
+                android:id="@+id/line_hint"
+                android:layout_width="0.5dp"
+                android:layout_height="0dp"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/hint_resume"
+                app:layout_constraintTop_toTopOf="@+id/hint_tip"
+                app:layout_constraintBottom_toBottomOf="@+id/hint_tip"/>
+
+            <TextView
+                android:id="@+id/hint_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/line_hint"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="细心从每一个小细节开始\nPersonal Resume"/>
+
+            <com.kang.resume.preview.preview.XCRTemplate_pdf_1.XCRTemplate_pdf_1_View_1
+                android:id="@+id/line_top"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_5"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/hint_tip" />
+
+            <FrameLayout
+                android:id="@+id/ll_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/line_top">
+
+                <TextView
+                    android:id="@+id/line"
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="#333333"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_items"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+                </LinearLayout>
+            </FrameLayout>
+        </com.kang.resume.preview.custom.ClipConstraintLayout>
+    </LinearLayout>
+</LinearLayout>

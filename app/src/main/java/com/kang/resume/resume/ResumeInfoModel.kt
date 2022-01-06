@@ -109,15 +109,16 @@ class ResumeInfoModel : BaseViewModel() {
 
     fun doRouter(router: String) {
         //该简历未创建成功
-        doRouter(router, null)
+        doRouter(router,null)
     }
 
-    fun doRouter(router: String, data: Any?) {
+
+    fun doRouter(router: String, from: String?) {
         //该简历未创建成功
         if (resumeInfo.value?.resumeId == null) {
             queryResumeInfoList()
         } else {
-            if (data == null) {
+            if (from == null) {
                 RouterNavigation.doIntentActivity(
                     router,
                     resumeInfo.value!!
@@ -125,13 +126,13 @@ class ResumeInfoModel : BaseViewModel() {
             } else {
                 RouterNavigation.doIntentActivity(
                     router,
-                    resumeInfo.value!!,
-                    data
+                    from,
+                    resumeInfo.value!!
                 )
             }
+
         }
     }
-
 
     //卡片数据
     fun <T> initData(

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="start"
+    android:background="@color/white">
+
+    <com.kang.resume.preview.custom.RadiusCardView
+        android:id="@+id/card"
+        android:layout_width="@dimen/dp_30"
+        android:layout_height="@dimen/dp_30"
+        app:rcv_topLeftRadiu="@dimen/dp_15"
+        app:rcv_bottomLeftRadiu="@dimen/dp_15"
+        app:rcv_topRightRadiu="@dimen/dp_15"
+        app:rcv_bottomRightRadiu="@dimen/dp_15">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:src="@mipmap/position_1"/>
+    </com.kang.resume.preview.custom.RadiusCardView>
+
+
+    <LinearLayout
+        android:id="@+id/ll_title"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black25"
+            android:textStyle="bold"
+            android:gravity="start"/>
+
+        <TextView
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:background="@color/black25"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

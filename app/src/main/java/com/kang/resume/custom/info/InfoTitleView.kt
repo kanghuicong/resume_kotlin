@@ -58,6 +58,21 @@ class InfoTitleView(
         return this
     }
 
+    fun showAddImg(isShow: Boolean): InfoTitleView {
+        if (isShow) {
+            vb.ivAdd.visibility = VISIBLE
+            vb.llAdd.setOnClickListener {
+                if (iClick != null) {
+                    iClick!!.click(it)
+                }
+            }
+        } else {
+            vb.ivAdd.visibility = INVISIBLE
+            vb.llAdd.setOnClickListener { }
+        }
+        return this
+    }
+
     fun setChildView(views: List<View>): InfoTitleView {
         vb.llChildView.removeAllViews()
         vb.llChildView.visibility = VISIBLE

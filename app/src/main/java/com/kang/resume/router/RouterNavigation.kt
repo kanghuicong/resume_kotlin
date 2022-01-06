@@ -25,9 +25,28 @@ object RouterNavigation {
     }
 
     //带参跳转
-    fun doIntentActivity(path: String, data: ResumeInfoBean?, otherData:Any?) {
+    fun doIntentActivity(path: String, from: String, data: ResumeInfoBean) {
         ARouter.getInstance()
             .build(path)
+            .withObject(RouterConfig.data, data)
+            .withString(RouterConfig.from, from)
+            .navigation()
+    }
+
+    //带参跳转
+    fun doIntentActivity(path: String, data: ResumeInfoBean?, otherData: Any?) {
+        ARouter.getInstance()
+            .build(path)
+            .withObject(RouterConfig.data, data)
+            .withObject(RouterConfig.otherData, otherData)
+            .navigation()
+    }
+
+    //带参跳转
+    fun doIntentActivity(path: String, from: String, data: ResumeInfoBean?, otherData: Any?) {
+        ARouter.getInstance()
+            .build(path)
+            .withString(RouterConfig.from, from)
             .withObject(RouterConfig.data, data)
             .withObject(RouterConfig.otherData, otherData)
             .navigation()

@@ -5,12 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.kang.resume.R
 import com.kang.resume.base.BaseFragment
 import com.kang.resume.base.ViewModelProviderFactory
-import com.kang.resume.bean.EducationBean
-import com.kang.resume.bean.ResumeInfoBean
-import com.kang.resume.custom.info.BaseInfoWidget
-import com.kang.resume.custom.info.EducationWidget
-import com.kang.resume.custom.info.InfoTitleView
-import com.kang.resume.custom.info.PositionWidget
+import com.kang.resume.bean.*
+import com.kang.resume.custom.info.*
 import com.kang.resume.databinding.ResumeFragmentBinding
 import com.kang.resume.event.UpdateResumeLiveData
 import com.kang.resume.pro.ICallBack
@@ -79,34 +75,35 @@ class ResumeInfoFragment : BaseFragment<ResumeFragmentBinding, ResumeInfoModel>(
         //教育经历
         mBinding.infoEducation.iClick = (object : IClick {
             override fun click(view: View) {
-                mVm.doRouter(RouterConfig.EducationRouter, null)
+                mVm.doRouter(RouterConfig.EducationRouter)
             }
         })
 
         //工作经历
         mBinding.infoWork.iClick = (object : IClick {
             override fun click(view: View) {
-
+                mVm.doRouter(RouterConfig.WorkRouter)
             }
         })
 
         //项目经验
         mBinding.infoProject.iClick = (object : IClick {
             override fun click(view: View) {
-
+                mVm.doRouter(RouterConfig.ProjectRouter)
             }
         })
 
         //专业技能
         mBinding.infoSkill.iClick = (object : IClick {
             override fun click(view: View) {
-
+                mVm.doRouter(RouterConfig.SkillsRouter)
             }
         })
 
         //证书奖项
         mBinding.infoCertificate.iClick = (object : IClick {
             override fun click(view: View) {
+                mVm.doRouter(RouterConfig.TagRouter, RouterConfig.CertificateFrom)
 
             }
         })
@@ -114,7 +111,7 @@ class ResumeInfoFragment : BaseFragment<ResumeFragmentBinding, ResumeInfoModel>(
         //兴趣爱好
         mBinding.infoHobby.iClick = (object : IClick {
             override fun click(view: View) {
-
+                mVm.doRouter(RouterConfig.TagRouter, RouterConfig.HobbyFrom)
             }
         })
 
@@ -139,15 +136,46 @@ class ResumeInfoFragment : BaseFragment<ResumeFragmentBinding, ResumeInfoModel>(
         if (resumeInfoBean == null) return
 
         mVm.initData(mBinding.infoBase, BaseInfoWidget(activity), resumeInfoBean.baseInfo)
-        mVm.initData(mBinding.infoJob, PositionWidget(activity), resumeInfoBean.jobIntention)
+        mBinding.infoBase.showAddImg(resumeInfoBean.baseInfo == null)
 
-        val views = ArrayList<View>()
+        mVm.initData(mBinding.infoJob, PositionWidget(activity), resumeInfoBean.jobIntention)
+        mBinding.infoJob.showAddImg(resumeInfoBean.jobIntention == null)
+
+        val educationViews = ArrayList<View>()
         for (education: EducationBean in resumeInfoBean.educations!!) {
             val iWidget = EducationWidget(activity)
             iWidget.setData(education)
-            views.add(iWidget.getView())
+            educationViews.add(iWidget.getView())
         }
-        mBinding.infoEducation.setChildView(views)
+        mBinding.infoEducation.setChildView(educationViews)
+
+        val workViews = ArrayList<View>()
+        for (work: WorkExperienceBean in resumeInfoBean.workExperiences!!) {
+            val iWidget = WorkWidget(activity)
+            iWidget.setData(work)
+            workViews.add(iWidget.getView())
+        }
+        mBinding.infoWork.setChildView(workViews)
+
+        val projectViews = ArrayList<View>()
+        for (project: ProjectBean in resumeInfoBean.projects!!) {
+            val iWidget = ProjectWidget(activity)
+            iWidget.setData(project)
+            projectViews.add(iWidget.getView())
+        }
+        mBinding.infoProject.setChildView(projectViews)
+
+        val skillViews = ArrayList<View>()
+        for (skill: SkillBean in resumeInfoBean.skills!!) {
+            val iWidget = SkillsWidget(activity)
+            iWidget.setData(skill)
+            skillViews.add(iWidget.getView())
+        }
+        mBinding.infoSkill.setChildView(skillViews)
+
+        mVm.initData(mBinding.infoCertificate, TagWidget(activity), resumeInfoBean.certificates)
+        mVm.initData(mBinding.infoHobby, TagWidget(activity), resumeInfoBean.hobbies)
+
 
     }
 

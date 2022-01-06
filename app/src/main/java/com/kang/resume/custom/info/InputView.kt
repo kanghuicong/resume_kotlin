@@ -24,6 +24,7 @@ class InputView(
     attrs: AttributeSet? = null
 ) : ConstraintLayout(context, attrs) {
     var iClick: IClick? = null
+    var isOptional = false
 
     var vb: ViewInputBinding = DataBindingUtil.inflate(
         LayoutInflater.from(context),
@@ -38,7 +39,7 @@ class InputView(
             R.styleable.InputView
         )
 
-        val isOptional = typedArray.getBoolean(R.styleable.InputView_is_optional, false)
+        isOptional = typedArray.getBoolean(R.styleable.InputView_is_optional, false)
         if (isOptional) {
             vb.tvInputTitle.text =
                 typedArray.getString(R.styleable.InputView_input_title) + context.getString(R.string.optional)
@@ -80,9 +81,24 @@ class InputView(
         return this
     }
 
+    fun setHint(hint: String): InputView {
+        vb.etInput.hint = hint
+        return this
+    }
+
+    fun setTitle(title: String): InputView {
+        vb.tvInputTitle.text = title
+        return this
+    }
+
     fun getText(): String {
         return vb.etInput.text.toString()
     }
+
+    fun getHintText(): String {
+        return vb.etInput.hint.toString()
+    }
+
 
     fun setLength(length: Int): InputView {
         vb.etInput.filters = arrayOf<InputFilter>(LengthFilter(length))

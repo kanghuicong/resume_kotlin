@@ -1,7 +1,6 @@
 package com.kang.resume.resume
 
 import android.view.View
-import android.widget.Toast
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.kang.resume.R
 import com.kang.resume.base.BaseActivity
@@ -17,10 +16,11 @@ import com.kang.resume.pro.IClick
 import com.kang.resume.resume.base.IDelete
 import com.kang.resume.resume.base.IKeep
 import com.kang.resume.router.RouterConfig
-import com.kang.resume.utils.ToastUtil
 import com.kang.resume.utils.VerifyUtils
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopupext.listener.CityPickerListener
+import com.vondear.rxtool.view.RxToast
+import kotlinx.coroutines.Job
 
 
 /**
@@ -85,26 +85,15 @@ class JobActivity : BaseActivity<ResumeJobActivityBinding, JobModel>() {
         mBinding.titleView.iClick = (object : IClick {
             override fun click(view: View) {
 
-                if (VerifyUtils.isEmpty(mBinding.inputPosition.getText())) {
-                    ToastUtil.show(getString(R.string.hint_job_position))
+                if (VerifyUtils.isEmpty(mBinding.llCheck)) {
                     return
                 }
 
-                if (VerifyUtils.isEmpty(mBinding.inputCity.getText())) {
-                    ToastUtil.show(getString(R.string.hint_job_city))
-                    return
-                }
 
-                if (VerifyUtils.isEmpty(mBinding.inputTime.getText())) {
-                    ToastUtil.show(getString(R.string.hint_job_time))
-                    return
-                }
-
-                if (VerifyUtils.isEmpty(mBinding.etStartSalary.text.toString()) || VerifyUtils.isEmpty(
-                        mBinding.etEndSalary.text.toString()
-                    )
+                if (VerifyUtils.isEmpty(mBinding.etStartSalary.text.toString()) ||
+                    VerifyUtils.isEmpty(mBinding.etEndSalary.text.toString())
                 ) {
-                    ToastUtil.show(getString(R.string.hint_job_salary))
+                    RxToast.normal(getString(R.string.hint_job_salary))
                     return
                 }
 
@@ -146,19 +135,19 @@ class JobActivity : BaseActivity<ResumeJobActivityBinding, JobModel>() {
 
     override fun initViewModel(): JobModel {
         val resumeInfoBean: ResumeInfoBean? = getData()
+        val jobIntentionBean: JobIntentionBean? = getOtherData()
 
-        initData(resumeInfoBean)
+        initData(jobIntentionBean)
 
         mBinding.vm =
             ViewModelProviderFactory.getViewModel(
                 activity,
-                JobModel(resumeInfoBean)
+                JobModel(resumeInfoBean, jobIntentionBean)
             )
         return mBinding.vm!!
     }
 
-    private fun initData(resumeInfoBean: ResumeInfoBean?) {
-        val jobIntentionBean = resumeInfoBean?.jobIntention
+    private fun initData(jobIntentionBean: JobIntentionBean?) {
         if (jobIntentionBean != null) {
             mBinding.inputTime.setInput(jobIntentionBean.entryTime)
             mBinding.inputPosition.setInput(jobIntentionBean.position)

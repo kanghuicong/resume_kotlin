@@ -61,7 +61,7 @@ class EducationWidget(
                 vb.tvTime.visibility = GONE
             }
 
-            //专业
+            //经验
             if (data.experience != "") {
                 vb.tvDetail.visibility = VISIBLE
                 vb.tvDetail.text = data.experience

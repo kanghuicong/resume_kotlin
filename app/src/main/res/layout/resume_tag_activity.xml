@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:zhy="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.kang.resume.resume.TagModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/ll_check"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <com.kang.resume.custom.TitleView
+            android:id="@+id/title_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title_right="@string/keep" />
+
+        <com.kang.resume.custom.info.InputView
+            android:id="@+id/input_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:id="@+id/ll_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_30"
+            zhy:max_select="-1" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/bt_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_30"
+
+            android:background="@drawable/bt_red_5_press"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:text="@string/delete"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"
+            android:visibility="@{vm.needDelete?View.VISIBLE:View.GONE}" />
+
+    </LinearLayout>
+</layout>

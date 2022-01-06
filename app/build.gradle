@@ -182,5 +182,20 @@ dependencies {
 
     implementation 'com.ypx.yimagepicker:androidx:3.1.4'
 
+    //标签流布局
+    implementation 'com.hyman:flowlayout-lib:1.1.2'
+
+    //eventBus
+    implementation 'org.greenrobot:eventbus:3.2.0'
+
+    implementation 'com.yanzhenjie.permission:support:2.0.1'
+
+    implementation 'com.alibaba:fastjson:1.2.69'
+
+
+    //RxTool UI库
+    implementation "com.github.tamsiree.RxTool:RxUI:2.3.9"
+    //基础工具库
+    implementation "com.github.tamsiree.RxTool:RxKit:2.3.9"
 }
 

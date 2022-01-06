@@ -18,7 +18,7 @@ import java.util.*
  * 类描述：
  * author:kanghuicong
  */
-class BaseInfoModel(resumeInfoBean: ResumeInfoBean?) : BaseResumeViewModel() {
+class BaseInfoModel(resumeInfoBean: ResumeInfoBean?,baseInfo: BaseInfoBean?) : BaseResumeViewModel() {
 
     //性别 弹窗下标
     var genderIndex = EventMutableLiveData<Int>()
@@ -38,9 +38,9 @@ class BaseInfoModel(resumeInfoBean: ResumeInfoBean?) : BaseResumeViewModel() {
     init {
         //赋值操作
         //....
-        if (resumeInfoBean?.baseInfo != null) {
+        if (baseInfo != null) {
             needDelete.value = true
-            baseInfoBean = resumeInfoBean.baseInfo!!
+            baseInfoBean = baseInfo
         }else{
             needDelete.value = false
             baseInfoBean.resumeId = resumeInfoBean?.resumeId

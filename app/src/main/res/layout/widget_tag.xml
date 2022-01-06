@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/dp_20"
+        android:paddingEnd="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_10">
+
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:id="@+id/ll_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            zhy:layout_constraintStart_toStartOf="parent"
+            zhy:layout_constraintEnd_toEndOf="parent"
+            zhy:layout_constraintTop_toTopOf="parent"
+            zhy:max_select="-1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

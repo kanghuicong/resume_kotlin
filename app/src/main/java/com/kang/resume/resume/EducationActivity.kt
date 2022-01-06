@@ -4,10 +4,8 @@ import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.kang.resume.R
 import com.kang.resume.base.BaseActivity
-import com.kang.resume.base.ValueConfig
 import com.kang.resume.base.ViewModelProviderFactory
 import com.kang.resume.bean.EducationBean
-import com.kang.resume.bean.JobIntentionBean
 import com.kang.resume.bean.ResumeInfoBean
 import com.kang.resume.databinding.ResumeEdcationActivityBinding
 import com.kang.resume.http.ApiResponse
@@ -16,11 +14,11 @@ import com.kang.resume.pro.IClick
 import com.kang.resume.resume.base.IDelete
 import com.kang.resume.resume.base.IKeep
 import com.kang.resume.router.RouterConfig
-import com.kang.resume.utils.ToastUtil
 import com.kang.resume.utils.VerifyUtils
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopupext.listener.TimePickerListener
 import com.lxj.xpopupext.popup.TimePickerPopup
+import com.vondear.rxtool.view.RxToast
 import java.util.*
 
 /**
@@ -122,29 +120,10 @@ class EducationActivity : BaseActivity<ResumeEdcationActivityBinding, EducationM
         mBinding.titleView.iClick = (object : IClick {
             override fun click(view: View) {
 
-                if (VerifyUtils.isEmpty(mBinding.inputSchool.getText())) {
-                    ToastUtil.show(getString(R.string.hint_education_school))
+                if (VerifyUtils.isEmpty(mBinding.llCheck)) {
                     return
                 }
 
-                if (VerifyUtils.isEmpty(mBinding.inputRecord.getText())) {
-                    ToastUtil.show(getString(R.string.hint_record_record))
-                    return
-                }
-
-                if (VerifyUtils.isEmpty(mBinding.inputMajor.getText())) {
-                    ToastUtil.show(getString(R.string.hint_education_major))
-                    return
-                }
-
-                if (VerifyUtils.isEmpty(mBinding.inputStartTime.getText())) {
-                    ToastUtil.show(getString(R.string.hint_education_start_time))
-                    return
-                }
-                if (VerifyUtils.isEmpty(mBinding.inputEndTime.getText())) {
-                    ToastUtil.show(getString(R.string.hint_education_end_time))
-                    return
-                }
 
                 val educationBean = EducationBean(
                     mVm.educationBean.educationId,
@@ -169,7 +148,7 @@ class EducationActivity : BaseActivity<ResumeEdcationActivityBinding, EducationM
         mBinding.btDelete.setOnClickListener {
             mVm.delete(activity,object : IDelete {
                 override suspend fun delete(): ApiResponse<Any> {
-                    return HttpRequest.api().delCertificate(mVm.educationBean.educationId!!)
+                    return HttpRequest.api().delEducation(mVm.educationBean.educationId!!)
                 }
             })
         }
@@ -193,7 +172,7 @@ class EducationActivity : BaseActivity<ResumeEdcationActivityBinding, EducationM
     private fun initData(educationBean: EducationBean?) {
         if (educationBean != null) {
             mBinding.inputSchool.setInput(educationBean.school)
-//            mBinding.inputRecord.setInput(educationBean.record)
+            mBinding.inputRecord.setInput(educationBean.record)
             mBinding.inputMajor.setInput(educationBean.major)
             mBinding.inputStartTime.setInput(educationBean.startTime)
             mBinding.inputEndTime.setInput(educationBean.endTime)

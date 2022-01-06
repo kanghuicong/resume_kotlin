@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:zhy="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/cl_bg_1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/primary"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/cl_info"/>
+
+    <LinearLayout
+        android:id="@+id/cl_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_abstract"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_1"
+            android:layout_marginBottom="@dimen/dp_6" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/cl_bg_2"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginTop="@dimen/dp_3"
+        android:background="@color/primary"
+        app:layout_constraintTop_toBottomOf="@+id/cl_info" />
+
+    <TextView
+        android:id="@+id/tv_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_1"
+        app:layout_constraintTop_toBottomOf="@+id/cl_bg_2" />
+
+    <ImageView
+        android:id="@+id/iv_right_avatar"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="@dimen/dp_80"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/icon_header_default"
+        app:layout_constraintBottom_toBottomOf="@+id/cl_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_info" />
+
+    <TextView
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/iv_right_avatar"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

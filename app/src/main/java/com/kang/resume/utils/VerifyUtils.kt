@@ -2,6 +2,11 @@ package com.kang.resume.utils
 
 import android.R.bool
 import android.R.string
+import android.widget.LinearLayout
+import androidx.core.view.children
+import com.kang.resume.R
+import com.kang.resume.custom.info.InputView
+import com.vondear.rxtool.view.RxToast
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -14,9 +19,34 @@ object VerifyUtils {
     /// 邮箱正则
     private const val REGEX_EMAIL = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*\$"
 
-    /// 检查是否是手机号
+    /// 检查是否为空
     fun isEmpty(str: String?): Boolean {
         return str == null || str == ""
+    }
+
+
+    fun isEmpty(layout: LinearLayout): Boolean {
+        val views = layout.children
+        for (view in views) {
+            if (view is InputView) {
+                if (!view.isOptional) {
+                    val isEmpty = isEmpty(view)
+                    if (isEmpty) {
+                        return true
+                    }
+                }
+            }
+        }
+        return false
+    }
+
+   private fun isEmpty(inputView: InputView): Boolean {
+        return if (isEmpty(inputView.getText())) {
+            RxToast.normal(inputView.getHintText())
+            true
+        } else {
+            false
+        }
     }
 
     /// 检查是否是手机号

@@ -35,7 +35,7 @@ class EducationModel(resumeInfoBean: ResumeInfoBean?, educationBean: EducationBe
         }
 
         //数据处理
-        when ( this.educationBean.record) {
+        when (this.educationBean.record) {
             getString(R.string.junior_high_school) -> recordIndex.value = 0
             getString(R.string.high_school) -> recordIndex.value = 1
             getString(R.string.technical_secondary_school) -> recordIndex.value = 2

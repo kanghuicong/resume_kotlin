@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.kang.resume.resume.SkillsModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/ll_check"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <com.kang.resume.custom.TitleView
+            android:id="@+id/title_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/skill_info"
+            app:title_right="@string/keep" />
+
+        <com.kang.resume.custom.info.InputView
+            android:id="@+id/input_skill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:input_hint="@string/hint_skill_name"
+            app:input_title="@string/skill_name" />
+
+
+        <com.kang.resume.custom.info.InputView
+            android:id="@+id/input_proficiency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:input_need_arrow="true"
+            app:input_hint="@string/hint_skill_proficiency"
+            app:input_title="@string/skill_proficiency" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/bt_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_30"
+            android:background="@drawable/bt_red_5_press"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:text="@string/delete"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"
+            android:visibility="@{vm.needDelete?View.VISIBLE:View.GONE}" />
+
+    </LinearLayout>
+</layout>

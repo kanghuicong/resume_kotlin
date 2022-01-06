@@ -51,14 +51,15 @@
                         android:id="@+id/tv_avatar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_30"
                         android:paddingTop="@dimen/dp_30"
                         android:paddingBottom="@dimen/dp_30"
-                        android:layout_marginStart="@dimen/dp_30"
                         android:text="@string/avatar"
                         android:textColor="@color/black25"
                         android:textSize="@dimen/sp_16"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
                     <TextView
                         android:id="@+id/tv_optional"
                         android:layout_width="wrap_content"
@@ -66,9 +67,9 @@
                         android:text="@string/optional"
                         android:textColor="@color/black25"
                         android:textSize="@dimen/sp_16"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_avatar"
                         app:layout_constraintStart_toEndOf="@+id/tv_avatar"
-                        app:layout_constraintTop_toTopOf="@+id/tv_avatar"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_avatar"/>
+                        app:layout_constraintTop_toTopOf="@+id/tv_avatar" />
 
                     <ImageView
                         android:layout_width="@dimen/dp_60"
@@ -97,52 +98,60 @@
                     android:background="@color/backgroundColor" />
 
 
-                <com.kang.resume.custom.info.InputView
-                    android:id="@+id/input_name"
+                <LinearLayout
+                    android:id="@+id/ll_check"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:input_hint="@string/hint_name"
-                    app:input_title="@string/name" />
-
-                <com.kang.resume.custom.info.InputView
-                    android:id="@+id/input_gender"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:input_hint="@string/hint_gender"
-                    app:input_need_arrow="true"
-                    app:input_title="@string/gender" />
-
-                <com.kang.resume.custom.info.InputView
-                    android:id="@+id/input_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:input_hint="@string/hint_phone"
-                    app:input_title="@string/phone"
-                    app:is_number="true" />
-
-                <com.kang.resume.custom.info.InputView
-                    android:id="@+id/input_birthday"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:input_hint="@string/hint_birthday"
-                    app:input_need_arrow="true"
-                    app:input_title="@string/birthday" />
-
-                <com.kang.resume.custom.info.InputView
-                    android:id="@+id/input_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:input_hint="@string/hint_email"
-                    app:input_title="@string/email" />
+                    android:orientation="vertical">
 
 
-                <com.kang.resume.custom.info.InputView
-                    android:id="@+id/input_start_work_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:input_hint="@string/hint_start_work_time"
-                    app:input_need_arrow="true"
-                    app:input_title="@string/start_work_time" />
+                    <com.kang.resume.custom.info.InputView
+                        android:id="@+id/input_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:input_hint="@string/hint_name"
+                        app:input_title="@string/name" />
+
+                    <com.kang.resume.custom.info.InputView
+                        android:id="@+id/input_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:input_hint="@string/hint_gender"
+                        app:input_need_arrow="true"
+                        app:input_title="@string/gender" />
+
+                    <com.kang.resume.custom.info.InputView
+                        android:id="@+id/input_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:input_hint="@string/hint_phone"
+                        app:input_title="@string/phone"
+                        app:is_number="true" />
+
+                    <com.kang.resume.custom.info.InputView
+                        android:id="@+id/input_birthday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:input_hint="@string/hint_birthday"
+                        app:input_need_arrow="true"
+                        app:input_title="@string/birthday" />
+
+                    <com.kang.resume.custom.info.InputView
+                        android:id="@+id/input_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:input_hint="@string/hint_email"
+                        app:input_title="@string/email" />
+
+
+                    <com.kang.resume.custom.info.InputView
+                        android:id="@+id/input_start_work_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:input_hint="@string/hint_start_work_time"
+                        app:input_need_arrow="true"
+                        app:input_title="@string/start_work_time" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -213,7 +222,6 @@
                         app:is_optional="true" />
 
 
-
                 </LinearLayout>
 
 
@@ -221,17 +229,14 @@
                     android:id="@+id/bt_delete"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_30"
-                    android:layout_marginStart="@dimen/dp_50"
-                    android:layout_marginEnd="@dimen/dp_50"
-                    android:layout_marginBottom="@dimen/dp_30"
+                    android:layout_margin="@dimen/dp_30"
                     android:background="@drawable/bt_red_5_press"
-                    android:visibility="@{vm.needDelete?View.VISIBLE:View.GONE}"
                     android:gravity="center"
                     android:padding="@dimen/dp_10"
                     android:text="@string/delete"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/sp_16"/>
+                    android:textSize="@dimen/sp_16"
+                    android:visibility="@{vm.needDelete?View.VISIBLE:View.GONE}" />
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>

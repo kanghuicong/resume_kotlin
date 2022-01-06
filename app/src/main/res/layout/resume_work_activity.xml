@@ -3,14 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <variable
+            name="vm"
+            type="com.kang.resume.resume.WorkModel" />
 
+        <import type="android.view.View" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-
         android:orientation="vertical">
 
         <com.kang.resume.custom.TitleView
@@ -29,18 +32,63 @@
             android:layout_weight="1">
 
             <LinearLayout
+                android:id="@+id/ll_check"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <com.kang.resume.custom.info.InputView
-                    android:id="@+id/input_school"
+                    android:id="@+id/input_company"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:input_hint="@string/hint_education_school"
-                    app:input_title="@string/school" />
+                    app:input_hint="@string/hint_work_company"
+                    app:input_title="@string/work_company" />
 
+                <com.kang.resume.custom.info.InputView
+                    android:id="@+id/input_position"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:input_hint="@string/hint_work_position"
+                    app:input_title="@string/work_position" />
+
+                <com.kang.resume.custom.info.InputView
+                    android:id="@+id/input_start_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:input_hint="@string/hint_work_start_time"
+                    app:input_need_arrow="true"
+                    app:input_title="@string/work_start_time" />
+
+                <com.kang.resume.custom.info.InputView
+                    android:id="@+id/input_end_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:input_hint="@string/hint_work_end_time"
+                    app:input_need_arrow="true"
+                    app:input_title="@string/work_end_time" />
+
+                <com.kang.resume.custom.info.InputView
+                    android:id="@+id/input_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:input_hint="@string/hint_work_content"
+                    app:input_title="@string/work_content" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
+
+
+        <TextView
+            android:id="@+id/bt_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_30"
+
+            android:background="@drawable/bt_red_5_press"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:text="@string/delete"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"
+            android:visibility="@{vm.needDelete?View.VISIBLE:View.GONE}" />
     </LinearLayout>
 </layout>

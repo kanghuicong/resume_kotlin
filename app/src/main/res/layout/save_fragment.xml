@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_120"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="将制作好的简历保存或发送"
+        android:padding="@dimen/dp_5"/>
+
+    <LinearLayout
+        android:id="@+id/ll_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center|start">
+
+        <LinearLayout
+            android:id="@+id/save_pdf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/dp_10"
+            android:paddingEnd="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_20"
+            android:paddingBottom="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_10"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/icon_save_pdf"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#222222"
+                android:text="保存PDF"
+                android:layout_marginTop="@dimen/dp_5"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/save_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/dp_10"
+            android:paddingEnd="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_20"
+            android:paddingBottom="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_20"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/icon_save_img"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#222222"
+                android:text="保存图片"
+                android:layout_marginTop="@dimen/dp_5"
+                android:textSize="12sp"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+
+

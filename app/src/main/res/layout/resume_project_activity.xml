@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.kang.resume.resume.ProjectModel" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <com.kang.resume.custom.TitleView
+            android:id="@+id/title_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/project_info"
+            app:title_right="@string/keep" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+
+            <LinearLayout
+                android:id="@+id/ll_check"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <com.kang.resume.custom.info.InputView
+                    android:id="@+id/input_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:input_hint="@string/hint_project_name"
+                    app:input_title="@string/project_name" />
+
+                <com.kang.resume.custom.info.InputView
+                    android:id="@+id/input_company"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:input_hint="@string/hint_project_company"
+                    app:input_title="@string/project_company" />
+
+
+                <com.kang.resume.custom.info.InputView
+                    android:id="@+id/input_role"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:input_hint="@string/hint_project_role"
+                    app:input_title="@string/project_role" />
+
+                <com.kang.resume.custom.info.InputView
+                    android:id="@+id/input_start_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:input_hint="@string/hint_project_start_time"
+                    app:input_need_arrow="true"
+                    app:input_title="@string/project_start_time" />
+
+                <com.kang.resume.custom.info.InputView
+                    android:id="@+id/input_end_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:input_hint="@string/hint_project_end_time"
+                    app:input_need_arrow="true"
+                    app:input_title="@string/project_end_time" />
+
+
+                <com.kang.resume.custom.info.InputView
+                    android:id="@+id/input_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:input_hint="@string/hint_project_description"
+                    app:input_title="@string/project_description" />
+
+                <com.kang.resume.custom.info.InputView
+                    android:id="@+id/input_url"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:input_hint="@string/hint_project_url"
+                    app:input_title="@string/project_url"
+                    app:is_optional="true" />
+
+                <TextView
+                    android:id="@+id/bt_delete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_30"
+                    android:background="@drawable/bt_red_5_press"
+                    android:gravity="center"
+                    android:padding="@dimen/dp_10"
+                    android:text="@string/delete"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_16"
+                    android:visibility="@{vm.needDelete?View.VISIBLE:View.GONE}" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+    </LinearLayout>
+</layout>

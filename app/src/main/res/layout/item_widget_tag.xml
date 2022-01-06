@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.kang.resume.preview.custom.RadiusCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/dp_5"
+    android:layout_marginEnd="@dimen/dp_5"
+    android:layout_marginBottom="5dp">
+
+    <TextView
+        android:id="@+id/tv_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:padding="@dimen/dp_5"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_12"
+        android:layout_gravity="center" />
+
+</com.kang.resume.preview.custom.RadiusCardView>
+
+

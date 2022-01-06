@@ -8,6 +8,7 @@ import com.elvishew.xlog.LogLevel
 import com.elvishew.xlog.XLog
 import com.kang.resume.utils.DataStoreUtils
 import com.roy.base.common.MMKVDb
+import com.vondear.rxtool.RxTool
 
 
 /**
@@ -40,6 +41,9 @@ class MainApplication : Application() {
         DataStoreUtils.init(this)
         //日志工具
         XLog.init(if (BuildConfig.DEBUG) LogLevel.ALL else LogLevel.NONE)
+
+        //RxTool工具类初始化
+        RxTool.init(getApplication())
     }
 
     override fun attachBaseContext(base: Context?) {

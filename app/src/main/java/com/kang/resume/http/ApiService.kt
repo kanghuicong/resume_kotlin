@@ -66,7 +66,49 @@ interface ApiService {
     suspend fun saveOrUpdateEducation(@Body educationBean: EducationBean): ApiResponse<Any>
 
     //删除教育经历
-    @POST("/resume/delCertificate/{educationId}")
-    suspend fun delCertificate(@Path("educationId") educationId: Int): ApiResponse<Any>
+    @POST("/resume/delEducation/{educationId}")
+    suspend fun delEducation(@Path("educationId") educationId: Int): ApiResponse<Any>
+
+    //新增或编辑工作经历
+    @POST("/resume/saveOrUpdateWorkExperience")
+    suspend fun saveOrUpdateWorkExperience(@Body workExperienceBean: WorkExperienceBean): ApiResponse<Any>
+
+    //删除工作经历
+    @POST("/resume/delWorkExperience/{experienceId}")
+    suspend fun delWorkExperience(@Path("experienceId") experienceId: Int): ApiResponse<Any>
+
+    //新增或编辑项目
+    @POST("/resume/saveOrUpdateProject")
+    suspend fun saveOrUpdateProject(@Body projectBean: ProjectBean): ApiResponse<Any>
+
+    //删除项目
+    @POST("/resume/delProject/{projectId}")
+    suspend fun delProject(@Path("projectId") projectId: Int): ApiResponse<Any>
+
+    //新增或编辑技能
+    @POST("/resume/saveOrUpdateSkill")
+    suspend fun saveOrUpdateSkill(@Body skillBean: SkillBean): ApiResponse<Any>
+
+    //删除技能
+    @POST("/resume/delSkill/{skillId}")
+    suspend fun delSkill(@Path("skillId") skillId: Int): ApiResponse<Any>
+
+
+    //新增或编辑证书
+    @POST("/resume/saveOrUpdateCertificate")
+    suspend fun saveOrUpdateCertificate(@Body certificateBean: CertificateBean): ApiResponse<Any>
+
+    //删除证书
+    @POST("/resume/delCertificate/{certificateId}")
+    suspend fun delCertificate(@Path("certificateId") certificateId: Int): ApiResponse<Any>
+
+    //新增或编辑爱好
+    @POST("/resume/saveOrUpdateHobby")
+    suspend fun saveOrUpdateHobby(@Body hobbyBean: HobbyBean): ApiResponse<Any>
+
+    //删除爱好
+    @POST("/resume/delHobby/{hobbyId}")
+    suspend fun delHobby(@Path("hobbyId") hobbyId: Int): ApiResponse<Any>
+
 
 }

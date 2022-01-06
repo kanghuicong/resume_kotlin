@@ -1,6 +1,7 @@
 package com.kang.resume.bean
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 /**
  * 类描述：
@@ -21,7 +22,8 @@ data class ResumeInfoBean(
     @SerializedName("projects") var projects: List<ProjectBean>? = null,
     @SerializedName("skills") var skills: List<SkillBean>? = null,
     @SerializedName("workExperiences") var workExperiences: List<WorkExperienceBean>? = null,
-)
+    var isClick: Boolean = false
+) : Serializable
 
 data class BaseInfoBean(
     @SerializedName("id") var id: Int?,
@@ -40,13 +42,13 @@ data class BaseInfoBean(
     @SerializedName("politicalStatus") var politicalStatus: String = "",
     @SerializedName("province") var province: String = "",
     @SerializedName("startWorkTime") var startWorkTime: String = ""
-)
+) : Serializable
 
 data class CertificateBean(
-    @SerializedName("certificateId") var certificateId: Int,
-    @SerializedName("resumeId") var resumeId: Int,
-    @SerializedName("certificate") var certificate: String,
-)
+    @SerializedName("certificateId") var certificateId: Int?,
+    @SerializedName("resumeId") var resumeId: Int?,
+    @SerializedName("certificate") var certificate: String = "",
+) : Serializable
 
 data class EducationBean(
     @SerializedName("educationId") var educationId: Int?,
@@ -57,13 +59,13 @@ data class EducationBean(
     @SerializedName("startTime") var startTime: String = "",
     @SerializedName("endTime") var endTime: String = "",
     @SerializedName("experience") var experience: String = "",
-)
+) : Serializable
 
 data class HobbyBean(
-    @SerializedName("hobbyId") var hobbyId: Int,
-    @SerializedName("resumeId") var resumeId: Int,
-    @SerializedName("hobby") var hobby: String,
-)
+    @SerializedName("hobbyId") var hobbyId: Int?,
+    @SerializedName("resumeId") var resumeId: Int?,
+    @SerializedName("hobby") var hobby: String = "",
+) : Serializable
 
 data class JobIntentionBean(
     @SerializedName("id") var id: Int?,
@@ -72,35 +74,36 @@ data class JobIntentionBean(
     @SerializedName("entryTime") var entryTime: String = "",
     @SerializedName("position") var position: String = "",
     @SerializedName("salary") var salary: String = "",
-)
+) : Serializable
 
 data class ProjectBean(
-    @SerializedName("projectId") var projectId: Int,
-    @SerializedName("resumeId") var resumeId: Int,
-    @SerializedName("description") var description: String,
-    @SerializedName("endTime") var endTime: String,
-    @SerializedName("projectName") var projectName: String,
-    @SerializedName("role") var role: String,
-    @SerializedName("startTime") var startTime: String,
-    @SerializedName("url") var url: String,
-)
+    @SerializedName("projectId") var projectId: Int?,
+    @SerializedName("resumeId") var resumeId: Int?,
+    @SerializedName("projectName") var projectName: String = "",
+    @SerializedName("company") var company: String = "",
+    @SerializedName("role") var role: String = "",
+    @SerializedName("startTime") var startTime: String = "",
+    @SerializedName("endTime") var endTime: String = "",
+    @SerializedName("description") var description: String = "",
+    @SerializedName("url") var url: String = "",
+) : Serializable
 
 data class SkillBean(
 
-    @SerializedName("skillId") var skillId: Int,
-    @SerializedName("resumeId") var resumeId: Int,
-    @SerializedName("skillName") var skillName: String,
-    @SerializedName("proficiency") var proficiency: String,
-    @SerializedName("proficiencyValue") var proficiencyValue: Int,
-)
+    @SerializedName("skillId") var skillId: Int?,
+    @SerializedName("resumeId") var resumeId: Int?,
+    @SerializedName("skillName") var skillName: String = "",
+    @SerializedName("proficiency") var proficiency: String = "",
+    @SerializedName("proficiencyValue") var proficiencyValue: Int = 0,
+) : Serializable
 
 data class WorkExperienceBean(
 
-    @SerializedName("experienceId") var experienceId: Int,
-    @SerializedName("resumeId") var resumeId: Int,
-    @SerializedName("company") var company: String,
-    @SerializedName("endTime") var endTime: String,
-    @SerializedName("position") var position: String,
-    @SerializedName("startTime") var startTime: String,
-    @SerializedName("workContent") var workContent: String,
-)
+    @SerializedName("experienceId") var experienceId: Int?,
+    @SerializedName("resumeId") var resumeId: Int?,
+    @SerializedName("company") var company: String = "",
+    @SerializedName("position") var position: String = "",
+    @SerializedName("startTime") var startTime: String = "",
+    @SerializedName("endTime") var endTime: String = "",
+    @SerializedName("workContent") var workContent: String = "",
+) : Serializable

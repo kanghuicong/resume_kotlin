@@ -7,8 +7,8 @@ import com.kang.resume.base.BaseActivity
 import com.kang.resume.base.ViewModelProviderFactory
 import com.kang.resume.databinding.LoginActivityBinding
 import com.kang.resume.router.RouterConfig
-import com.kang.resume.utils.ToastUtil
 import com.kang.resume.utils.VerifyUtils
+import com.vondear.rxtool.view.RxToast
 
 /**
  * 类描述：
@@ -38,12 +38,12 @@ class LoginActivity : BaseActivity<LoginActivityBinding, LoginModel>() {
             val password = mBinding.etLoginPassword.text.toString()
             val repeatPassword = mBinding.etConfirmPassword.text.toString()
             if (!VerifyUtils.verifyPhone(account)) {
-                ToastUtil.show(getString(R.string.please_input_right_account))
+                RxToast.normal(getString(R.string.please_input_right_account))
                 return@setOnClickListener
             }
 
             if (!VerifyUtils.verifyPassword(password)) {
-                ToastUtil.show(getString(R.string.please_input_right_password))
+                RxToast.normal(getString(R.string.please_input_right_password))
                 return@setOnClickListener
             }
 
@@ -51,12 +51,12 @@ class LoginActivity : BaseActivity<LoginActivityBinding, LoginModel>() {
                 mBinding.vm?.doLogin(account, password, needStart = true, needEnd = false)
             } else {
                 if (!VerifyUtils.verifyEmpty(repeatPassword)) {
-                    ToastUtil.show(getString(R.string.please_input_confirm_password))
+                    RxToast.normal(getString(R.string.please_input_confirm_password))
                     return@setOnClickListener
                 }
 
                 if (password != repeatPassword) {
-                    ToastUtil.show(getString(R.string.please_input_right_confirm_password))
+                    RxToast.normal(getString(R.string.please_input_right_confirm_password))
                     return@setOnClickListener
                 }
 

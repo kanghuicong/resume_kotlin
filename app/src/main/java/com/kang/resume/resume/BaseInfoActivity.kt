@@ -17,11 +17,11 @@ import com.kang.resume.pro.IClick
 import com.kang.resume.resume.base.IDelete
 import com.kang.resume.resume.base.IKeep
 import com.kang.resume.router.RouterConfig
-import com.kang.resume.utils.ToastUtil
 import com.kang.resume.utils.VerifyUtils
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopupext.listener.TimePickerListener
 import com.lxj.xpopupext.popup.TimePickerPopup
+import com.vondear.rxtool.view.RxToast
 import com.ypx.imagepicker.ImagePicker
 import com.ypx.imagepicker.bean.MimeType
 import com.ypx.imagepicker.bean.selectconfig.CropConfig
@@ -193,33 +193,7 @@ class BaseInfoActivity : BaseActivity<ResumeBaseInfoActivityBinding, BaseInfoMod
         mBinding.titleView.iClick = (object : IClick {
             override fun click(view: View) {
 
-                if (VerifyUtils.isEmpty(mBinding.inputName.getText())) {
-                    ToastUtil.show(getString(R.string.hint_name))
-                    return
-                }
-
-                if (VerifyUtils.isEmpty(mBinding.inputGender.getText())) {
-                    ToastUtil.show(getString(R.string.hint_gender))
-                    return
-                }
-
-                if (VerifyUtils.isEmpty(mBinding.inputPhone.getText())) {
-                    ToastUtil.show(getString(R.string.hint_phone))
-                    return
-                }
-
-                if (VerifyUtils.isEmpty(mBinding.inputBirthday.getText())) {
-                    ToastUtil.show(getString(R.string.hint_birthday))
-                    return
-                }
-
-                if (VerifyUtils.isEmpty(mBinding.inputEmail.getText())) {
-                    ToastUtil.show(getString(R.string.hint_email))
-                    return
-                }
-
-                if (VerifyUtils.isEmpty(mBinding.inputStartWorkTime.getText())) {
-                    ToastUtil.show(getString(R.string.hint_start_work_time))
+                if (VerifyUtils.isEmpty(mBinding.llCheck)) {
                     return
                 }
 
@@ -269,20 +243,20 @@ class BaseInfoActivity : BaseActivity<ResumeBaseInfoActivityBinding, BaseInfoMod
 
     override fun initViewModel(): BaseInfoModel {
         val resumeInfoBean: ResumeInfoBean? = getData()
+        val baseInfoBean: BaseInfoBean? = getOtherData()
 
-        initData(resumeInfoBean)
+        initData(baseInfoBean)
 
         mBinding.vm =
             ViewModelProviderFactory.getViewModel(
                 activity,
-                BaseInfoModel(resumeInfoBean)
+                BaseInfoModel(resumeInfoBean,baseInfoBean)
             )
         return mBinding.vm!!
     }
 
     //填入数据
-    private fun initData(resumeInfoBean: ResumeInfoBean?) {
-        val baseInfo = resumeInfoBean?.baseInfo
+    private fun initData(baseInfo: BaseInfoBean?) {
         if (baseInfo != null) {
             mBinding.inputName.setInput(baseInfo.name)
             mBinding.inputEmail.setInput(baseInfo.email)

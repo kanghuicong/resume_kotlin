@@ -12,6 +12,8 @@ import com.kang.resume.bean.BaseInfoBean
 import com.kang.resume.databinding.ViewInfoTitileBinding
 import com.kang.resume.databinding.WidgetBaseInfoBinding
 import com.kang.resume.pro.IWidget
+import com.kang.resume.router.RouterConfig
+import com.kang.resume.router.RouterNavigation
 import com.kang.resume.utils.SwitchUtils
 import com.kang.resume.utils.VerifyUtils
 
@@ -30,47 +32,55 @@ class BaseInfoWidget(
         true
     )
 
-    override fun setData(baseInfoBean: BaseInfoBean?) {
-        if (baseInfoBean != null) {
+    override fun setData(data: BaseInfoBean?) {
+        if (data != null) {
             this.visibility = View.VISIBLE
             //姓名
-            if (baseInfoBean.name != "") {
-                vb.tvBaseName.text = baseInfoBean.name
+            if (data.name != "") {
+                vb.tvBaseName.text = data.name
             } else {
                 vb.tvBaseName.text = context.getString(R.string.unfilled)
             }
 
             //年龄
-            if (baseInfoBean.birthday != "") {
+            if (data.birthday != "") {
                 vb.llBaseAge.visibility = View.VISIBLE
-                vb.tvBaseAge.text = SwitchUtils.switchYear(baseInfoBean.birthday)
+                vb.tvBaseAge.text = SwitchUtils.switchYear(data.birthday)
             } else {
                 vb.llBaseAge.visibility = View.GONE
             }
 
             //工作经验
-            if (baseInfoBean.startWorkTime != "") {
+            if (data.startWorkTime != "") {
                 vb.llBaseWorkTime.visibility = View.VISIBLE
-                vb.tvBaseWorkTime.text = SwitchUtils.switchYear(baseInfoBean.startWorkTime)
+                vb.tvBaseWorkTime.text = SwitchUtils.switchYear(data.startWorkTime)
             } else {
                 vb.llBaseWorkTime.visibility = View.GONE
             }
 
-            if (baseInfoBean.email != "") {
+            if (data.email != "") {
                 vb.llBaseEmail.visibility = View.VISIBLE
-                vb.tvBaseEmail.text = baseInfoBean.email
+                vb.tvBaseEmail.text = data.email
             } else {
                 vb.llBaseWorkTime.visibility = View.GONE
             }
 
-            if (baseInfoBean.phone != "") {
+            if (data.phone != "") {
                 vb.llBasePhone.visibility = View.VISIBLE
-                vb.tvBasePhone.text = baseInfoBean.phone
+                vb.tvBasePhone.text = data.phone
             } else {
                 vb.llBaseWorkTime.visibility = View.GONE
             }
         } else {
             this.visibility = View.GONE
+        }
+
+        this.setOnClickListener {
+            RouterNavigation.doIntentActivity(
+                RouterConfig.BaseInfoRouter,
+                null,
+                data
+            )
         }
     }
 
