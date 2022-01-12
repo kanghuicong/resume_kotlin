@@ -58,10 +58,10 @@ class SwitchUtils {
                 var strList = arrayListOf<String>()
                 for (str in list) {
                     var str1 = str.substring(0, str.indexOf("月"))
-                    str1.replace("年", ".")
+                    str1 = str1.replace("年", ".")
                     strList.add(str1)
                 }
-                return strList[0] + ValueConfig.space + strList[1]
+                return strList[0] + "-" + strList[1]
             }
         }
 

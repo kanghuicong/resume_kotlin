@@ -296,14 +296,6 @@ public class PreViewActivity extends FragmentActivity implements View.OnClickLis
         //添加布局
         addViews(moduleBeanList, iView);
 
-//        iView.getView().setVisibility(View.VISIBLE);
-//        int i = 0;
-//        showLoad(false);
-//        ivDefault.setVisibility(View.GONE);
-//        viewpager.setVisibility(View.GONE);
-//        if (i == 0)
-//            return;
-
         //重置完布局立刻计算clPreview宽高是获取不到数值的
         iView.getView().post(new Runnable() {
             @SuppressLint("DefaultLocale")
@@ -580,7 +572,11 @@ public class PreViewActivity extends FragmentActivity implements View.OnClickLis
             case R.id.ll_app:
                 selectItem(1);
                 if (appFragment == null) {
-                    transaction.add(R.id.fl_main, appFragment = new AppFragment());
+                    appFragment = new AppFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("list", (Serializable) list);
+                    appFragment.setArguments(bundle);
+                    transaction.add(R.id.fl_main, appFragment);
                 } else {
                     transaction.show(appFragment);
                 }
@@ -605,6 +601,8 @@ public class PreViewActivity extends FragmentActivity implements View.OnClickLis
 //                transaction.commitAllowingStateLoss();
                 initPopupWindow();
                 showPopWindow();
+                break;
+            default:
                 break;
         }
     }

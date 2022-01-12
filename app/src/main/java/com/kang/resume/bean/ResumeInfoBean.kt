@@ -12,7 +12,7 @@ data class ResumeInfoBean(
     @SerializedName("createTime") var createTime: String? = null,
     @SerializedName("resumeId") var resumeId: Int? = null,
     @SerializedName("resumeCover") var resumeCover: Int? = null,
-    @SerializedName("resumeName") var resumeName: String? = "",
+    @SerializedName("resumeName") var resumeName: String = "",
     @SerializedName("selfEvaluation") var selfEvaluation: String? = "",
     @SerializedName("baseInfo") var baseInfo: BaseInfoBean? = null,
     @SerializedName("certificates") var certificates: List<CertificateBean>? = null,
@@ -41,7 +41,8 @@ data class BaseInfoBean(
     @SerializedName("phone") var phone: String = "",
     @SerializedName("politicalStatus") var politicalStatus: String = "",
     @SerializedName("province") var province: String = "",
-    @SerializedName("startWorkTime") var startWorkTime: String = ""
+    @SerializedName("startWorkTime") var startWorkTime: String = "",
+    var resumeName: String = ""
 ) : Serializable
 
 data class CertificateBean(
@@ -107,3 +108,8 @@ data class WorkExperienceBean(
     @SerializedName("endTime") var endTime: String = "",
     @SerializedName("workContent") var workContent: String = "",
 ) : Serializable
+
+data class SelfEvaluationBean(
+    @SerializedName("resumeId") var resumeId: Int?,
+    @SerializedName("selfEvaluation") var selfEvaluation: String= "",
+)

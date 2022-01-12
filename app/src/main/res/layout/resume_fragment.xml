@@ -50,95 +50,114 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.core.widget.NestedScrollView
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:visibility="@{vm.resumeInfoList.size()==0?View.GONE:View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_view">
+            app:layout_constraintTop_toBottomOf="@+id/title_view"
+            android:orientation="vertical">
 
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_resume"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
 
-                <com.kang.resume.custom.info.InfoTitleView
-                    android:id="@+id/info_base"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:info_title="@string/base_info" />
-
-                <com.kang.resume.custom.info.InfoTitleView
-                    android:id="@+id/info_job"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:info_title="@string/job_info" />
-
-                <com.kang.resume.custom.info.InfoTitleView
-                    android:id="@+id/info_education"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:info_title="@string/education_info" />
-
-                <com.kang.resume.custom.info.InfoTitleView
-                    android:id="@+id/info_work"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:info_title="@string/work_info" />
-
-                <com.kang.resume.custom.info.InfoTitleView
-                    android:id="@+id/info_project"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:info_title="@string/project_info" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
 
-                <com.kang.resume.custom.info.InfoTitleView
-                    android:id="@+id/info_skill"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:info_title="@string/skill_info" />
+                    <com.kang.resume.custom.info.InfoTitleView
+                        android:id="@+id/info_base"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:info_title="@string/base_info" />
 
-                <com.kang.resume.custom.info.InfoTitleView
-                    android:id="@+id/info_certificate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:info_title="@string/certificate_info" />
+                    <com.kang.resume.custom.info.InfoTitleView
+                        android:id="@+id/info_job"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:info_title="@string/job_info" />
 
-                <com.kang.resume.custom.info.InfoTitleView
-                    android:id="@+id/info_hobby"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:info_title="@string/hobby_info" />
+                    <com.kang.resume.custom.info.InfoTitleView
+                        android:id="@+id/info_education"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:info_title="@string/education_info" />
 
-                <com.kang.resume.custom.info.InfoTitleView
-                    android:id="@+id/info_evaluation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:info_title="@string/evaluation_info" />
+                    <com.kang.resume.custom.info.InfoTitleView
+                        android:id="@+id/info_work"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:info_title="@string/work_info" />
 
-                <TextView
-                    android:id="@+id/bt_delete_resume"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_30"
-                    android:layout_marginStart="@dimen/dp_50"
-                    android:layout_marginEnd="@dimen/dp_50"
-                    android:layout_marginBottom="@dimen/dp_30"
-                    android:background="@drawable/bt_red_5_press"
-                    android:gravity="center"
-                    android:padding="@dimen/dp_10"
-                    android:text="@string/delete_resume"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp_16"/>
+                    <com.kang.resume.custom.info.InfoTitleView
+                        android:id="@+id/info_project"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:info_title="@string/project_info" />
 
 
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+                    <com.kang.resume.custom.info.InfoTitleView
+                        android:id="@+id/info_skill"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:info_title="@string/skill_info" />
+
+                    <com.kang.resume.custom.info.InfoTitleView
+                        android:id="@+id/info_certificate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:info_title="@string/certificate_info" />
+
+                    <com.kang.resume.custom.info.InfoTitleView
+                        android:id="@+id/info_hobby"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:info_title="@string/hobby_info" />
+
+                    <com.kang.resume.custom.info.InfoTitleView
+                        android:id="@+id/info_evaluation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:info_title="@string/evaluation_info" />
+
+                    <TextView
+                        android:id="@+id/bt_delete_resume"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_30"
+                        android:layout_marginStart="@dimen/dp_50"
+                        android:layout_marginEnd="@dimen/dp_50"
+                        android:layout_marginBottom="@dimen/dp_30"
+                        android:background="@drawable/bt_red_5_press"
+                        android:gravity="center"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/delete_resume"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_16"/>
+
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

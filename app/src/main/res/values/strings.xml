@@ -14,6 +14,8 @@
     <string name="optional">（选填）</string>
 
     <string name="base_info">基本信息</string>
+    <string name="resume_name">简历名字</string>
+    <string name="hint_resume_name">请输入简历名字</string>
     <string name="avatar">头像</string>
     <string name="name">姓名</string>
     <string name="hint_name">请输入姓名</string>
@@ -139,6 +141,7 @@
     <string name="hint_hobby_info">请填写兴趣爱好</string>
 
     <string name="evaluation_info">自我评价</string>
+    <string name="hint_evaluation_info">请输入自我评价</string>
 
     <string name="mine">我的</string>
 

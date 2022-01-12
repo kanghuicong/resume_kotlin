@@ -29,23 +29,22 @@ import kotlinx.coroutines.withContext
  */
 class ResumeInfoModel : BaseViewModel() {
 
-    var resumeInfoList = EventMutableLiveData<List<ResumeInfoBean>>()
+    var resumeInfoList: ArrayList<ResumeInfoBean>? = arrayListOf()
     var index = 0
     var resumeInfo = EventMutableLiveData<ResumeInfoBean>()
 
     init {
-        resumeInfoList.value = ArrayList()
 
         if (ValuableConfig.resumeInfoList == null) {
-            queryResumeInfoList()
+            queryResumeInfoList(false)
         } else {
-            resumeInfoList.value = ValuableConfig.resumeInfoList
-            initResume()
+            resumeInfoList = ValuableConfig.resumeInfoList!!
+            initResume(false)
         }
     }
 
     //查询简历
-    fun queryResumeInfoList() {
+    fun queryResumeInfoList(isLast: Boolean) {
         viewModelScope.launch() {
             if (LocalDataUtils.geIsLogin())
                 launch(object : IViewModel<List<ResumeInfoBean>> {
@@ -55,11 +54,14 @@ class ResumeInfoModel : BaseViewModel() {
                 }, (object : IHttp<List<ResumeInfoBean>> {
                     override suspend fun success(data: List<ResumeInfoBean>?) {
                         withContext(Dispatchers.Main) {
-                            ValuableConfig.resumeInfoList = data
-//                            resumeInfoList.postValue(data)
+                            ValuableConfig.resumeInfoList = data as ArrayList<ResumeInfoBean>?
 
-                            resumeInfoList.value = data
-                            initResume()
+                            if (isLast) index = data?.size!! - 1
+                            for (position in data?.indices!!) {
+                                data[position].isClick = index == position
+                            }
+                            resumeInfoList = data
+                            initResume(isLast)
                         }
                     }
 
@@ -68,13 +70,25 @@ class ResumeInfoModel : BaseViewModel() {
         }
     }
 
-    private fun initResume() {
-        if (resumeInfoList.value != null && resumeInfoList.value!!.isNotEmpty()) {
-            if (index > resumeInfoList.value!!.size) {
+    private fun initResume(isLast: Boolean) {
+        if (resumeInfoList != null && resumeInfoList!!.isNotEmpty()) {
+
+
+            if (index >= resumeInfoList!!.size) {
                 index = 0
             }
-            resumeInfo.value = resumeInfoList.value!![index]
+            resumeInfo.value = resumeInfoList!![index]
         }
+    }
+
+    //切换简历
+    fun switchTag(position: Int) {
+        if (index == position) return
+        index = position
+        for (position in resumeInfoList?.indices!!) {
+            resumeInfoList!![position].isClick = index == position
+        }
+        initResume(false)
     }
 
     //新增一份简历
@@ -85,7 +99,7 @@ class ResumeInfoModel : BaseViewModel() {
             }
         }, (object : IHttp<Any> {
             override suspend fun success(data: Any?) {
-                queryResumeInfoList()
+                queryResumeInfoList(true)
             }
 
             override suspend fun failure(response: ApiResponse<Any>) {}
@@ -96,11 +110,12 @@ class ResumeInfoModel : BaseViewModel() {
     fun deleteResume() {
         launch(object : IViewModel<Any> {
             override suspend fun launch(): ApiResponse<Any> {
-                return HttpRequest.api().delResume(resumeInfoList.value!![index].resumeId!!)
+                return HttpRequest.api().delResume(resumeInfoList!![index].resumeId!!)
             }
         }, (object : IHttp<Any> {
             override suspend fun success(data: Any?) {
-                queryResumeInfoList()
+                index = 0
+                queryResumeInfoList(false)
             }
 
             override suspend fun failure(response: ApiResponse<Any>) {}
@@ -109,14 +124,14 @@ class ResumeInfoModel : BaseViewModel() {
 
     fun doRouter(router: String) {
         //该简历未创建成功
-        doRouter(router,null)
+        doRouter(router, null)
     }
 
 
     fun doRouter(router: String, from: String?) {
         //该简历未创建成功
         if (resumeInfo.value?.resumeId == null) {
-            queryResumeInfoList()
+            queryResumeInfoList(false)
         } else {
             if (from == null) {
                 RouterNavigation.doIntentActivity(

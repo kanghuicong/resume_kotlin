@@ -71,6 +71,7 @@
                     android:id="@+id/input_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:input_need_arrow="true"
                     app:input_hint="@string/hint_work_content"
                     app:input_title="@string/work_content" />
             </LinearLayout>

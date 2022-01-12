@@ -77,7 +77,7 @@ class MainViewModel : BaseViewModel() {
                     }
                 }, (object : IHttp<List<ResumeInfoBean>> {
                     override suspend fun success(data: List<ResumeInfoBean>?) {
-                        ValuableConfig.resumeInfoList = data
+                        ValuableConfig.resumeInfoList = data as ArrayList<ResumeInfoBean>?
                     }
 
                     override suspend fun failure(response: ApiResponse<List<ResumeInfoBean>>) {}

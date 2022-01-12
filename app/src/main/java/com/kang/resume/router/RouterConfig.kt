@@ -7,9 +7,16 @@ package com.kang.resume.router
 object RouterConfig {
     const val data = "data"
     const val otherData = "otherData"
+
     const val from = "from"
     const val CertificateFrom = "CertificateFrom"
     const val HobbyFrom = "HobbyFrom"
+
+    const val EducationFrom = "EducationFrom"
+    const val WorkFrom = "WorkFrom"
+    const val ProjectFrom = "ProjectFrom"
+    const val SelfEvaluationFrom = "SelfEvaluationFrom"
+
 
     const val LoginRouter = "/login/LoginActivity"
     const val MineSettingRouter = "/login/MineSettingActivity"
@@ -23,4 +30,5 @@ object RouterConfig {
 //    const val CertificateRouter = "/resume/CertificateActivity"
 //    const val HobbyRouter = "/resume/HobbyActivity"
     const val TagRouter = "/resume/TagActivity"
+    const val WriteRouter = "/resume/WriteActivity"
 }

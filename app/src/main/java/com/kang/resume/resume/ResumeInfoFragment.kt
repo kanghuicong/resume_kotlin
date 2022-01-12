@@ -2,18 +2,18 @@ package com.kang.resume.resume
 
 import android.view.View
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.kang.resume.R
+import com.kang.resume.adapter.IResumeClick
+import com.kang.resume.adapter.ResumeTagAdapter
 import com.kang.resume.base.BaseFragment
 import com.kang.resume.base.ViewModelProviderFactory
 import com.kang.resume.bean.*
 import com.kang.resume.custom.info.*
 import com.kang.resume.databinding.ResumeFragmentBinding
 import com.kang.resume.event.UpdateResumeLiveData
-import com.kang.resume.pro.ICallBack
 import com.kang.resume.pro.IClick
-import com.kang.resume.pro.IWidget
 import com.kang.resume.router.RouterConfig
-import com.kang.resume.router.RouterNavigation
 import com.lxj.xpopup.XPopup
 import kotlinx.coroutines.launch
 
@@ -24,16 +24,20 @@ import kotlinx.coroutines.launch
  */
 class ResumeInfoFragment : BaseFragment<ResumeFragmentBinding, ResumeInfoModel>() {
 
+    var list: ArrayList<ResumeInfoBean>? = ArrayList()
+    lateinit var adapter: ResumeTagAdapter
+
     override fun initLayout(): Int {
         return R.layout.resume_fragment
     }
 
     override fun initViewCreated(view: View) {
 
+        //监听简历更新
         UpdateResumeLiveData.getInstance().observe(this, {
             mVm.viewModelScope.launch {
                 if (it) {
-                    mVm.queryResumeInfoList()
+                    mVm.queryResumeInfoList(false)
                 }
             }
         })
@@ -118,7 +122,7 @@ class ResumeInfoFragment : BaseFragment<ResumeFragmentBinding, ResumeInfoModel>(
         //自我评价
         mBinding.infoEvaluation.iClick = (object : IClick {
             override fun click(view: View) {
-
+                mVm.doRouter(RouterConfig.WriteRouter, RouterConfig.SelfEvaluationFrom)
             }
         })
 
@@ -127,7 +131,48 @@ class ResumeInfoFragment : BaseFragment<ResumeFragmentBinding, ResumeInfoModel>(
         //更新卡片数据
         mVm.resumeInfo.observe(this, {
             initAllData(it)
+            initList()
+            adapter.notifyDataSetChanged()
         })
+
+
+
+        initList()
+
+        mBinding.rvResume.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        mVm.resumeInfoList?.get(mVm.index)?.isClick = true
+        adapter = ResumeTagAdapter(activity, list, R.layout.item_resume_tag)
+        //切换简历
+        adapter.iResumeClick = (object : IResumeClick {
+            override fun click(position: Int) {
+                mVm.switchTag(position)
+            }
+
+            override fun add() {
+                mVm.createResume()
+            }
+        })
+        mBinding.rvResume.adapter = adapter
+
+
+    }
+
+    //添加加号
+    private fun initList() {
+        if (list != null) {
+            list!!.clear()
+            list!!.addAll(mVm.resumeInfoList!!)
+        } else {
+            list = mVm.resumeInfoList
+        }
+
+        if (list != null) {
+            if (list!!.size < 3) {
+                val resumeInfoBean = ResumeInfoBean(resumeId = -1)
+                list!!.add(resumeInfoBean)
+            }
+        }
     }
 
 
@@ -135,6 +180,7 @@ class ResumeInfoFragment : BaseFragment<ResumeFragmentBinding, ResumeInfoModel>(
     private fun initAllData(resumeInfoBean: ResumeInfoBean?) {
         if (resumeInfoBean == null) return
 
+        resumeInfoBean.baseInfo?.resumeName = resumeInfoBean.resumeName
         mVm.initData(mBinding.infoBase, BaseInfoWidget(activity), resumeInfoBean.baseInfo)
         mBinding.infoBase.showAddImg(resumeInfoBean.baseInfo == null)
 
@@ -176,7 +222,12 @@ class ResumeInfoFragment : BaseFragment<ResumeFragmentBinding, ResumeInfoModel>(
         mVm.initData(mBinding.infoCertificate, TagWidget(activity), resumeInfoBean.certificates)
         mVm.initData(mBinding.infoHobby, TagWidget(activity), resumeInfoBean.hobbies)
 
-
+        mVm.initData(
+            mBinding.infoEvaluation,
+            SelfEvaluationWidget(activity, mVm.resumeInfo.value),
+            resumeInfoBean.selfEvaluation
+        )
+        mBinding.infoEvaluation.showAddImg(resumeInfoBean.selfEvaluation.isNullOrEmpty())
     }
 
 

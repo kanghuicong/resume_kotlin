@@ -84,7 +84,8 @@
                     android:layout_height="wrap_content"
                     app:input_hint="@string/hint_education_experience"
                     app:input_title="@string/experience_at_school"
-                    app:is_optional="true" />
+                    app:is_optional="true"
+                    app:input_need_arrow="true"/>
 
 
                 <TextView

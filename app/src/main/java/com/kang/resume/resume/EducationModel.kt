@@ -52,4 +52,5 @@ class EducationModel(resumeInfoBean: ResumeInfoBean?, educationBean: EducationBe
         endTimeDefaultDate = switchTime(endTimeDefaultDate,  this.educationBean.endTime)
 
     }
+
 }

@@ -40,6 +40,13 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+                <com.kang.resume.custom.info.InputView
+                    android:id="@+id/input_resume_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:input_hint="@string/hint_resume_name"
+                    app:input_title="@string/resume_name" />
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_avatar"
                     android:layout_width="match_parent"

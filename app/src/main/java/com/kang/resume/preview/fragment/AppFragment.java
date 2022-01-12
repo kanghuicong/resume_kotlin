@@ -38,7 +38,10 @@ public class AppFragment extends BaseFragment {
     @Override
     protected void init(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         list = (List<ResumeInfoBean>) getArguments().getSerializable("list");
-        list.get(0).setClick(true);
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).setClick(i == 0);
+        }
+
 
         LinearLayoutManager mLayoutManager =
                 new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
@@ -47,7 +50,7 @@ public class AppFragment extends BaseFragment {
         AppAdapter appAdapter = new AppAdapter(activity, list);
         rvApp.setAdapter(appAdapter);
 
-        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams)rvApp.getLayoutParams();
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) rvApp.getLayoutParams();
         lp.height = RxDeviceTool.getScreenWidth(activity) / 4;
         rvApp.setLayoutParams(lp);
     }

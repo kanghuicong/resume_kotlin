@@ -8,5 +8,5 @@ import com.kang.resume.bean.ResumeInfoBean
  */
 object ValuableConfig {
 
-    var resumeInfoList: List<ResumeInfoBean>? = null
+    var resumeInfoList: ArrayList<ResumeInfoBean>? = null
 }

@@ -2,7 +2,6 @@ package com.kang.resume.event
 
 import androidx.lifecycle.MutableLiveData
 import com.kang.resume.bean.UserInfoBean
-import com.kang.resume.utils.DataStoreUtils
 
 /**
  * 类描述：

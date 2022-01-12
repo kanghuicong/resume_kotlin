@@ -37,12 +37,15 @@ import java.util.*
 class BaseInfoActivity : BaseActivity<ResumeBaseInfoActivityBinding, BaseInfoModel>() {
 
     override fun ResumeBaseInfoActivityBinding.initBinding() {
+        //简历名字设置长度
+        mBinding.inputResumeName.setLength(10)
         //手机号设置长度
         mBinding.inputPhone.setLength(11)
         //身高设置长度
         mBinding.inputHeight.setLength(3)
         //体重设置长度
         mBinding.inputWeight.setLength(3)
+
 
         //选择头像
         mBinding.clAvatar.setOnClickListener {
@@ -212,7 +215,8 @@ class BaseInfoActivity : BaseActivity<ResumeBaseInfoActivityBinding, BaseInfoMod
                     phone = mBinding.inputPhone.getText(),
                     politicalStatus = mBinding.inputPoliticalStatus.getText(),
                     province = mBinding.inputProvince.getText(),
-                    startWorkTime = mBinding.inputStartWorkTime.getText()
+                    startWorkTime = mBinding.inputStartWorkTime.getText(),
+                    resumeName = mBinding.inputResumeName.getText()
                 )
 
                 mVm.keep(object : IKeep {
@@ -225,7 +229,7 @@ class BaseInfoActivity : BaseActivity<ResumeBaseInfoActivityBinding, BaseInfoMod
 
         //删除
         mBinding.btDelete.setOnClickListener {
-            mVm.delete(activity,object : IDelete {
+            mVm.delete(activity, object : IDelete {
                 override suspend fun delete(): ApiResponse<Any> {
                     return HttpRequest.api().delBaseInfo(mVm.baseInfoBean.resumeId!!)
                 }
@@ -250,14 +254,17 @@ class BaseInfoActivity : BaseActivity<ResumeBaseInfoActivityBinding, BaseInfoMod
         mBinding.vm =
             ViewModelProviderFactory.getViewModel(
                 activity,
-                BaseInfoModel(resumeInfoBean,baseInfoBean)
+                BaseInfoModel(resumeInfoBean, baseInfoBean)
             )
         return mBinding.vm!!
     }
 
     //填入数据
     private fun initData(baseInfo: BaseInfoBean?) {
+
         if (baseInfo != null) {
+            mBinding.inputResumeName.setInput(baseInfo.resumeName)
+
             mBinding.inputName.setInput(baseInfo.name)
             mBinding.inputEmail.setInput(baseInfo.email)
             mBinding.inputStartWorkTime.setInput(baseInfo.startWorkTime)
@@ -269,8 +276,8 @@ class BaseInfoActivity : BaseActivity<ResumeBaseInfoActivityBinding, BaseInfoMod
             mBinding.inputPoliticalStatus.setInput(baseInfo.politicalStatus)
             mBinding.inputNation.setInput(baseInfo.nation)
             mBinding.inputProvince.setInput(baseInfo.province)
-            mBinding.inputHeight.setInput(baseInfo.height.toString())
-            mBinding.inputWeight.setInput(baseInfo.weight.toString())
+            mBinding.inputHeight.setInput(baseInfo.height)
+            mBinding.inputWeight.setInput(baseInfo.weight)
         }
     }
 

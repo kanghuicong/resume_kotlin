@@ -111,4 +111,14 @@ interface ApiService {
     suspend fun delHobby(@Path("hobbyId") hobbyId: Int): ApiResponse<Any>
 
 
+    //新增或编辑自我评价
+    @POST("/resume/saveOrUpdateSelfEvaluation")
+    suspend fun saveOrUpdateSelfEvaluation(@Body selfEvaluationBean: SelfEvaluationBean): ApiResponse<Any>
+
+    //删除自我评价
+    @POST("/resume/delSelfEvaluation/{resumeId}")
+    suspend fun delSelfEvaluation(@Path("resumeId") resumeId: Int): ApiResponse<Any>
+
+
+
 }

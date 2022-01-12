@@ -10,12 +10,14 @@ import com.kang.resume.bean.ProjectBean
 import com.kang.resume.bean.ResumeInfoBean
 import com.kang.resume.databinding.ResumeJobActivityBinding
 import com.kang.resume.databinding.ResumeProjectActivityBinding
+import com.kang.resume.event.WriteLiveData
 import com.kang.resume.http.ApiResponse
 import com.kang.resume.http.HttpRequest
 import com.kang.resume.pro.IClick
 import com.kang.resume.resume.base.IDelete
 import com.kang.resume.resume.base.IKeep
 import com.kang.resume.router.RouterConfig
+import com.kang.resume.router.RouterNavigation
 import com.kang.resume.utils.VerifyUtils
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopupext.listener.TimePickerListener
@@ -87,6 +89,27 @@ class ProjectActivity : BaseActivity<ResumeProjectActivityBinding, ProjectModel>
                     ).show()
             }
         })
+
+        //项目描述
+        mBinding.inputDescription.iClick = (object : IClick {
+            override fun click(view: View) {
+                RouterNavigation.doIntentActivity(
+                    RouterConfig.WriteRouter,
+                    RouterConfig.ProjectFrom,
+                    null,
+                    mBinding.inputDescription.getText()
+                )
+            }
+        })
+
+        WriteLiveData.getInstance().observe(activity, {
+            if (it.from == RouterConfig.ProjectFrom){
+                mBinding.inputDescription.setInput(it.content)
+                finish()
+            }
+        })
+
+
         //保存
         mBinding.titleView.iClick = (object : IClick {
             override fun click(view: View) {

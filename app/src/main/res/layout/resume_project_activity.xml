@@ -84,6 +84,7 @@
                     android:id="@+id/input_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:input_need_arrow="true"
                     app:input_hint="@string/hint_project_description"
                     app:input_title="@string/project_description" />
 

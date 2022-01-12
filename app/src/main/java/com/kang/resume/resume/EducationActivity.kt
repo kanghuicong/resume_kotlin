@@ -1,6 +1,7 @@
 package com.kang.resume.resume
 
 import android.view.View
+import androidx.lifecycle.viewModelScope
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.kang.resume.R
 import com.kang.resume.base.BaseActivity
@@ -8,17 +9,21 @@ import com.kang.resume.base.ViewModelProviderFactory
 import com.kang.resume.bean.EducationBean
 import com.kang.resume.bean.ResumeInfoBean
 import com.kang.resume.databinding.ResumeEdcationActivityBinding
+import com.kang.resume.event.LoginLiveData
+import com.kang.resume.event.WriteLiveData
 import com.kang.resume.http.ApiResponse
 import com.kang.resume.http.HttpRequest
 import com.kang.resume.pro.IClick
 import com.kang.resume.resume.base.IDelete
 import com.kang.resume.resume.base.IKeep
 import com.kang.resume.router.RouterConfig
+import com.kang.resume.router.RouterNavigation
 import com.kang.resume.utils.VerifyUtils
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopupext.listener.TimePickerListener
 import com.lxj.xpopupext.popup.TimePickerPopup
 import com.vondear.rxtool.view.RxToast
+import kotlinx.coroutines.launch
 import java.util.*
 
 /**
@@ -116,6 +121,23 @@ class EducationActivity : BaseActivity<ResumeEdcationActivityBinding, EducationM
             }
         })
 
+        //在校经历
+        mBinding.inputExperience.iClick = (object : IClick {
+            override fun click(view: View) {
+                RouterNavigation.doIntentActivity(
+                    RouterConfig.WriteRouter,
+                    RouterConfig.EducationFrom,
+                    null,
+                    mBinding.inputExperience.getText()
+                )
+            }
+        })
+        WriteLiveData.getInstance().observe(activity, {
+            if (it.from == RouterConfig.EducationFrom){
+                mBinding.inputExperience.setInput(it.content)
+            }
+        })
+
         //保存
         mBinding.titleView.iClick = (object : IClick {
             override fun click(view: View) {
@@ -146,7 +168,7 @@ class EducationActivity : BaseActivity<ResumeEdcationActivityBinding, EducationM
 
         //删除
         mBinding.btDelete.setOnClickListener {
-            mVm.delete(activity,object : IDelete {
+            mVm.delete(activity, object : IDelete {
                 override suspend fun delete(): ApiResponse<Any> {
                     return HttpRequest.api().delEducation(mVm.educationBean.educationId!!)
                 }
@@ -164,7 +186,7 @@ class EducationActivity : BaseActivity<ResumeEdcationActivityBinding, EducationM
         mBinding.vm =
             ViewModelProviderFactory.getViewModel(
                 activity,
-                EducationModel(resumeInfoBean,educationBean)
+                EducationModel(resumeInfoBean, educationBean)
             )
         return mBinding.vm!!
     }
