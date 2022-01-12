@@ -33,6 +33,8 @@ class BaseInfoModel(resumeInfoBean: ResumeInfoBean?,baseInfo: BaseInfoBean?) : B
     //参加工作时间 弹窗默认数据
     var startWorkTimeDefaultDate: Calendar = Calendar.getInstance()
 
+    var recordIndex = EventMutableLiveData<Int>()
+
     var baseInfoBean = BaseInfoBean(null, null)
 
     init {
@@ -53,6 +55,20 @@ class BaseInfoModel(resumeInfoBean: ResumeInfoBean?,baseInfo: BaseInfoBean?) : B
             else -> genderIndex.value = -1
         }
 
+        //数据处理
+        when (this.baseInfoBean.record) {
+            getString(R.string.junior_high_school) -> recordIndex.value = 0
+            getString(R.string.high_school) -> recordIndex.value = 1
+            getString(R.string.technical_secondary_school) -> recordIndex.value = 2
+            getString(R.string.junior_college) -> recordIndex.value = 3
+            getString(R.string.undergraduate) -> recordIndex.value = 4
+            getString(R.string.master) -> recordIndex.value = 5
+            getString(R.string.doctor) -> recordIndex.value = 6
+            getString(R.string.postdoc) -> recordIndex.value = 7
+            getString(R.string.other) -> recordIndex.value = 8
+            else -> recordIndex.value = -1
+        }
+
         when (baseInfoBean.marryStatus) {
             getString(R.string.marry_status_unmarried) -> marryIndex.value = 0
             getString(R.string.marry_status_married) -> marryIndex.value = 1
@@ -69,6 +85,8 @@ class BaseInfoModel(resumeInfoBean: ResumeInfoBean?,baseInfo: BaseInfoBean?) : B
             getString(R.string.political_status_others) -> politicalIndex.value = 5
             else -> politicalIndex.value = -1
         }
+
+
 
 
         birthdayDefaultDate = switchTime(birthdayDefaultDate, baseInfoBean.birthday)

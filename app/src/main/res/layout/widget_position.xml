@@ -12,47 +12,91 @@
 
         <TextView
             android:id="@+id/tv_position"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/black4A"
-            android:textSize="@dimen/sp_20"
+            android:textSize="@dimen/sp_16"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ll_salary"/>
 
-
-        <TextView
-            android:id="@+id/tv_salary"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/ll_salary"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_20"
-            android:textColor="@color/black4A"
-            android:textSize="@dimen/sp_14"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="@+id/tv_position"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_position"
-            app:layout_constraintTop_toTopOf="@+id/tv_position" />
+            app:layout_constraintTop_toTopOf="@+id/tv_position" >
+
+            <ImageView
+                android:layout_width="@dimen/dp_18"
+                android:layout_height="@dimen/dp_18"
+                android:layout_marginEnd="@dimen/dp_3"
+                android:background="@mipmap/icon_salary"/>
+
+            <TextView
+                android:id="@+id/tv_salary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black66"
+                android:textSize="@dimen/sp_14" />
+
+        </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/tv_city"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/ll_city"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
-            android:textColor="@color/black4A"
-            android:textSize="@dimen/sp_14"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@+id/ll_time"
             app:layout_constraintStart_toStartOf="@+id/tv_position"
-            app:layout_constraintTop_toBottomOf="@+id/tv_position" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_position" >
 
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:layout_width="@dimen/dp_18"
+                android:layout_height="@dimen/dp_18"
+                android:layout_marginEnd="@dimen/dp_3"
+                android:background="@mipmap/icon_address"/>
+
+            <TextView
+                android:id="@+id/tv_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black66"
+                android:textSize="@dimen/sp_14" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_time"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_20"
-            android:textColor="@color/black4A"
-            android:textSize="@dimen/sp_14"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_city"
-            app:layout_constraintStart_toEndOf="@+id/tv_city"
-            app:layout_constraintTop_toTopOf="@+id/tv_city" />
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/ll_city"
+            app:layout_constraintStart_toEndOf="@+id/ll_city"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ll_city" >
+
+            <ImageView
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_3"
+                android:background="@mipmap/icon_time"/>
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black66"
+                android:textSize="@dimen/sp_14" />
+
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

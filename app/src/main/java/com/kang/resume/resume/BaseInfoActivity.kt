@@ -113,6 +113,35 @@ class BaseInfoActivity : BaseActivity<ResumeBaseInfoActivityBinding, BaseInfoMod
                     ).show()
             }
         })
+        //选择学历
+        mBinding.inputRecord.iClick = (object : IClick {
+            override fun click(view: View) {
+                XPopup.Builder(activity)
+                    .isDestroyOnDismiss(true)
+                    .asBottomList(
+                        getString(R.string.record),
+                        arrayOf(
+                            getString(R.string.junior_high_school),
+                            getString(R.string.high_school),
+                            getString(R.string.technical_secondary_school),
+                            getString(R.string.junior_college),
+                            getString(R.string.undergraduate),
+                            getString(R.string.master),
+                            getString(R.string.doctor),
+                            getString(R.string.postdoc),
+                            getString(R.string.other),
+                        ),
+                        null,
+                        mVm.recordIndex.value!!
+                    ) { position,
+                        text ->
+                        run {
+                            mVm.recordIndex.value = position
+                            mBinding.inputRecord.setInput(text)
+                        }
+                    }.show()
+            }
+        })
         //选择参加工作时间
         mBinding.inputStartWorkTime.iClick = (object : IClick {
             override fun click(view: View) {
@@ -216,6 +245,7 @@ class BaseInfoActivity : BaseActivity<ResumeBaseInfoActivityBinding, BaseInfoMod
                     politicalStatus = mBinding.inputPoliticalStatus.getText(),
                     province = mBinding.inputProvince.getText(),
                     startWorkTime = mBinding.inputStartWorkTime.getText(),
+                    record = mBinding.inputRecord.getText(),
                     resumeName = mBinding.inputResumeName.getText()
                 )
 
@@ -264,13 +294,13 @@ class BaseInfoActivity : BaseActivity<ResumeBaseInfoActivityBinding, BaseInfoMod
 
         if (baseInfo != null) {
             mBinding.inputResumeName.setInput(baseInfo.resumeName)
-
             mBinding.inputName.setInput(baseInfo.name)
             mBinding.inputEmail.setInput(baseInfo.email)
             mBinding.inputStartWorkTime.setInput(baseInfo.startWorkTime)
             mBinding.inputBirthday.setInput(baseInfo.birthday)
             mBinding.inputPhone.setInput(baseInfo.phone)
             mBinding.inputGender.setInput(baseInfo.gender)
+            mBinding.inputRecord.setInput(baseInfo.record)
             mBinding.inputAddress.setInput(baseInfo.address)
             mBinding.inputMarryStatus.setInput(baseInfo.marryStatus)
             mBinding.inputPoliticalStatus.setInput(baseInfo.politicalStatus)

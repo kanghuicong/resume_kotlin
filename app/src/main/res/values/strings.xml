@@ -122,6 +122,7 @@
     <string name="project_description">项目描述</string>
     <string name="hint_project_description">请输入项目描述</string>
     <string name="project_url">项目链接</string>
+    <string name="project_url_">项目链接:</string>
     <string name="hint_project_url">请输入项目链接</string>
 
     <string name="skill_info">专业技能</string>

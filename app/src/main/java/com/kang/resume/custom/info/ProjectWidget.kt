@@ -18,8 +18,9 @@ import com.kang.resume.router.RouterNavigation
  * 类描述：
  * author:kanghuicong
  */
-class ProjectWidget (
+class ProjectWidget(
     context: Context,
+    var isLast: Boolean = false,
     attrs: AttributeSet? = null
 ) : ConstraintLayout(context, attrs), IWidget<ProjectBean> {
 
@@ -34,28 +35,27 @@ class ProjectWidget (
         if (data != null) {
             this.visibility = View.VISIBLE
 
-
             //项目名称
             if (data.projectName != "") {
-                vb.tvProject.visibility = View.VISIBLE
+                vb.llProject.visibility = View.VISIBLE
                 vb.tvProject.text = data.projectName
             } else {
-                vb.tvProject.visibility = View.GONE
+                vb.llProject.visibility = View.GONE
             }
             //公司
             if (data.company != "") {
-                vb.tvCompany.visibility = View.VISIBLE
+                vb.llCompany.visibility = View.VISIBLE
                 vb.tvCompany.text = data.company
             } else {
-                vb.tvCompany.visibility = View.GONE
+                vb.llCompany.visibility = View.GONE
             }
 
             //时间
             if (data.startTime != "" && data.endTime != "") {
-                vb.tvTime.visibility = VISIBLE
+                vb.llTime.visibility = VISIBLE
                 vb.tvTime.text = data.startTime + ValueConfig.space + data.endTime
             } else {
-                vb.tvTime.visibility = GONE
+                vb.llTime.visibility = GONE
             }
 
             //项目描述
@@ -68,11 +68,16 @@ class ProjectWidget (
 
             //链接
             if (data.url != "") {
-                vb.tvUrl.visibility = VISIBLE
+                vb.llUrl.visibility = VISIBLE
                 vb.tvUrl.text = data.url
             } else {
-                vb.tvUrl.visibility = GONE
+                vb.llUrl.visibility = GONE
             }
+
+            if (isLast) {
+                vb.line.visibility = GONE
+            } else vb.line.visibility = VISIBLE
+
 
             this.setOnClickListener {
                 RouterNavigation.doIntentActivity(
@@ -81,7 +86,7 @@ class ProjectWidget (
                     data
                 )
             }
-        }else {
+        } else {
             this.visibility = GONE
         }
     }

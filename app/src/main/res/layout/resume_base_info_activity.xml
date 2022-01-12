@@ -150,6 +150,13 @@
                         app:input_hint="@string/hint_email"
                         app:input_title="@string/email" />
 
+                    <com.kang.resume.custom.info.InputView
+                        android:id="@+id/input_record"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:input_need_arrow="true"
+                        app:input_hint="@string/hint_record_record"
+                        app:input_title="@string/record" />
 
                     <com.kang.resume.custom.info.InputView
                         android:id="@+id/input_start_work_time"

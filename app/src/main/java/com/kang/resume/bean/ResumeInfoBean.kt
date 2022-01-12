@@ -42,6 +42,7 @@ data class BaseInfoBean(
     @SerializedName("politicalStatus") var politicalStatus: String = "",
     @SerializedName("province") var province: String = "",
     @SerializedName("startWorkTime") var startWorkTime: String = "",
+    @SerializedName("record") var record: String = "",
     var resumeName: String = ""
 ) : Serializable
 

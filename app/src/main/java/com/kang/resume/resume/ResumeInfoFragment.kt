@@ -141,7 +141,9 @@ class ResumeInfoFragment : BaseFragment<ResumeFragmentBinding, ResumeInfoModel>(
 
         mBinding.rvResume.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        mVm.resumeInfoList?.get(mVm.index)?.isClick = true
+        if (mVm.resumeInfoList?.size!! > 0) {
+            mVm.resumeInfoList?.get(mVm.index)?.isClick = true
+        }
         adapter = ResumeTagAdapter(activity, list, R.layout.item_resume_tag)
         //切换简历
         adapter.iResumeClick = (object : IResumeClick {
@@ -188,25 +190,28 @@ class ResumeInfoFragment : BaseFragment<ResumeFragmentBinding, ResumeInfoModel>(
         mBinding.infoJob.showAddImg(resumeInfoBean.jobIntention == null)
 
         val educationViews = ArrayList<View>()
-        for (education: EducationBean in resumeInfoBean.educations!!) {
-            val iWidget = EducationWidget(activity)
-            iWidget.setData(education)
+        for (index in resumeInfoBean.educations!!.indices) {
+            val iWidget =
+                EducationWidget(activity, index == resumeInfoBean.educations!!.indices.last)
+            iWidget.setData(resumeInfoBean.educations!![index])
             educationViews.add(iWidget.getView())
         }
+
         mBinding.infoEducation.setChildView(educationViews)
 
         val workViews = ArrayList<View>()
-        for (work: WorkExperienceBean in resumeInfoBean.workExperiences!!) {
-            val iWidget = WorkWidget(activity)
-            iWidget.setData(work)
+        for (index in resumeInfoBean.workExperiences!!.indices) {
+            val iWidget =
+                WorkWidget(activity, index == resumeInfoBean.workExperiences!!.indices.last)
+            iWidget.setData(resumeInfoBean.workExperiences!![index])
             workViews.add(iWidget.getView())
         }
         mBinding.infoWork.setChildView(workViews)
 
         val projectViews = ArrayList<View>()
-        for (project: ProjectBean in resumeInfoBean.projects!!) {
-            val iWidget = ProjectWidget(activity)
-            iWidget.setData(project)
+        for (index in resumeInfoBean.projects!!.indices) {
+            val iWidget = ProjectWidget(activity, index == resumeInfoBean.projects!!.indices.last)
+            iWidget.setData(resumeInfoBean.projects!![index])
             projectViews.add(iWidget.getView())
         }
         mBinding.infoProject.setChildView(projectViews)

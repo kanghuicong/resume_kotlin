@@ -22,6 +22,7 @@ import com.kang.resume.router.RouterNavigation
  */
 class WorkWidget(
     context: Context,
+    var isLast: Boolean = false,
     attrs: AttributeSet? = null
 ) : ConstraintLayout(context, attrs), IWidget<WorkExperienceBean> {
 
@@ -37,26 +38,26 @@ class WorkWidget(
             this.visibility = View.VISIBLE
             //公司
             if (data.company != "") {
-                vb.tvCompany.visibility = View.VISIBLE
+                vb.llCompany.visibility = View.VISIBLE
                 vb.tvCompany.text = data.company
             } else {
-                vb.tvCompany.visibility = View.GONE
+                vb.llCompany.visibility = View.GONE
             }
 
             //职位
             if (data.position != "") {
-                vb.tvPosition.visibility = View.VISIBLE
+                vb.llPosition.visibility = View.VISIBLE
                 vb.tvPosition.text = data.position
             } else {
-                vb.tvPosition.visibility = View.GONE
+                vb.llPosition.visibility = View.GONE
             }
 
             //时间
             if (data.startTime != "" && data.endTime != "") {
-                vb.tvTime.visibility = VISIBLE
+                vb.llTime.visibility = VISIBLE
                 vb.tvTime.text = data.startTime + ValueConfig.space + data.endTime
             } else {
-                vb.tvTime.visibility = GONE
+                vb.llTime.visibility = GONE
             }
 
             //工作内容
@@ -67,6 +68,12 @@ class WorkWidget(
                 vb.tvDetail.visibility = GONE
             }
 
+
+            if (isLast) {
+                vb.line.visibility = GONE
+            } else vb.line.visibility = VISIBLE
+
+
             this.setOnClickListener {
                 RouterNavigation.doIntentActivity(
                     RouterConfig.WorkRouter,
@@ -74,7 +81,7 @@ class WorkWidget(
                     data
                 )
             }
-        }else {
+        } else {
             this.visibility = GONE
         }
     }

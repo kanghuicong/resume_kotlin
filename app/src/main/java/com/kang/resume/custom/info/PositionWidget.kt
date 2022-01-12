@@ -45,26 +45,26 @@ class PositionWidget(
 
             //期望薪资
             if (data.salary != "") {
-                vb.tvSalary.visibility = View.VISIBLE
+                vb.llSalary.visibility = View.VISIBLE
                 vb.tvSalary.text = data.salary
             } else {
-                vb.tvSalary.visibility = View.GONE
+                vb.llSalary.visibility = View.GONE
             }
 
             //期望城市
             if (data.city != "") {
-                vb.tvCity.visibility = View.VISIBLE
+                vb.llCity.visibility = View.VISIBLE
                 vb.tvCity.text = data.city
             } else {
-                vb.tvCity.visibility = View.GONE
+                vb.llCity.visibility = View.GONE
             }
 
             //到岗时间
             if (data.entryTime != "") {
-                vb.tvTime.visibility = View.VISIBLE
+                vb.llTime.visibility = View.VISIBLE
                 vb.tvTime.text = data.entryTime
             } else {
-                vb.tvTime.visibility = View.GONE
+                vb.llTime.visibility = View.GONE
             }
         } else {
             this.visibility = View.GONE

@@ -22,6 +22,7 @@ import com.kang.resume.router.RouterNavigation
  */
 class EducationWidget(
     context: Context,
+    var isLast: Boolean = false,
     attrs: AttributeSet? = null
 ) : ConstraintLayout(context, attrs), IWidget<EducationBean> {
 
@@ -39,26 +40,26 @@ class EducationWidget(
 
             //学校
             if (data.school != "") {
-                vb.tvSchool.visibility = VISIBLE
+                vb.llSchool.visibility = VISIBLE
                 vb.tvSchool.text = data.school
             } else {
-                vb.tvSchool.visibility = GONE
+                vb.llSchool.visibility = GONE
             }
 
             //专业
             if (data.major != "") {
-                vb.tvMajor.visibility = VISIBLE
+                vb.llMajor.visibility = VISIBLE
                 vb.tvMajor.text = data.major
             } else {
-                vb.tvMajor.visibility = GONE
+                vb.llMajor.visibility = GONE
             }
 
             //时间
             if (data.startTime != "" && data.endTime != "") {
-                vb.tvTime.visibility = VISIBLE
+                vb.llTime.visibility = VISIBLE
                 vb.tvTime.text = data.startTime + ValueConfig.space + data.endTime
             } else {
-                vb.tvTime.visibility = GONE
+                vb.llTime.visibility = GONE
             }
 
             //经验
@@ -68,17 +69,24 @@ class EducationWidget(
             } else {
                 vb.tvDetail.visibility = GONE
             }
+
+            this.setOnClickListener {
+                RouterNavigation.doIntentActivity(
+                    RouterConfig.EducationRouter,
+                    null,
+                    data
+                )
+            }
+
+            if (isLast) {
+                vb.line.visibility = GONE
+            } else vb.line.visibility = VISIBLE
+
         } else {
             this.visibility = GONE
         }
 
-        this.setOnClickListener {
-            RouterNavigation.doIntentActivity(
-                RouterConfig.EducationRouter,
-                null,
-                data
-            )
-        }
+
     }
 
     override fun getView(): View {
