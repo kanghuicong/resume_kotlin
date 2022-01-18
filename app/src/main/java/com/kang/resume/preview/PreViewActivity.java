@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,10 @@ import com.kang.resume.bean.ResumeInfoBean;
 ;
 import com.kang.resume.custom.ExportDialog;
 import com.kang.resume.custom.ISave;
+import com.kang.resume.http.ApiResponse;
+import com.kang.resume.http.ApiService;
+import com.kang.resume.http.HttpRequest;
+import com.kang.resume.http.RetrofitClient;
 import com.kang.resume.preview.adapter.ExportTagAdapter;
 import com.kang.resume.preview.adapter.MyPageAdapter;
 import com.kang.resume.preview.bean.AddCoverEvent;
@@ -56,6 +61,7 @@ import com.kang.resume.preview.utils.Config;
 import com.kang.resume.preview.utils.PreviewUtils;
 import com.kang.resume.preview.utils.SaveUtils;
 import com.kang.resume.preview.utils.ShareFileUtils;
+import com.kang.resume.pro.IHttp;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BasePopupView;
 import com.lxj.xpopup.impl.LoadingPopupView;
@@ -76,6 +82,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+
+import kotlin.Unit;
+import kotlin.coroutines.Continuation;
 
 
 /**
@@ -648,7 +657,8 @@ public class PreViewActivity extends FragmentActivity implements View.OnClickLis
 
     }
 
-    private boolean isVip() {
+    private <T> boolean isVip() {
+
         return true;
     }
 

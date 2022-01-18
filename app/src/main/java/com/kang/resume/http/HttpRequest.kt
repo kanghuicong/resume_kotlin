@@ -20,16 +20,19 @@ import java.net.UnknownHostException
 object HttpRequest {
     var apiService: ApiService? = null
 
+    @JvmStatic
     suspend fun api(): ApiService {
         if (apiService == null) newApi()
         return apiService!!
     }
 
+    @JvmStatic
     suspend fun newApi() {
         apiService = RetrofitClient.getService(ApiService::class.java)
     }
 
     //发起请求
+    @JvmStatic
     suspend inline fun <T> doHttp(
         crossinline call: suspend CoroutineScope.() -> ApiResponse<T>,
         iHttp: IHttp<T>?
