@@ -60,7 +60,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:input_hint="@string/hint_education_major"
-                    app:input_title="@string/major" />
+                    app:input_title="@string/major"
+                    app:is_optional="true" />
 
                 <com.kang.resume.custom.info.InputView
                     android:id="@+id/input_start_time"
@@ -83,9 +84,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:input_hint="@string/hint_education_experience"
+                    app:input_need_arrow="true"
                     app:input_title="@string/experience_at_school"
-                    app:is_optional="true"
-                    app:input_need_arrow="true"/>
+                    app:is_optional="true" />
 
 
                 <TextView

@@ -15,6 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.kang.resume.R;
 import com.kang.resume.base.ValueConfig;
 import com.kang.resume.bean.BaseInfoBean;
 import com.kang.resume.bean.ResumeInfoBean;
@@ -26,10 +30,11 @@ import com.kang.resume.preview.adapter.InfoAdapter1;
 import com.kang.resume.preview.pro.IAdapter;
 import com.kang.resume.preview.pro.IItem;
 import com.kang.resume.preview.pro.ITitle;
-import com.kang.resume.preview.qiniu.QiniuUtils;
+
 import com.kang.resume.preview.utils.Config;
 import com.kang.resume.preview.utils.GlideUtils;
 import com.kang.resume.preview.utils.TextEmptyUtil;
+import com.kang.resume.utils.SwitchUtils;
 import com.vondear.rxtool.view.RxToast;
 
 import java.lang.reflect.Constructor;
@@ -163,35 +168,38 @@ public class BaseItemView extends LinearLayout implements IItem {
         getPersonalInfo("性\u3000\u3000别：", infoBean.getGender());
         getPersonalInfo("邮\u3000\u3000箱：", infoBean.getEmail());
         getPersonalInfo("出生日期：", infoBean.getBirthday());
-        getPersonalInfo("工作经验：", infoBean.getStartWorkTime());
+        getPersonalInfo("工作经验：", SwitchUtils.switchYear(infoBean.getStartWorkTime())+"年");
         getPersonalInfo("住\u3000\u3000址：", infoBean.getAddress());
         getPersonalInfo("婚姻状况：", infoBean.getMarryStatus());
         getPersonalInfo("政治面貌：", infoBean.getPoliticalStatus());
         getPersonalInfo("民\u3000\u3000族：", infoBean.getNation());
         getPersonalInfo("籍\u3000\u3000贯：", infoBean.getProvince());
-        getPersonalInfo("身\u3000\u3000高：", infoBean.getHeight());
-        getPersonalInfo("体\u3000\u3000重：", infoBean.getWeight());
+        getPersonalInfo("身\u3000\u3000高：", infoBean.getHeight()+"cm");
+        getPersonalInfo("体\u3000\u3000重：", infoBean.getWeight()+"kg");
 
         infoAdapter.setData(map);
 
-        ImageView imageView = new ImageView(context);
-        ((LinearLayout) (this.getChildAt(1))).addView(imageView);
-        LayoutParams lp = (LayoutParams) imageView.getLayoutParams();
+        ImageView ivAvatar = new ImageView(context);
+        ((LinearLayout) (this.getChildAt(1))).addView(ivAvatar);
+        LayoutParams lp = (LayoutParams) ivAvatar.getLayoutParams();
         lp.width = size * 6;
         lp.height = (int)(size * 6 *  Config.avatarRatio);
         lp.topMargin = size;
         lp.leftMargin = size*2;
-        imageView.setLayoutParams(lp);
+        ivAvatar.setLayoutParams(lp);
 
-        GlideUtils.glideAvatar(context,QiniuUtils.downImg(infoBean.getAvatar()),imageView);
-
-//        Glide.with(context)
-//                .load(QiniuUtils.downImg(infoBean.getAvatar()))
-//                .apply(new RequestOptions()
-//                        .placeholder(R.mipmap.icon_header_default)
-//                        .error(R.mipmap.icon_header_default)
-//                        .diskCacheStrategy(DiskCacheStrategy.ALL))
-//                .into(imageView);
+        if (infoBean.getAvatar()!=null && infoBean.getAvatar()!="") {
+            ivAvatar.setVisibility(VISIBLE);
+            Glide.with(context)
+                    .load(infoBean.getAvatar())
+                    .apply(new RequestOptions()
+                            .placeholder(R.mipmap.icon_header_default)
+                            .error(R.mipmap.icon_header_default)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL))
+                    .into(ivAvatar);
+        }else{
+            ivAvatar.setVisibility(GONE);
+        }
         return this;
     }
 

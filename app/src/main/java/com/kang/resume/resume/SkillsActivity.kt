@@ -68,11 +68,11 @@ class SkillsActivity : BaseActivity<ResumeSkillsActivityBinding, SkillsModel>() 
                 }
 
                 val skillBean = SkillBean(
-                    mVm.skillBean.skillId,
-                    mVm.skillBean.resumeId,
-                    mBinding.inputSkill.getText(),
-                    mBinding.inputProficiency.getText(),
-                    ValueConfig.proficiencyValueList[mVm.proficiencyIndex.value!!]
+                    skillId = mVm.skillBean.skillId,
+                    resumeId = mVm.skillBean.resumeId,
+                    skillName = mBinding.inputSkill.getText(),
+                    proficiency = mBinding.inputProficiency.getText(),
+                    proficiencyValue = ValueConfig.proficiencyValueList[mVm.proficiencyIndex.value!!]
                 )
 
                 mVm.keep(object : IKeep {
@@ -116,6 +116,7 @@ class SkillsActivity : BaseActivity<ResumeSkillsActivityBinding, SkillsModel>() 
     }
 
     override fun isInput(): Boolean {
-        return true
+        return !(mVm.skillBean.skillName == mBinding.inputSkill.getText() &&
+                mVm.skillBean.proficiency == mBinding.inputProficiency.getText())
     }
 }

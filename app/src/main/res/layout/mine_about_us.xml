@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.kang.resume.mine.MineAboutUsModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <com.kang.resume.custom.TitleView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@string/about_us" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:layout_width="@dimen/dp_120"
+                android:layout_height="@dimen/dp_120"
+                android:background="@mipmap/ic_launcher" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="@string/app_name"
+                android:textColor="@color/black25"
+                android:textSize="@dimen/sp_24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="@string/app_tip"
+                android:textColor="@color/black8a"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0_5"
+                android:layout_marginTop="@dimen/dp_80"
+                android:background="@color/backgroundColor" />
+
+            <com.kang.resume.custom.ItemView
+                android:id="@+id/item_about_us"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:item_img="@mipmap/icon_developer"
+                app:item_tip="@string/individual_developer"
+                app:item_title="@string/developers"
+                app:need_arrow="false" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0_5"
+                android:background="@color/backgroundColor" />
+
+            <com.kang.resume.custom.ItemView
+                android:id="@+id/item_qq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:item_img="@mipmap/icon_qq"
+                app:item_title="@string/service_qq"
+                app:need_arrow="false" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0_5"
+                android:background="@color/backgroundColor" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/dp_20"
+            android:text="@{vm.version}"
+            android:textColor="@color/black66"
+            android:textSize="@dimen/sp_14" />
+
+    </LinearLayout>
+</layout>

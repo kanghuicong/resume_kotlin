@@ -13,6 +13,7 @@ class SwitchUtils {
 
     companion object {
         //根据年月日算出距离今天多少年
+        @JvmStatic
         fun switchYear(birthdayStr: String?): String {
             val birthday = parseServerTime(birthdayStr)
 
@@ -50,6 +51,7 @@ class SwitchUtils {
 
         //2020年10月10日-2020年11月11日
         //2020.10-2020.11
+        @JvmStatic
         fun switchTime(time: String?): String {
             if (time == null) return ""
             else {
@@ -92,6 +94,8 @@ class SwitchUtils {
             }
             return date
         }
+
+
     }
 
 

@@ -60,7 +60,6 @@ interface ApiService {
     @POST("/resume/delJobIntention/{resumeId}")
     suspend fun delJobIntention(@Path("resumeId") resumeId: Int): ApiResponse<Any>
 
-
     //新增或编辑教育经历
     @POST("/resume/saveOrUpdateEducation")
     suspend fun saveOrUpdateEducation(@Body educationBean: EducationBean): ApiResponse<Any>
@@ -93,7 +92,6 @@ interface ApiService {
     @POST("/resume/delSkill/{skillId}")
     suspend fun delSkill(@Path("skillId") skillId: Int): ApiResponse<Any>
 
-
     //新增或编辑证书
     @POST("/resume/saveOrUpdateCertificate")
     suspend fun saveOrUpdateCertificate(@Body certificateBean: CertificateBean): ApiResponse<Any>
@@ -110,7 +108,6 @@ interface ApiService {
     @POST("/resume/delHobby/{hobbyId}")
     suspend fun delHobby(@Path("hobbyId") hobbyId: Int): ApiResponse<Any>
 
-
     //新增或编辑自我评价
     @POST("/resume/saveOrUpdateSelfEvaluation")
     suspend fun saveOrUpdateSelfEvaluation(@Body selfEvaluationBean: SelfEvaluationBean): ApiResponse<Any>
@@ -118,7 +115,5 @@ interface ApiService {
     //删除自我评价
     @POST("/resume/delSelfEvaluation/{resumeId}")
     suspend fun delSelfEvaluation(@Path("resumeId") resumeId: Int): ApiResponse<Any>
-
-
 
 }

@@ -29,7 +29,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".mine.MineSettingActivity"
+            android:name=".mine.MineAboutUsActivity"
             android:screenOrientation="portrait" />
 
         <activity

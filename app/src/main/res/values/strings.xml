@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">优简历</string>
+    <string name="app_tip">做最优秀的简历，得最优秀的职位。</string>
 
     <string name="template_mall">模板</string>
 
@@ -144,10 +145,12 @@
     <string name="evaluation_info">自我评价</string>
     <string name="hint_evaluation_info">请输入自我评价</string>
 
+    <string name="preview">预览</string>
     <string name="mine">我的</string>
 
     <string name="login">登录</string>
     <string name="logout">退出</string>
+    <string name="tip_logout">确定退出当前账号吗？</string>
     <string name="login_success">登录成功</string>
     <string name="register">注册</string>
     <string name="password">密\u3000\u3000码</string>
@@ -164,7 +167,12 @@
     <string name="tip_login">请先登录</string>
 
     <string name="find_job_success">预祝找工作顺利</string>
-    <string name="settings">设置</string>
+    <string name="about_us">关于我们</string>
+    <string name="developers">开发者</string>
+    <string name="individual_developer">个人开发者</string>
+    <string name="service_qq">客服QQ</string>
+    <string name="copy_success">复制成功</string>
+    <string name="service_qq_detail_with_copy">%1$s (点击复制)</string>
 
 
     <string name="loading">加载中</string>

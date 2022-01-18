@@ -272,7 +272,21 @@ class BaseInfoActivity : BaseActivity<ResumeBaseInfoActivityBinding, BaseInfoMod
     }
 
     override fun isInput(): Boolean {
-        return true
+        return !(mVm.baseInfoBean.address == mBinding.inputAddress.getText() &&
+                mVm.baseInfoBean.birthday == mBinding.inputBirthday.getText() &&
+                mVm.baseInfoBean.email == mBinding.inputEmail.getText() &&
+                mVm.baseInfoBean.gender == mBinding.inputGender.getText() &&
+                mVm.baseInfoBean.height == mBinding.inputHeight.getText() &&
+                mVm.baseInfoBean.weight == mBinding.inputWeight.getText() &&
+                mVm.baseInfoBean.marryStatus == mBinding.inputMarryStatus.getText() &&
+                mVm.baseInfoBean.name == mBinding.inputName.getText() &&
+                mVm.baseInfoBean.nation == mBinding.inputNation.getText() &&
+                mVm.baseInfoBean.phone == mBinding.inputPhone.getText() &&
+                mVm.baseInfoBean.politicalStatus == mBinding.inputPoliticalStatus.getText() &&
+                mVm.baseInfoBean.province == mBinding.inputProvince.getText() &&
+                mVm.baseInfoBean.startWorkTime == mBinding.inputStartWorkTime.getText() &&
+                mVm.baseInfoBean.record == mBinding.inputRecord.getText() &&
+                mVm.baseInfoBean.resumeName == mBinding.inputResumeName.getText())
     }
 
     override fun initViewModel(): BaseInfoModel {

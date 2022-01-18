@@ -188,7 +188,7 @@ dependencies {
     //eventBus
     implementation 'org.greenrobot:eventbus:3.2.0'
 
-    implementation 'com.yanzhenjie.permission:support:2.0.1'
+    implementation 'com.yanzhenjie:permission:2.0.3'
 
     implementation 'com.alibaba:fastjson:1.2.69'
 

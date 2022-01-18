@@ -15,9 +15,11 @@ class WriteContentModel(from: String?, resumeInfoBean: ResumeInfoBean?, content:
 
     var resumeId: Int? = null
     var from: String? = null
+    var content: String? = null
 
     init {
         this.from = from
+        this.content = content ?: ""
 
         if (resumeInfoBean != null) {
             resumeId = resumeInfoBean?.resumeId!!

@@ -92,11 +92,11 @@ public class ProgressView extends View {
     }
 
     public void setAngle(float angle) {
-        angleTxt = (int) (angle * 100) + "%";
+        angleTxt = (int) (angle) + "%";
 
-        if (angle < 1) {
-            this.angle = angle * 360;
-        } else this.angle = angle;
+        if ((float) (angle / 100) < 1) {
+            this.angle = (angle / 100) * 360;
+        } else this.angle = (angle / 100);
 
         invalidate();
     }

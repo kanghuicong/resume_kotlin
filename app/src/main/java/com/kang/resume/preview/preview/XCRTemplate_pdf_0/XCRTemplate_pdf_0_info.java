@@ -8,12 +8,15 @@ import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.kang.resume.R;
 import com.kang.resume.bean.BaseInfoBean;
 import com.kang.resume.bean.ResumeInfoBean;
 import com.kang.resume.preview.preview.BaseInfoView;
 import com.kang.resume.preview.pro.IInfo;
-import com.kang.resume.preview.qiniu.QiniuUtils;
+
 import com.kang.resume.preview.utils.Config;
 import com.kang.resume.preview.utils.GlideUtils;
 
@@ -76,7 +79,19 @@ public class XCRTemplate_pdf_0_info extends BaseInfoView implements IInfo {
         //填入数据
         BaseInfoBean infoBean = resumeBean.getBaseInfo();
 
-        GlideUtils.glideAvatar(context,QiniuUtils.downImg(infoBean.getAvatar()),ivAvatar);
+
+        if (infoBean.getAvatar()!=null && infoBean.getAvatar()!="") {
+            ivAvatar.setVisibility(VISIBLE);
+            Glide.with(context)
+                    .load(infoBean.getAvatar())
+                    .apply(new RequestOptions()
+                            .placeholder(R.mipmap.icon_header_default)
+                            .error(R.mipmap.icon_header_default)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL))
+                    .into(ivAvatar);
+        }else{
+            ivAvatar.setVisibility(GONE);
+        }
 
         tvName.setText(infoBean.getName());
 //        tvAbstract.setText(infoBean.get);

@@ -75,9 +75,9 @@ class TagActivity : BaseActivity<ResumeTagActivityBinding, TagModel>() {
 
                 if (RouterConfig.CertificateFrom == from) {
                     val certificateBean = CertificateBean(
-                        mVm.certificateBean.certificateId,
-                        mVm.certificateBean.resumeId,
-                        mBinding.inputTag.getText(),
+                        certificateId = mVm.certificateBean.certificateId,
+                        resumeId = mVm.certificateBean.resumeId,
+                        certificate = mBinding.inputTag.getText(),
                     )
                     mVm.keep(object : IKeep {
                         override suspend fun keep(): ApiResponse<Any> {
@@ -86,9 +86,9 @@ class TagActivity : BaseActivity<ResumeTagActivityBinding, TagModel>() {
                     })
                 } else if (RouterConfig.HobbyFrom == from) {
                     val hobbyBean = HobbyBean(
-                        mVm.hobbyBean.hobbyId,
-                        mVm.hobbyBean.resumeId,
-                        mBinding.inputTag.getText(),
+                        hobbyId = mVm.hobbyBean.hobbyId,
+                        resumeId = mVm.hobbyBean.resumeId,
+                        hobby = mBinding.inputTag.getText(),
                     )
                     mVm.keep(object : IKeep {
                         override suspend fun keep(): ApiResponse<Any> {
@@ -152,6 +152,11 @@ class TagActivity : BaseActivity<ResumeTagActivityBinding, TagModel>() {
     }
 
     override fun isInput(): Boolean {
+        if (from == RouterConfig.CertificateFrom) {
+            return mVm.certificateBean.certificate != mBinding.inputTag.getText()
+        } else if (from == RouterConfig.HobbyFrom) {
+            return mVm.hobbyBean.hobby != mBinding.inputTag.getText()
+        }
         return true
     }
 

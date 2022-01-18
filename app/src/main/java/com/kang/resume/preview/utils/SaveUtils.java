@@ -1,5 +1,6 @@
 package com.kang.resume.preview.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 
+import com.kang.resume.preview.PreViewActivity;
 import com.vondear.rxtool.RxFileTool;
 import com.vondear.rxtool.view.RxToast;
 import com.yanzhenjie.permission.Action;
@@ -32,7 +34,8 @@ import static android.os.Environment.MEDIA_MOUNTED;
 public class SaveUtils {
 
 
-    public static void saveBitmapForPdf(com.kang.resume.preview.PreViewActivity context, List<View> views, String name, int width, int height, ICreatePdf iCreatePdf) {
+    @SuppressLint("WrongConstant")
+    public static void saveBitmapForPdf(PreViewActivity context, List<View> views, String name, int width, int height, ICreatePdf iCreatePdf) {
 
         if (TextEmptyUtil.isEmpty(name)) {
             name = "简历" + System.currentTimeMillis();
@@ -45,7 +48,7 @@ public class SaveUtils {
                 .onGranted(new Action<List<String>>() {
                     @Override
                     public void onAction(List<String> data) {
-//                        loading(context, true);
+                        context.showLoad(true);
 
                         String appDir = getFilePath(context, "pdf");
                         if (!RxFileTool.isFileExists(appDir)) {
@@ -67,11 +70,11 @@ public class SaveUtils {
                             doc.writeTo(outputStream);
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
-//                            loading(context, false);
+                            context.showLoad(false);
                             RxToast.error("保存失败");
                         } catch (IOException e) {
                             e.printStackTrace();
-//                            loading(context, false);
+                            context.showLoad(false);
                             RxToast.error("保存失败");
                         } finally {
                             doc.close();
@@ -81,18 +84,20 @@ public class SaveUtils {
 
                                     iCreatePdf.createSuccess(appDir + "/" + finalName + ".pdf");
                                     RxToast.success("保存成功");
-//                                    loading(context, false);
+                                    context.showLoad(false);
                                 }
                             } catch (IOException e) {
                                 e.printStackTrace();
                                 RxToast.error("保存失败");
-//                                loading(context, false);
+                                context.showLoad(false);
+
                             }
                         }
                     }
                 }).onDenied(new Action<List<String>>() {
             @Override
             public void onAction(List<String> data) {
+                context.showLoad(false);
                 RxToast.normal(context, "为了不影响您的使用体验，建议开启手机存储服务");
             }
         }).start();
@@ -100,14 +105,14 @@ public class SaveUtils {
     }
 
 
-    public static void saveBitmapForImg(final Activity context, final View view, final String bitName, ICreatePdf iCreatePdf) {
+    @SuppressLint("WrongConstant")
+    public static void saveBitmapForImg(final PreViewActivity context, final View view, final String bitName, ICreatePdf iCreatePdf) {
         AndPermission.with(context)
                 .runtime()
                 .permission(Permission.Group.STORAGE)
                 .onGranted(new Action<List<String>>() {
                     @Override
                     public void onAction(List<String> data) {
-
                         //获取指定view的Bitmap
                         Bitmap mBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
                         Canvas canvas = new Canvas(mBitmap);
@@ -159,6 +164,7 @@ public class SaveUtils {
                         RxToast.success("保存成功,请在相册中查看");
 
                         iCreatePdf.createSuccess(local_path + "/" + bitName + ".png");
+
                         //删除最先生成的那张图片
 //                        RxFileTool.deleteFile(f);
                     }
@@ -174,11 +180,6 @@ public class SaveUtils {
     public interface ICreatePdf {
         void createSuccess(String path);
     }
-
-//    private static void loading(com.kang.resume.preview.PreViewActivity activity, boolean isShow) {
-//        if (isShow) activity.loading.start();
-//        else activity.loading.stop();
-//    }
 
 
     public static String getFilePath(Context context, String dir) {

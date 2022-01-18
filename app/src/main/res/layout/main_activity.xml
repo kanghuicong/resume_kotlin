@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="vm"
             type="com.kang.resume.MainViewModel" />
+
+        <import type="android.content.Context" />
 
     </data>
 
@@ -48,10 +49,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:onClick="@{view->vm.click(0)}"
                 android:orientation="vertical"
                 android:paddingTop="@dimen/dp_10"
-                android:paddingBottom="@dimen/dp_10"
-                android:onClick="@{view->vm.click(0)}">
+                android:paddingBottom="@dimen/dp_10">
 
 
                 <ImageView
@@ -64,10 +65,10 @@
                     android:id="@+id/rb_template_mall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_marginTop="@dimen/dp_5"
+                    android:gravity="center"
                     android:text="@string/template_mall"
-                    android:textColor="@{vm.colorTemplate}" />
+                    android:textColor="@{context.getColor(vm.colorTemplate)}" />
             </LinearLayout>
 
 
@@ -76,10 +77,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:onClick="@{view->vm.click(1)}"
                 android:orientation="vertical"
                 android:paddingTop="@dimen/dp_10"
-                android:paddingBottom="@dimen/dp_10"
-                android:onClick="@{view->vm.click(1)}">
+                android:paddingBottom="@dimen/dp_10">
 
 
                 <ImageView
@@ -92,10 +93,10 @@
                     android:id="@+id/rb_resume_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_marginTop="@dimen/dp_5"
+                    android:gravity="center"
                     android:text="@string/resume_info"
-                    android:textColor="@{vm.colorResume}" />
+                    android:textColor="@{context.getColor(vm.colorResume)}" />
             </LinearLayout>
 
             <LinearLayout
@@ -103,10 +104,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:onClick="@{view->vm.click(2)}"
                 android:orientation="vertical"
                 android:paddingTop="@dimen/dp_10"
-                android:paddingBottom="@dimen/dp_10"
-                android:onClick="@{view->vm.click(2)}">
+                android:paddingBottom="@dimen/dp_10">
 
 
                 <ImageView
@@ -119,10 +120,10 @@
                     android:id="@+id/rb_mine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_marginTop="@dimen/dp_5"
+                    android:gravity="center"
                     android:text="@string/mine"
-                    android:textColor="@{vm.colorMine}" />
+                    android:textColor="@{context.getColor(vm.colorMine)}" />
             </LinearLayout>
 
         </LinearLayout>

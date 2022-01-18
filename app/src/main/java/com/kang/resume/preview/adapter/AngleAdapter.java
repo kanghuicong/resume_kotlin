@@ -93,7 +93,7 @@ public class AngleAdapter extends RecyclerView.Adapter implements IAdapter {
                 barVh.lineBlew.setLayoutParams(lp2);
 
                 ConstraintLayout.LayoutParams lp3 = (ConstraintLayout.LayoutParams) barVh.line.getLayoutParams();
-                lp3.width = (int) (size * 8 * bean.getProficiencyValue());
+                lp3.width = (int) (size * 8 * bean.getProficiencyValue()/100);
                 lp3.height = size / 3 * 2;
                 barVh.line.setLayoutParams(lp3);
 

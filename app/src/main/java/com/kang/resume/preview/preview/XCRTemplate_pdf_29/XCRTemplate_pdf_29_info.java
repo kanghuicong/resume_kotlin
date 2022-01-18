@@ -10,12 +10,15 @@ import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.kang.resume.R;
 import com.kang.resume.bean.BaseInfoBean;
 import com.kang.resume.bean.ResumeInfoBean;
 import com.kang.resume.preview.preview.BaseInfoView;
 import com.kang.resume.preview.pro.IInfo;
-import com.kang.resume.preview.qiniu.QiniuUtils;
+
 import com.kang.resume.preview.utils.Config;
 import com.kang.resume.preview.utils.GlideUtils;
 
@@ -81,7 +84,19 @@ public class XCRTemplate_pdf_29_info extends BaseInfoView  implements IInfo {
         lp.height = (int)(size * 6 *  Config.avatarRatio);
         lp.rightMargin = size * 3;
         ivAvatar.setLayoutParams(lp);
-        GlideUtils.glideAvatar(context, QiniuUtils.downImg(infoBean.getAvatar()),ivAvatar);
+
+        if (infoBean.getAvatar()!=null && infoBean.getAvatar()!="") {
+            ivAvatar.setVisibility(VISIBLE);
+            Glide.with(context)
+                    .load(infoBean.getAvatar())
+                    .apply(new RequestOptions()
+                            .placeholder(R.mipmap.icon_header_default)
+                            .error(R.mipmap.icon_header_default)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL))
+                    .into(ivAvatar);
+        }else{
+            ivAvatar.setVisibility(GONE);
+        }
 
         //头像位置
         int textSize = Config.textSize;

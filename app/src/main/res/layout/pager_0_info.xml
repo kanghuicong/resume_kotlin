@@ -18,7 +18,6 @@
             android:layout_width="@dimen/dp_50"
             android:layout_height="@dimen/dp_80"
             android:scaleType="centerCrop"
-            android:src="@mipmap/icon_header_default"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/cl_info"
             app:layout_constraintBottom_toBottomOf="@+id/cl_info"/>

@@ -148,14 +148,14 @@ class EducationActivity : BaseActivity<ResumeEdcationActivityBinding, EducationM
 
 
                 val educationBean = EducationBean(
-                    mVm.educationBean.educationId,
-                    mVm.educationBean.resumeId,
-                    mBinding.inputSchool.getText(),
-                    mBinding.inputMajor.getText(),
-                    mBinding.inputRecord.getText(),
-                    mBinding.inputStartTime.getText(),
-                    mBinding.inputEndTime.getText(),
-                    mBinding.inputExperience.getText(),
+                    educationId = mVm.educationBean.educationId,
+                    resumeId = mVm.educationBean.resumeId,
+                    school = mBinding.inputSchool.getText(),
+                    major = mBinding.inputMajor.getText(),
+                    record = mBinding.inputRecord.getText(),
+                    startTime = mBinding.inputStartTime.getText(),
+                    endTime = mBinding.inputEndTime.getText(),
+                    experience = mBinding.inputExperience.getText(),
                 )
 
                 mVm.keep(object : IKeep {
@@ -203,6 +203,11 @@ class EducationActivity : BaseActivity<ResumeEdcationActivityBinding, EducationM
     }
 
     override fun isInput(): Boolean {
-        return true
+        return !(mVm.educationBean.school == mBinding.inputSchool.getText()&&
+                mVm.educationBean.major == mBinding.inputMajor.getText()&&
+                mVm.educationBean.record == mBinding.inputRecord.getText()&&
+                mVm.educationBean.startTime == mBinding.inputStartTime.getText()&&
+                mVm.educationBean.endTime == mBinding.inputEndTime.getText()&&
+                mVm.educationBean.experience == mBinding.inputExperience.getText())
     }
 }

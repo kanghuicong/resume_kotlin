@@ -20,7 +20,6 @@ import com.kang.resume.bean.BaseInfoBean;
 import com.kang.resume.bean.EducationBean;
 import com.kang.resume.bean.JobIntentionBean;
 import com.kang.resume.bean.ResumeInfoBean;
-import com.kang.resume.preview.qiniu.QiniuUtils;
 import com.kang.resume.preview.utils.TextEmptyUtil;
 
 import java.util.List;
@@ -76,7 +75,7 @@ public class CoverUtils {
             phone = infoBean.getPhone();
             email = infoBean.getEmail();
             address = infoBean.getAddress();
-            avatar = QiniuUtils.downImg(infoBean.getAvatar());
+            avatar = infoBean.getAvatar();
         }
 
         List<EducationBean> educationList = resumeBean.getEducations();

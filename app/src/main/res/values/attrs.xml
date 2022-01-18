@@ -15,7 +15,9 @@
 
     <declare-styleable name="ItemView">
         <attr name="item_title" format="string" />
+        <attr name="item_tip" format="string" />
         <attr name="item_img" format="reference" />
+        <attr name="need_arrow" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="InfoTitleView">

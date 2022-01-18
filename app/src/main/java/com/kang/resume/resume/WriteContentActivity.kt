@@ -112,6 +112,6 @@ class WriteContentActivity : BaseActivity<ResumeWriteActivityBinding, WriteConte
     }
 
     override fun isInput(): Boolean {
-        return true
+        return mVm.content != mBinding.etContent.text.toString()
     }
 }

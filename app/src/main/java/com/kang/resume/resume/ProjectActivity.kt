@@ -103,7 +103,7 @@ class ProjectActivity : BaseActivity<ResumeProjectActivityBinding, ProjectModel>
         })
 
         WriteLiveData.getInstance().observe(activity, {
-            if (it.from == RouterConfig.ProjectFrom){
+            if (it.from == RouterConfig.ProjectFrom) {
                 mBinding.inputDescription.setInput(it.content)
                 finish()
             }
@@ -119,15 +119,15 @@ class ProjectActivity : BaseActivity<ResumeProjectActivityBinding, ProjectModel>
                 }
 
                 val projectBean = ProjectBean(
-                    mVm.projectBean.projectId,
-                    mVm.projectBean.resumeId,
-                    mBinding.inputName.getText(),
-                    mBinding.inputCompany.getText(),
-                    mBinding.inputRole.getText(),
-                    mBinding.inputStartTime.getText(),
-                    mBinding.inputEndTime.getText(),
-                    mBinding.inputDescription.getText(),
-                    mBinding.inputUrl.getText(),
+                    projectId = mVm.projectBean.projectId,
+                    resumeId = mVm.projectBean.resumeId,
+                    projectName = mBinding.inputName.getText(),
+                    company = mBinding.inputCompany.getText(),
+                    role = mBinding.inputRole.getText(),
+                    startTime = mBinding.inputStartTime.getText(),
+                    endTime = mBinding.inputEndTime.getText(),
+                    description = mBinding.inputDescription.getText(),
+                    url = mBinding.inputUrl.getText(),
                 )
 
                 mVm.keep(object : IKeep {
@@ -175,6 +175,12 @@ class ProjectActivity : BaseActivity<ResumeProjectActivityBinding, ProjectModel>
     }
 
     override fun isInput(): Boolean {
-        return true
+        return !(mVm.projectBean.projectName == mBinding.inputName.getText() &&
+                mVm.projectBean.company == mBinding.inputCompany.getText() &&
+                mVm.projectBean.role == mBinding.inputRole.getText() &&
+                mVm.projectBean.startTime == mBinding.inputStartTime.getText() &&
+                mVm.projectBean.endTime == mBinding.inputEndTime.getText() &&
+                mVm.projectBean.description == mBinding.inputDescription.getText() &&
+                mVm.projectBean.url == mBinding.inputUrl.getText())
     }
 }

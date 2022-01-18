@@ -58,10 +58,12 @@ abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel>() : AppCom
         mBinding.initBinding()
 
         val titleView = mBinding.root.findViewById<TitleView>(R.id.title_view)
-        if (titleView != null && isInput()) {
+        if (titleView != null) {
             titleView.iBackClick = (object : IBackClick {
                 override fun click(view: View) {
-                    initInputDialog(activity)
+                    if (isInput())
+                        initInputDialog(activity)
+                    else finish()
                 }
             })
         }
@@ -70,14 +72,14 @@ abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel>() : AppCom
     inline fun <reified T> getData(): T? {
         val bundle = intent.extras
         val data = bundle!!.get(RouterConfig.data)
-        if (data == null || data=="null") return null
+        if (data == null || data == "null") return null
         return Gson().fromJson(data as String)
     }
 
     inline fun <reified T> getOtherData(): T? {
         val bundle = intent.extras
         val data = bundle!!.get(RouterConfig.otherData)
-        if (data == null|| data=="null") return null
+        if (data == null || data == "null") return null
         return Gson().fromJson(data as String)
     }
 

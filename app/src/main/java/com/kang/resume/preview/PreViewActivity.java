@@ -35,6 +35,8 @@ import com.kang.resume.bean.EducationBean;
 import com.kang.resume.bean.JobIntentionBean;
 import com.kang.resume.bean.ResumeInfoBean;
 ;
+import com.kang.resume.custom.ExportDialog;
+import com.kang.resume.custom.ISave;
 import com.kang.resume.preview.adapter.ExportTagAdapter;
 import com.kang.resume.preview.adapter.MyPageAdapter;
 import com.kang.resume.preview.bean.AddCoverEvent;
@@ -54,6 +56,9 @@ import com.kang.resume.preview.utils.Config;
 import com.kang.resume.preview.utils.PreviewUtils;
 import com.kang.resume.preview.utils.SaveUtils;
 import com.kang.resume.preview.utils.ShareFileUtils;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.core.BasePopupView;
+import com.lxj.xpopup.impl.LoadingPopupView;
 import com.vondear.rxtool.RxBarTool;
 import com.vondear.rxtool.RxLogTool;
 import com.vondear.rxtool.RxTool;
@@ -64,6 +69,7 @@ import com.zhy.view.flowlayout.TagFlowLayout;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
@@ -77,14 +83,10 @@ import java.util.List;
  * author:kanghuicong
  */
 public class PreViewActivity extends FragmentActivity implements View.OnClickListener {
-    private ImageButton ivBack;
-    private Button exportBtn;
     private NestedScrollView scPreview;
     private ImageView ivDefault;
 
     private ConstraintLayout llPreview;
-    private LinearLayout llTitleLayout;
-    private FrameLayout flMain;
     private TextView tvApplication;
     private TextView tvTheme;
     private TextView tvKeep;
@@ -104,11 +106,7 @@ public class PreViewActivity extends FragmentActivity implements View.OnClickLis
     private SaveFragment saveFragment;
 
 
-    private PopupWindow popupWindow;
-    private TagFlowLayout tagFlowLayout;//展示标签的
-    private ExportTagAdapter tagsAdapter;
-    private List<String> exportNameList = new ArrayList<>();
-    private List<String> exportTypeList = new ArrayList<>();
+    private LoadingPopupView loadingPopup;
     //简历下标
     int position = 0;
 
@@ -149,9 +147,6 @@ public class PreViewActivity extends FragmentActivity implements View.OnClickLis
 //        ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).init();
 
         setContentView(R.layout.view_preview);
-        llTitleLayout = findViewById(R.id.title_ll_layout);
-        ivBack = findViewById(R.id.iv_back);
-        exportBtn = findViewById(R.id.btn_export);
 
         llPreview = findViewById(R.id.ll_preview);
         scPreview = findViewById(R.id.sc_preview);
@@ -166,37 +161,37 @@ public class PreViewActivity extends FragmentActivity implements View.OnClickLis
         llKeep = findViewById(R.id.ll_keep);
         ivKeep = findViewById(R.id.iv_keep);
 
-        flMain = findViewById(R.id.fl_main);
         tvApplication = findViewById(R.id.tv_application);
         tvTheme = findViewById(R.id.tv_theme);
         tvKeep = findViewById(R.id.tv_keep);
 
         viewpager = findViewById(R.id.viewpager);
-//        loading = findViewById(R.id.loading);
+
+
+        loadingPopup = new XPopup.Builder(this)
+                .dismissOnBackPressed(true)
+                .dismissOnTouchOutside(false)
+                .shadowBgColor(0x00ffffff)
+                .isLightNavigationBar(true)
+                .isRequestFocus(false)
+                .asLoading(getString(R.string.loading));
 
         llApp.setOnClickListener(this);
         llTheme.setOnClickListener(this);
         llKeep.setOnClickListener(this);
-        ivBack.setOnClickListener((view -> {
-            onBackPressed();
-        }));
-        exportBtn.setOnClickListener((view -> {
-            //弹出导出页
-            initPopupWindow();
-            showPopWindow();
-        }));
+
         //注册EventBus
         EventBus.getDefault().register(this);
         //接收数据
 
-        list = (List<ResumeInfoBean>)getIntent().getExtras().getSerializable("json");
+        list = (List<ResumeInfoBean>) getIntent().getExtras().getSerializable("json");
 
         if (list == null || list.size() == 0) {
             finish();
             RxToast.normal("请先创建一份简历！");
             return;
         }
-        TemplateBean templateBean = (TemplateBean)getIntent().getExtras().getSerializable("template");
+        TemplateBean templateBean = (TemplateBean) getIntent().getExtras().getSerializable("template");
         RxLogTool.e("templateBean:" + templateBean.getClassName());
         //动态实例化对应的模板类
         try {
@@ -262,15 +257,12 @@ public class PreViewActivity extends FragmentActivity implements View.OnClickLis
         }));
     }
 
-    private void showLoad(boolean isShow) {
-//        if (isShow) {
-//            llLoad.setVisibility(View.VISIBLE);
-//            loading.start();
-//        } else {
-//            llLoad.setVisibility(View.GONE);
-//            loading.stop();
-//
-//        }
+    public void showLoad(boolean isShow) {
+        if (isShow) {
+            loadingPopup.show();
+        } else {
+            loadingPopup.dismiss();
+        }
     }
 
     //数据
@@ -469,7 +461,7 @@ public class PreViewActivity extends FragmentActivity implements View.OnClickLis
         list.add(Config.INTEREST);
         list.add(Config.ASSESSMENT);
 
-        for (String ty: list){
+        for (String ty : list) {
             AllModuleBean bean = new AllModuleBean();
             bean.setModuleType(ty);
             bean.setName(ty);
@@ -551,10 +543,40 @@ public class PreViewActivity extends FragmentActivity implements View.OnClickLis
 
     }
 
+    private void doSaveImg(String fileName) {
+        if (isVip()) {
+            if (keepPop != null && keepPop.isShow()) keepPop.dismiss();
+            SaveUtils.saveBitmapForImg(this, iView.getClipView(), fileName, new SaveUtils.ICreatePdf() {
+                @Override
+                public void createSuccess(String path) {
+                    ShareFileUtils.shareImage(com.kang.resume.preview.PreViewActivity.this, path);
+                }
+            });
+        } else {
+            goPay();
+        }
+    }
+
+    private void doSavePdf(String fileName) {
+        if (isVip()) {
+            if (keepPop != null && keepPop.isShow()) keepPop.dismiss();
+            SaveUtils.saveBitmapForPdf(this, pageView, fileName, A4width, A4height, new SaveUtils.ICreatePdf() {
+                @Override
+                public void createSuccess(String path) {
+                    ShareFileUtils.shareFile(com.kang.resume.preview.PreViewActivity.this, path);
+                }
+            });
+        } else {
+            goPay();
+        }
+    }
+
     //调用flutter，进入会员充值页面
     private void goPay() {
 
     }
+
+    BasePopupView keepPop;
 
     @Override
     public void onClick(View v) {
@@ -592,15 +614,22 @@ public class PreViewActivity extends FragmentActivity implements View.OnClickLis
                 transaction.commitAllowingStateLoss();
                 break;
             case R.id.ll_keep:
-//                selectItem(3);
-//                if (saveFragment == null) {
-//                    transaction.add(R.id.fl_main, saveFragment = new SaveFragment());
-//                } else {
-//                    transaction.show(saveFragment);
-//                }
-//                transaction.commitAllowingStateLoss();
-                initPopupWindow();
-                showPopWindow();
+                keepPop = new XPopup.Builder(this)
+                        .moveUpToKeyboard(false) //如果不加这个，评论弹窗会移动到软键盘上面
+                        .isDestroyOnDismiss(true) //对于只使用一次的弹窗，推荐设置这个
+                        .asCustom(new ExportDialog(this, clickResumeBean, new ISave() {
+
+                            @Override
+                            public void savePdf(@NotNull String name) {
+                                doSavePdf(name);
+                            }
+
+                            @Override
+                            public void saveImg(@NotNull String name) {
+                                doSaveImg(name);
+                            }
+                        }))
+                        .show();
                 break;
             default:
                 break;
@@ -619,210 +648,10 @@ public class PreViewActivity extends FragmentActivity implements View.OnClickLis
 
     }
 
-    private void initPopupWindow() {
-        View contentView = LayoutInflater.from(this).inflate(R.layout.view_export, null, false);
-        popupWindow = new PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        popupWindow.setBackgroundDrawable(new ColorDrawable(R.drawable.black_round_3a_12));
-        popupWindow.setOutsideTouchable(true);
-        popupWindow.setTouchable(true);
-        popupWindow.setAnimationStyle(R.anim.anim_pop);
-        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                popupWindow.dismiss();
-                backgroundAlpha(1.0f);
-            }
-        });
-        EditText nameEdit = contentView.findViewById(R.id.resume_name_et);
-        //数据源
-        if (exportNameList.isEmpty()) {
-            exportNameList.add("姓名");
-            exportNameList.add("求职意向");
-            //生成简历名称
-            BaseInfoBean infoBean = clickResumeBean.getBaseInfo();
-            JobIntentionBean positionBean = clickResumeBean.getJobIntention();
-            if (positionBean!=null) {
-                nameEdit.setText(infoBean.getName() + "-" + positionBean.getPosition());
-            }
-        } else {
-            updateNameEditText(nameEdit);
-        }
-        //选择tag设置简历名
-        tagFlowLayout = contentView.findViewById(R.id.type_name_flowLayout);
-        String[] hobbiesList = new String[]{"求职意向", "姓名", "工作经验", "电话号码", "邮箱", "学历", "期望城市"};
-        List<String> lists = new ArrayList<>();
-        for (String str : hobbiesList) {
-            lists.add(str);
-        }
-        tagsAdapter = new ExportTagAdapter(this, lists);
-        tagFlowLayout.setAdapter(tagsAdapter);
-        tagsAdapter.setSelectedList(exportNameList);
-        //监听点击事件
-        tagFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
-            @Override
-            public boolean onTagClick(View view, int position, FlowLayout parent) {
-                ViewGroup viewGroup = (ViewGroup) view;
-                View tagView = viewGroup.getChildAt(0);
-                String clickTagText = hobbiesList[position];
-                if (exportNameList.contains(clickTagText)) {//已经包含
-                    tagView.setSelected(false);
-                    String str = hobbiesList[position];
-                    exportNameList.remove(str);
-                } else {//没有包含
-                    tagView.setSelected(true);
-                    String str = hobbiesList[position];
-                    exportNameList.add(str);
-                }
-                updateNameEditText(nameEdit);
-                return false;
-            }
-        });
-        //保存格式
-        if (exportTypeList.isEmpty()) {//如果是空的
-            exportTypeList.add("导出为PDF");
-        }
-        TagFlowLayout exportTypeFlowLayout = contentView.findViewById(R.id.export_type_flowlayout);
-        String[] exportTypeArray = new String[]{"导出为PDF", "导出为图片"};
-        List<String> exportList = new ArrayList<>();
-        for (String str : exportTypeArray) {
-            exportList.add(str);
-        }
-        ExportTagAdapter exportTagAdapter = new ExportTagAdapter(this, exportList);
-        exportTypeFlowLayout.setAdapter(exportTagAdapter);
-        exportTagAdapter.setSelectedList(exportTypeList);
-        //监听点击事件
-        exportTypeFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
-            @Override
-            public boolean onTagClick(View view, int position, FlowLayout parent) {
-                ViewGroup viewGroup = (ViewGroup) view;
-                View tagView = viewGroup.getChildAt(0);
-                String clickTagText = exportTypeArray[position];
-                exportTypeList.remove(0);
-                if (clickTagText.equals("导出为PDF")) {//已经包含
-                    exportTypeList.add("导出为PDF");
-                } else {//没有包含
-                    exportTypeList.add("导出为图片");
-                }
-                exportTagAdapter.setSelectedList(exportTypeList);
-                return false;
-            }
-        });
-
-        ImageButton closeBtn = (ImageButton) contentView.findViewById(R.id.close_btn);
-        closeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                popupWindow.dismiss();
-            }
-        });
-
-        Button exportBtn = (Button) contentView.findViewById(R.id.export_btn);
-        exportBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String fileName = nameEdit.getText().toString();
-                //开始导出
-                if (exportTypeList.get(0).equals("导出为图片")) {
-                    if (clickResumeBean == null) return;
-                    if (isVip()) {
-
-                        SaveUtils.saveBitmapForImg(com.kang.resume.preview.PreViewActivity.this, iView.getClipView(), fileName, new SaveUtils.ICreatePdf() {
-                            @Override
-                            public void createSuccess(String path) {
-                                ShareFileUtils.shareImage(com.kang.resume.preview.PreViewActivity.this, path);
-                            }
-                        });
-                    } else {
-                        goPay();
-                    }
-
-                } else {
-                    if (clickResumeBean == null) return;
-                    if (isVip()) {
-                        showLoad(true);
-                        SaveUtils.saveBitmapForPdf(com.kang.resume.preview.PreViewActivity.this, pageView, fileName, A4width, A4height, new SaveUtils.ICreatePdf() {
-                            @Override
-                            public void createSuccess(String path) {
-                                showLoad(false);
-                                ShareFileUtils.shareFile(com.kang.resume.preview.PreViewActivity.this, path);
-                            }
-                        });
-                    } else {
-                        goPay();
-                    }
-                }
-            }
-        });
-
+    private boolean isVip() {
+        return true;
     }
 
-    private boolean isVip(){
-        return false;
-    }
-
-    private void updateNameEditText(EditText editText) {
-        String nameStr = "";
-        BaseInfoBean infoBean = clickResumeBean.getBaseInfo();
-
-        for (int i = 0; i < exportNameList.size(); i++) {
-            String str = exportNameList.get(i);
-            String tempStr = "";
-            if (str.equals("求职意向")) {
-                JobIntentionBean positionBean = clickResumeBean.getJobIntention();
-                if (positionBean != null) {
-                    tempStr = positionBean.getPosition();
-                }
-            } else if (str.equals("姓名")) {
-                if (infoBean != null) {
-                    tempStr = infoBean.getName();
-                }
-            } else if (str.equals("工作经验")) {
-                if (infoBean != null) {
-                    tempStr = infoBean.getStartWorkTime();
-                }
-            } else if (str.equals("电话号码")) {
-                if (infoBean != null) {
-                    tempStr = infoBean.getPhone();
-                }
-            } else if (str.equals("邮箱")) {
-                if (infoBean != null) {
-                    tempStr = infoBean.getEmail();
-                }
-            } else if (str.equals("学历")) {
-                List<EducationBean> educations = clickResumeBean.getEducations();
-                if (educations != null && educations.size() != 0) {
-                    EducationBean eduBean = educations.get(educations.size() - 1);
-                    tempStr = eduBean.getRecord();
-                }
-            } else if (str.equals("期望城市")) {
-                JobIntentionBean positionBean = clickResumeBean.getJobIntention();
-                if (positionBean != null) {
-                    tempStr = positionBean.getCity();
-                }
-            }
-
-            if (nameStr.equals("")) {
-                nameStr = tempStr;
-            } else {
-                if (!tempStr.equals("")) {
-                    nameStr += ("-" + tempStr);
-                }
-            }
-        }
-        editText.setText(nameStr);
-    }
-
-    private void showPopWindow() {
-        View rootView = LayoutInflater.from(com.kang.resume.preview.PreViewActivity.this).inflate(R.layout.preview_activity, null);
-        popupWindow.showAtLocation(rootView, Gravity.BOTTOM, 0, 0);
-        backgroundAlpha(0.6f);
-    }
-
-    private void backgroundAlpha(float bgAlpha) {
-        WindowManager.LayoutParams lp = getWindow().getAttributes();
-        lp.alpha = bgAlpha;
-        getWindow().setAttributes(lp);
-    }
 
     @Override
     protected void onDestroy() {

@@ -13,6 +13,7 @@ import com.kang.resume.router.RouterConfig
 import com.kang.resume.router.RouterNavigation
 import com.kang.resume.utils.DataStoreUtils
 import com.kang.resume.utils.LocalDataUtils
+import com.lxj.xpopup.XPopup
 import kotlinx.coroutines.launch
 
 
@@ -27,8 +28,9 @@ class MineFragment : BaseFragment<MineFragmentBinding, MineModel>(), View.OnClic
     }
 
     override fun initViewCreated(view: View) {
-        mBinding.itemSetting.setOnClickListener(this)
+        mBinding.itemLogout.setOnClickListener(this)
         mBinding.tvMineName.setOnClickListener(this)
+        mBinding.itemAboutUs.setOnClickListener(this)
 
         //监听登录状态
         LoginLiveData.getInstance().observe(this, Observer {
@@ -45,12 +47,26 @@ class MineFragment : BaseFragment<MineFragmentBinding, MineModel>(), View.OnClic
 
     override fun onClick(view: View?) {
         when (view?.id) {
-            R.id.item_setting -> {
-                RouterNavigation.doIntentActivity(RouterConfig.MineSettingRouter)
+            R.id.item_about_us -> {
+                RouterNavigation.doIntentActivity(RouterConfig.MineAboutUsRouter)
+            }
+            R.id.item_logout -> {
+                XPopup.Builder(activity)
+                    .isDestroyOnDismiss(true)
+                    .asConfirm(
+                        activity.getString(R.string.tip),
+                        activity.getString(R.string.tip_logout),
+                        activity.getString(R.string.cancel),
+                        activity.getString(R.string.confirm),
+                        {
+                            mVm.logout()
+                        }, null, false
+                    ).show()
             }
             R.id.tv_mine_name -> {
                 mVm.doLogin()
             }
+
         }
 
     }

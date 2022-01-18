@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.kang.resume.R
 import com.kang.resume.base.BaseViewModel
 import com.kang.resume.base.EventMutableLiveData
+import com.kang.resume.event.LoginBean
+import com.kang.resume.event.LoginLiveData
 import com.kang.resume.router.RouterConfig
 import com.kang.resume.router.RouterNavigation
 import com.kang.resume.utils.LocalDataUtils
@@ -39,6 +41,16 @@ class MineModel() : BaseViewModel() {
             RouterNavigation.doIntentActivity(RouterConfig.LoginRouter)
         }
 
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            //清除本地数据
+            LocalDataUtils.logout()
+            //通知页面更新
+            LoginLiveData.getInstance().postValue(LoginBean(false))
+            finishLiveData.postValue(true)
+        }
     }
 
 }

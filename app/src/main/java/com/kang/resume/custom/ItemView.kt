@@ -24,13 +24,15 @@ class ItemView constructor(
 
     private var iItemClick: IItemClick? = null
 
+    private val vb = DataBindingUtil.inflate<ViewItemBinding>(
+        LayoutInflater.from(context),
+        R.layout.view_item,
+        this,
+        true
+    )
+
     init {
-        val vb = DataBindingUtil.inflate<ViewItemBinding>(
-            LayoutInflater.from(context),
-            R.layout.view_item,
-            this,
-            true
-        )
+
 
         val typedArray = context.obtainStyledAttributes(
             attrs,
@@ -47,6 +49,18 @@ class ItemView constructor(
             vb.itemTitle.text = title
         }
 
+        val tip = typedArray.getString(R.styleable.ItemView_item_tip)
+        if (tip != null) {
+            vb.itemTip.text = tip
+        }
+
+        val needArrow = typedArray.getBoolean(R.styleable.ItemView_need_arrow, true)
+        if (needArrow) {
+            vb.itemArrow.visibility = VISIBLE
+        } else {
+            vb.itemArrow.visibility = GONE
+        }
+
         typedArray.recycle()
 
         this.setOnClickListener {
@@ -57,6 +71,11 @@ class ItemView constructor(
 
     fun setItemClick(iItemClick: IItemClick) {
         this.iItemClick = iItemClick
+    }
+
+    fun setTip(tip: String): ItemView {
+        vb.itemTip.text = tip
+        return this
     }
 
     interface IItemClick {

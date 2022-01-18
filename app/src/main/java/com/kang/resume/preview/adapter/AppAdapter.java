@@ -62,7 +62,7 @@ public class AppAdapter extends RecyclerView.Adapter {
             vh.llItem.setBackground(ContextCompat.getDrawable(context,R.color.backgroundColor));
         }else {
             vh.ivResume.setBackground(ContextCompat.getDrawable(context,R.mipmap.icon_resume_default_unselect));
-            vh.tvName.setTextColor(ContextCompat.getColor(context,R.color.black66));
+            vh.tvName.setTextColor(ContextCompat.getColor(context,R.color.black8a));
             vh.llItem.setBackground(ContextCompat.getDrawable(context,R.color.transparent));
         }
 

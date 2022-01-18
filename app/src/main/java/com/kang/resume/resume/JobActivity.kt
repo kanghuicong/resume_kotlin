@@ -100,10 +100,10 @@ class JobActivity : BaseActivity<ResumeJobActivityBinding, JobModel>() {
                 val jobIntentionBean = JobIntentionBean(
                     mVm.jobIntentionBean.id,
                     mVm.jobIntentionBean.resumeId,
-                    mBinding.inputCity.getText(),
-                    mBinding.inputTime.getText(),
-                    mBinding.inputPosition.getText(),
-                    "${mBinding.etStartSalary.text}k${ValueConfig.space}${mBinding.etEndSalary.text}k",
+                    city = mBinding.inputCity.getText(),
+                    entryTime = mBinding.inputTime.getText(),
+                    position = mBinding.inputPosition.getText(),
+                    salary = "${mBinding.etStartSalary.text}k${ValueConfig.space}${mBinding.etEndSalary.text}k",
                 )
 
                 mVm.keep(object : IKeep {
@@ -126,7 +126,11 @@ class JobActivity : BaseActivity<ResumeJobActivityBinding, JobModel>() {
     }
 
     override fun isInput(): Boolean {
-        return true
+        return !(mVm.jobIntentionBean.city == mBinding.inputCity.getText() &&
+                mVm.jobIntentionBean.entryTime == mBinding.inputTime.getText() &&
+                mVm.jobIntentionBean.position == mBinding.inputPosition.getText() &&
+                mVm.jobIntentionBean.salary ==
+                "${mBinding.etStartSalary.text}k${ValueConfig.space}${mBinding.etEndSalary.text}k")
     }
 
     override fun initLayout(): Int {

@@ -101,7 +101,7 @@ class WorkActivity : BaseActivity<ResumeWorkActivityBinding, WorkModel>() {
             }
         })
         WriteLiveData.getInstance().observe(activity, {
-            if (it.from == RouterConfig.WorkFrom){
+            if (it.from == RouterConfig.WorkFrom) {
                 mBinding.inputContent.setInput(it.content)
                 finish()
             }
@@ -116,13 +116,13 @@ class WorkActivity : BaseActivity<ResumeWorkActivityBinding, WorkModel>() {
                 }
 
                 val workExperienceBean = WorkExperienceBean(
-                    mVm.workExperienceBean.experienceId,
-                    mVm.workExperienceBean.resumeId,
-                    mBinding.inputCompany.getText(),
-                    mBinding.inputPosition.getText(),
-                    mBinding.inputStartTime.getText(),
-                    mBinding.inputEndTime.getText(),
-                    mBinding.inputContent.getText(),
+                    experienceId = mVm.workExperienceBean.experienceId,
+                    resumeId = mVm.workExperienceBean.resumeId,
+                    company = mBinding.inputCompany.getText(),
+                    position = mBinding.inputPosition.getText(),
+                    startTime = mBinding.inputStartTime.getText(),
+                    endTime = mBinding.inputEndTime.getText(),
+                    workContent = mBinding.inputContent.getText(),
                 )
 
                 mVm.keep(object : IKeep {
@@ -171,6 +171,10 @@ class WorkActivity : BaseActivity<ResumeWorkActivityBinding, WorkModel>() {
 
 
     override fun isInput(): Boolean {
-        return true
+        return !(mVm.workExperienceBean.company == mBinding.inputCompany.getText() &&
+                mVm.workExperienceBean.position == mBinding.inputPosition.getText() &&
+                mVm.workExperienceBean.startTime == mBinding.inputStartTime.getText() &&
+                mVm.workExperienceBean.endTime == mBinding.inputEndTime.getText() &&
+                mVm.workExperienceBean.workContent == mBinding.inputContent.getText())
     }
 }
