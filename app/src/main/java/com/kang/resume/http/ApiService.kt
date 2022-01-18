@@ -117,8 +117,7 @@ interface ApiService {
     suspend fun delSelfEvaluation(@Path("resumeId") resumeId: Int): ApiResponse<Any>
 
     //导出-->判断是否有权限导出
-    @POST("/export/{resumeId}")
+    @GET("/resume/export/{resumeId}")
     suspend fun export(@Path("resumeId") resumeId: Int): ApiResponse<Any>
-
 
 }

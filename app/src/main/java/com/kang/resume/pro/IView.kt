@@ -65,6 +65,21 @@ interface IView {
                         loginExpiredPopup?.show()
                     }
                 }
+                405 -> {
+                    XPopup.Builder(activity)
+                        .dismissOnBackPressed(false)
+                        .isDestroyOnDismiss(true)
+                        .dismissOnTouchOutside(false)
+                        .asConfirm(
+                            activity.getString(R.string.tip),
+                            it.message,
+                            activity.getString(R.string.cancel),
+                            activity.getString(R.string.become_vip),
+                            {
+                                RouterNavigation.doIntentActivity(RouterConfig.MineAboutUsRouter)
+                            }, null, false
+                        ).show()
+                }
                 else -> {
                     val errorPopup = XPopup.Builder(activity)
                         .dismissOnBackPressed(false)
@@ -85,7 +100,7 @@ interface IView {
         })
     }
 
-    fun initInputDialog(activity: Activity,){
+    fun initInputDialog(activity: Activity) {
         XPopup.Builder(activity)
             .isDestroyOnDismiss(true)
             .asConfirm(

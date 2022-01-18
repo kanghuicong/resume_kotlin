@@ -31,6 +31,7 @@ class MineFragment : BaseFragment<MineFragmentBinding, MineModel>(), View.OnClic
         mBinding.itemLogout.setOnClickListener(this)
         mBinding.tvMineName.setOnClickListener(this)
         mBinding.itemAboutUs.setOnClickListener(this)
+        mBinding.itemVip.setOnClickListener(this)
 
         //监听登录状态
         LoginLiveData.getInstance().observe(this, Observer {
@@ -62,6 +63,9 @@ class MineFragment : BaseFragment<MineFragmentBinding, MineModel>(), View.OnClic
                             mVm.logout()
                         }, null, false
                     ).show()
+            }
+            R.id.item_vip->{
+                RouterNavigation.doIntentActivity(RouterConfig.MineVipRouter)
             }
             R.id.tv_mine_name -> {
                 mVm.doLogin()

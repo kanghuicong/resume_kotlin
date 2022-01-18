@@ -188,7 +188,6 @@ dependencies {
     //eventBus
     implementation 'org.greenrobot:eventbus:3.2.0'
 
-    implementation 'com.yanzhenjie:permission:2.0.3'
 
     implementation 'com.alibaba:fastjson:1.2.69'
 
@@ -197,5 +196,9 @@ dependencies {
     implementation "com.github.tamsiree.RxTool:RxUI:2.3.9"
     //基础工具库
     implementation "com.github.tamsiree.RxTool:RxKit:2.3.9"
+
+
+    implementation 'com.github.getActivity:XXPermissions:13.2'
+
 }
 

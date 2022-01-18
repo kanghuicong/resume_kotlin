@@ -30,7 +30,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.fastjson.JSON;
 import com.kang.resume.R;
+import com.kang.resume.base.BaseActivity;
+import com.kang.resume.base.BaseViewModel;
 import com.kang.resume.base.ValueConfig;
+import com.kang.resume.base.ViewModelProviderFactory;
 import com.kang.resume.bean.BaseInfoBean;
 import com.kang.resume.bean.EducationBean;
 import com.kang.resume.bean.JobIntentionBean;
@@ -38,6 +41,7 @@ import com.kang.resume.bean.ResumeInfoBean;
 ;
 import com.kang.resume.custom.ExportDialog;
 import com.kang.resume.custom.ISave;
+import com.kang.resume.databinding.ViewPreviewBinding;
 import com.kang.resume.http.ApiResponse;
 import com.kang.resume.http.ApiService;
 import com.kang.resume.http.HttpRequest;
@@ -65,6 +69,7 @@ import com.kang.resume.pro.IHttp;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BasePopupView;
 import com.lxj.xpopup.impl.LoadingPopupView;
+import com.lxj.xpopup.interfaces.OnConfirmListener;
 import com.vondear.rxtool.RxBarTool;
 import com.vondear.rxtool.RxLogTool;
 import com.vondear.rxtool.RxTool;
@@ -83,6 +88,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import afu.org.checkerframework.checker.oigj.qual.O;
 import kotlin.Unit;
 import kotlin.coroutines.Continuation;
 
@@ -91,7 +97,7 @@ import kotlin.coroutines.Continuation;
  * 类描述：
  * author:kanghuicong
  */
-public class PreViewActivity extends FragmentActivity implements View.OnClickListener {
+public class PreViewActivity extends BaseActivity<ViewPreviewBinding, PreviewViewModel> implements View.OnClickListener {
     private NestedScrollView scPreview;
     private ImageView ivDefault;
 
@@ -148,14 +154,26 @@ public class PreViewActivity extends FragmentActivity implements View.OnClickLis
 
     CoverUtils coverUtils;
 
+
+    @Override
+    public int initLayout() {
+        return R.layout.view_preview;
+    }
+
+    @NotNull
+    @Override
+    public PreviewViewModel initViewModel() {
+        mBinding.setVm(ViewModelProviderFactory.getViewModel(activity, new PreviewViewModel()));
+        return mBinding.getVm();
+    }
+
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void initBinding(@NotNull ViewPreviewBinding $this$initBinding) {
 
 //        ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).init();
 
-        setContentView(R.layout.view_preview);
+//        setContentView(R.layout.view_preview);
 
         llPreview = findViewById(R.id.ll_preview);
         scPreview = findViewById(R.id.sc_preview);
@@ -552,38 +570,6 @@ public class PreViewActivity extends FragmentActivity implements View.OnClickLis
 
     }
 
-    private void doSaveImg(String fileName) {
-        if (isVip()) {
-            if (keepPop != null && keepPop.isShow()) keepPop.dismiss();
-            SaveUtils.saveBitmapForImg(this, iView.getClipView(), fileName, new SaveUtils.ICreatePdf() {
-                @Override
-                public void createSuccess(String path) {
-                    ShareFileUtils.shareImage(com.kang.resume.preview.PreViewActivity.this, path);
-                }
-            });
-        } else {
-            goPay();
-        }
-    }
-
-    private void doSavePdf(String fileName) {
-        if (isVip()) {
-            if (keepPop != null && keepPop.isShow()) keepPop.dismiss();
-            SaveUtils.saveBitmapForPdf(this, pageView, fileName, A4width, A4height, new SaveUtils.ICreatePdf() {
-                @Override
-                public void createSuccess(String path) {
-                    ShareFileUtils.shareFile(com.kang.resume.preview.PreViewActivity.this, path);
-                }
-            });
-        } else {
-            goPay();
-        }
-    }
-
-    //调用flutter，进入会员充值页面
-    private void goPay() {
-
-    }
 
     BasePopupView keepPop;
 
@@ -630,12 +616,12 @@ public class PreViewActivity extends FragmentActivity implements View.OnClickLis
 
                             @Override
                             public void savePdf(@NotNull String name) {
-                                doSavePdf(name);
+                                doExport(true,name);
                             }
 
                             @Override
                             public void saveImg(@NotNull String name) {
-                                doSaveImg(name);
+                                doExport(false,name);
                             }
                         }))
                         .show();
@@ -657,7 +643,31 @@ public class PreViewActivity extends FragmentActivity implements View.OnClickLis
 
     }
 
-    private <T> boolean isVip() {
+    private boolean doExport(boolean isPdf, String fileName) {
+        mVm.export(clickResumeBean.getResumeId(), () -> {
+
+            runOnUiThread(() -> {
+                if (keepPop != null && keepPop.isShow()) keepPop.dismiss();
+
+                if (isPdf) {
+                    SaveUtils.saveBitmapForPdf(PreViewActivity.this, pageView, fileName, A4width, A4height, new SaveUtils.ICreatePdf() {
+                        @Override
+                        public void createSuccess(String path) {
+                            ShareFileUtils.shareFile(PreViewActivity.this, path);
+                        }
+                    });
+                } else {
+                    SaveUtils.saveBitmapForImg(PreViewActivity.this, iView.getClipView(), fileName, new SaveUtils.ICreatePdf() {
+                        @Override
+                        public void createSuccess(String path) {
+                            ShareFileUtils.shareImage(PreViewActivity.this, path);
+                        }
+                    });
+                }
+            });
+
+
+        });
 
         return true;
     }
@@ -674,4 +684,8 @@ public class PreViewActivity extends FragmentActivity implements View.OnClickLis
         super.onBackPressed();
         finish();
     }
+
+
 }
+
+

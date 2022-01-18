@@ -32,4 +32,5 @@ object RouterConfig {
     const val TagRouter = "/resume/TagActivity"
     const val WriteRouter = "/resume/WriteActivity"
     const val MineAboutUsRouter = "/resume/MineAboutUsActivity"
+    const val MineVipRouter = "/resume/MineVipActivity"
 }

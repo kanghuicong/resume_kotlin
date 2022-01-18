@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelStoreOwner
  */
 
 object ViewModelProviderFactory {
+    @JvmStatic
     fun <T> getViewModel(
         context: ViewModelStoreOwner?,
         model: ViewModel

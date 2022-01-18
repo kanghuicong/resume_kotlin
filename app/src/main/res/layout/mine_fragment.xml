@@ -67,26 +67,52 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
 
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fl_mine_card" />
+
+        <com.kang.resume.custom.ItemView
+            android:id="@+id/item_vip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{vm.isLogin?View.VISIBLE:View.GONE}"
+            app:item_img="@mipmap/icon_vip"
+            app:item_title="@string/vip"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/line" />
+
+        <View
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0_5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_vip" />
+
 
         <com.kang.resume.custom.ItemView
             android:id="@+id/item_about_us"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            app:item_title="@string/about_us"
             app:item_img="@mipmap/icon_about_us"
+            app:item_title="@string/about_us"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fl_mine_card" />
+            app:layout_constraintTop_toBottomOf="@+id/line1" />
 
         <com.kang.resume.custom.ItemView
             android:id="@+id/item_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
-            app:item_title="@string/logout"
-            app:item_img="@mipmap/icon_logout"
             android:visibility="@{vm.isLogin?View.VISIBLE:View.GONE}"
+            app:item_img="@mipmap/icon_logout"
+            app:item_title="@string/logout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/item_about_us" />

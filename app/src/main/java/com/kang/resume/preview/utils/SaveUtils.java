@@ -12,12 +12,12 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 
+import com.hjq.permissions.OnPermissionCallback;
+import com.hjq.permissions.Permission;
+import com.hjq.permissions.XXPermissions;
 import com.kang.resume.preview.PreViewActivity;
 import com.vondear.rxtool.RxFileTool;
 import com.vondear.rxtool.view.RxToast;
-import com.yanzhenjie.permission.Action;
-import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.runtime.Permission;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -42,138 +42,166 @@ public class SaveUtils {
         }
         String finalName = name;
 
-        AndPermission.with(context)
-                .runtime()
+
+        XXPermissions.with(context)
+                // 申请多个权限
                 .permission(Permission.Group.STORAGE)
-                .onGranted(new Action<List<String>>() {
+                // 设置不触发错误检测机制
+                .unchecked()
+                .request(new OnPermissionCallback() {
+
                     @Override
-                    public void onAction(List<String> data) {
-                        context.showLoad(true);
+                    public void onGranted(List<String> permissions, boolean all) {
+                        if (all) {
+                            context.showLoad(true);
 
-                        String appDir = getFilePath(context, "pdf");
-                        if (!RxFileTool.isFileExists(appDir)) {
-                            RxFileTool.initDirectory(appDir);
-                        }
+                            String appDir = getFilePath(context, "pdf");
+                            if (!RxFileTool.isFileExists(appDir)) {
+                                RxFileTool.initDirectory(appDir);
+                            }
 
-                        PdfDocument doc = new PdfDocument();
-                        PdfDocument.PageInfo newPage = new PdfDocument.PageInfo.Builder(width, height, 1).create();
-                        for (int i = 0; i < views.size(); i++) {
-                            PdfDocument.Page page = doc.startPage(newPage);
-                            views.get(i).draw(page.getCanvas());
-                            doc.finishPage(page);
-                        }
+                            PdfDocument doc = new PdfDocument();
+                            PdfDocument.PageInfo newPage = new PdfDocument.PageInfo.Builder(width, height, 1).create();
+                            for (int i = 0; i < views.size(); i++) {
+                                PdfDocument.Page page = doc.startPage(newPage);
+                                views.get(i).draw(page.getCanvas());
+                                doc.finishPage(page);
+                            }
 
-                        File file = new File(appDir, finalName + ".pdf");
-                        FileOutputStream outputStream = null;
-                        try {
-                            outputStream = new FileOutputStream(file);
-                            doc.writeTo(outputStream);
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                            context.showLoad(false);
-                            RxToast.error("保存失败");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            context.showLoad(false);
-                            RxToast.error("保存失败");
-                        } finally {
-                            doc.close();
+                            File file = new File(appDir, finalName + ".pdf");
+                            FileOutputStream outputStream = null;
                             try {
-                                if (outputStream != null) {
-                                    outputStream.close();
-
-                                    iCreatePdf.createSuccess(appDir + "/" + finalName + ".pdf");
-                                    RxToast.success("保存成功");
-                                    context.showLoad(false);
-                                }
+                                outputStream = new FileOutputStream(file);
+                                doc.writeTo(outputStream);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                                context.showLoad(false);
+                                RxToast.error("保存失败");
                             } catch (IOException e) {
                                 e.printStackTrace();
-                                RxToast.error("保存失败");
                                 context.showLoad(false);
+                                RxToast.error("保存失败");
+                            } finally {
+                                doc.close();
+                                try {
+                                    if (outputStream != null) {
+                                        outputStream.close();
 
+                                        iCreatePdf.createSuccess(appDir + "/" + finalName + ".pdf");
+                                        RxToast.success("保存成功");
+                                        context.showLoad(false);
+                                    }
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                    RxToast.error("保存失败");
+                                    context.showLoad(false);
+
+                                }
                             }
+                        } else {
+//                            toast("获取部分权限成功，但部分权限未正常授予");
                         }
                     }
-                }).onDenied(new Action<List<String>>() {
-            @Override
-            public void onAction(List<String> data) {
-                context.showLoad(false);
-                RxToast.normal(context, "为了不影响您的使用体验，建议开启手机存储服务");
-            }
-        }).start();
 
+                    @Override
+                    public void onDenied(List<String> permissions, boolean never) {
+                        if (never) {
+//                            toast("被永久拒绝授权，请手动授予录音和日历权限");
+                            // 如果是被永久拒绝就跳转到应用权限系统设置页面
+                            XXPermissions.startPermissionActivity(context, permissions);
+                        } else {
+                            context.showLoad(false);
+                            RxToast.normal(context, "为了不影响您的使用体验，建议开启手机存储服务");
+
+                        }
+                    }
+                });
     }
 
 
     @SuppressLint("WrongConstant")
     public static void saveBitmapForImg(final PreViewActivity context, final View view, final String bitName, ICreatePdf iCreatePdf) {
-        AndPermission.with(context)
-                .runtime()
+        XXPermissions.with(context)
                 .permission(Permission.Group.STORAGE)
-                .onGranted(new Action<List<String>>() {
+                // 设置不触发错误检测机制
+                .unchecked()
+                .request(new OnPermissionCallback() {
+
                     @Override
-                    public void onAction(List<String> data) {
-                        //获取指定view的Bitmap
-                        Bitmap mBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
-                        Canvas canvas = new Canvas(mBitmap);
-                        view.draw(canvas);
+                    public void onGranted(List<String> permissions, boolean all) {
+                        if (all) {
+                            //获取指定view的Bitmap
+                            Bitmap mBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+                            Canvas canvas = new Canvas(mBitmap);
+                            view.draw(canvas);
 
-                        String local_path = Environment.getExternalStorageDirectory().getPath() + "/IMG";
-                        File appDir = new File(local_path);
-                        //判断不存在就创建
-                        if (!appDir.exists()) {
-                            appDir.mkdir();
-                        }
-                        //创建file对象
-                        File f = new File(local_path, bitName + ".png");
-                        try {
-                            //创建
-                            f.createNewFile();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        FileOutputStream fOut = null;
-                        try {
-                            fOut = new FileOutputStream(f);
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                        //原封不动的保存在内存卡上
-                        mBitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
-                        try {
-                            fOut.flush();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            fOut.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        // 其次把文件插入到系统图库
-                        try {
-                            String path = MediaStore.Images.Media.insertImage(context.getContentResolver(),
-                                    f.getAbsolutePath(), bitName, null);
+                            String local_path = Environment.getExternalStorageDirectory().getPath() + "/IMG";
+                            File appDir = new File(local_path);
+                            //判断不存在就创建
+                            if (!appDir.exists()) {
+                                appDir.mkdir();
+                            }
+                            //创建file对象
+                            File f = new File(local_path, bitName + ".png");
+                            try {
+                                //创建
+                                f.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            FileOutputStream fOut = null;
+                            try {
+                                fOut = new FileOutputStream(f);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                            //原封不动的保存在内存卡上
+                            mBitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+                            try {
+                                fOut.flush();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                fOut.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            // 其次把文件插入到系统图库
+                            try {
+                                String path = MediaStore.Images.Media.insertImage(context.getContentResolver(),
+                                        f.getAbsolutePath(), bitName, null);
 
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                        // 最后通知图库更新
-                        String path = Environment.getExternalStorageDirectory().getPath();
-                        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path)));
-                        RxToast.success("保存成功,请在相册中查看");
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                            // 最后通知图库更新
+                            String path = Environment.getExternalStorageDirectory().getPath();
+                            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path)));
+                            RxToast.success("保存成功,请在相册中查看");
 
-                        iCreatePdf.createSuccess(local_path + "/" + bitName + ".png");
+                            iCreatePdf.createSuccess(local_path + "/" + bitName + ".png");
 
-                        //删除最先生成的那张图片
+                            //删除最先生成的那张图片
 //                        RxFileTool.deleteFile(f);
+
+                        } else {
+//                            toast("获取部分权限成功，但部分权限未正常授予");
+                        }
                     }
-                }).onDenied(new Action<List<String>>() {
-            @Override
-            public void onAction(List<String> data) {
-                RxToast.normal(context, "为了不影响您的使用体验，建议开启手机存储服务");
-            }
-        }).start();
+
+                    @Override
+                    public void onDenied(List<String> permissions, boolean never) {
+                        if (never) {
+//                            toast("被永久拒绝授权，请手动授予录音和日历权限");
+                            // 如果是被永久拒绝就跳转到应用权限系统设置页面
+                            XXPermissions.startPermissionActivity(context, permissions);
+                        } else {
+                            RxToast.normal(context, "为了不影响您的使用体验，建议开启手机存储服务");
+                        }
+                    }
+                });
+
     }
 
 
