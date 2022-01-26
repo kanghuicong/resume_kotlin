@@ -71,8 +71,9 @@ class WriteContentActivity : BaseActivity<ResumeWriteActivityBinding, WriteConte
                     }
                     else -> {
                         finish()
-                        WriteLiveData.getInstance()
-                            .postValue(WriteLiveBean(mVm.from, mBinding.etContent.text.toString()))
+                        WriteLiveData.getInstance().value = WriteLiveBean(mVm.from, mBinding.etContent.text.toString())
+//                        WriteLiveData.getInstance()
+//                            .postValue(WriteLiveBean(mVm.from, mBinding.etContent.text.toString()))
                     }
                 }
 

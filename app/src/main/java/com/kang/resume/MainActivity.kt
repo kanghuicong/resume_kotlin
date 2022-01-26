@@ -37,7 +37,7 @@ class MainActivity : BaseActivity<MainActivityBinding, MainViewModel>() {
     override fun MainActivityBinding.initBinding() {
         //监听登录状态
         LoginLiveData.getInstance().observe(activity, Observer {
-            mVm.isLogin.value = it.isLogin
+            mVm.isLogin.value = it?.isLogin
         })
 
         initialize()
@@ -90,15 +90,19 @@ class MainActivity : BaseActivity<MainActivityBinding, MainViewModel>() {
                             .dismissOnBackPressed(false)
                             .dismissOnTouchOutside(false)
                             .asConfirm(
-                                getString(R.string.tip), getString(R.string.tip_login)
-                            ) {
-                                GlobalScope.launch {
-                                    LocalDataUtils.logout()
-                                    //通知页面更新
-                                    LoginLiveData.getInstance().postValue(LoginBean(false))
-                                }
-                                RouterNavigation.doIntentActivity(RouterConfig.LoginRouter)
-                            }.show()
+                                getString(R.string.tip),
+                                getString(R.string.tip_login),
+                                getString(R.string.cancel),
+                                getString(R.string.confirm),
+                                {
+                                    GlobalScope.launch {
+                                        LocalDataUtils.logout()
+                                        //通知页面更新
+                                        LoginLiveData.getInstance().postValue(LoginBean(false))
+                                    }
+                                    RouterNavigation.doIntentActivity(RouterConfig.LoginRouter)
+                                }, null, false
+                            ).show()
                     }
                 }
                 2 -> {

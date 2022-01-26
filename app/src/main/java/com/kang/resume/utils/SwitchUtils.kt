@@ -53,17 +53,21 @@ class SwitchUtils {
         //2020.10-2020.11
         @JvmStatic
         fun switchTime(time: String?): String {
-            if (time == null) return ""
+            return if (time == null) ""
             else {
 
-                var list = time.split(ValueConfig.space)
-                var strList = arrayListOf<String>()
-                for (str in list) {
-                    var str1 = str.substring(0, str.indexOf("月"))
-                    str1 = str1.replace("年", ".")
-                    strList.add(str1)
+                try {
+                    var list = time.split(ValueConfig.space)
+                    var strList = arrayListOf<String>()
+                    for (str in list) {
+                        var str1 = str.substring(0, str.indexOf("月"))
+                        str1 = str1.replace("年", ".")
+                        strList.add(str1)
+                    }
+                    strList[0] + "-" + strList[1]
+                } catch (e: java.lang.Exception) {
+                    ""
                 }
-                return strList[0] + "-" + strList[1]
             }
         }
 

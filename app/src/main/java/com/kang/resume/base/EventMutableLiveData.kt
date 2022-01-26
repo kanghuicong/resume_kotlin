@@ -8,7 +8,7 @@ import com.elvishew.xlog.XLog
  * 类描述：
  * author:kanghuicong
  */
-class EventMutableLiveData<T> : BackFillLiveData<T?>(), LifecycleObserver,
+open class EventMutableLiveData<T> : BackFillLiveData<T?>(), LifecycleObserver,
     Observer<T?> {
     var owner: LifecycleOwner? = null
     private var observer: Observer<in T>? = null

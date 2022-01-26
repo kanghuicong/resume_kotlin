@@ -56,4 +56,8 @@ public class Config {
     //名字字体，有的模板名字字体需要单独设置，暂时不提供改动
     public static int nameColor = 0xFF000000;
 
+
+    public static int mWidth = 0;
+    public static int mHeight = 0;
+    public static int mX = 0;
 }

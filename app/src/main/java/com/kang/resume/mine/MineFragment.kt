@@ -35,9 +35,9 @@ class MineFragment : BaseFragment<MineFragmentBinding, MineModel>(), View.OnClic
 
         //监听登录状态
         LoginLiveData.getInstance().observe(this, Observer {
-            mVm.isLogin.value = it.isLogin
+            mVm.isLogin.value = it?.isLogin
             mVm.viewModelScope.launch {
-                if (it.isLogin) {
+                if (it?.isLogin!!) {
                     mVm.name.value = it.userInfoBean?.account
                 } else {
                     mVm.name.value = getString(R.string.login)

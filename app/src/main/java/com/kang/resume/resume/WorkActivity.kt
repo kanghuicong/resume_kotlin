@@ -100,10 +100,10 @@ class WorkActivity : BaseActivity<ResumeWorkActivityBinding, WorkModel>() {
                 )
             }
         })
+
         WriteLiveData.getInstance().observe(activity, {
-            if (it.from == RouterConfig.WorkFrom) {
+            if (it?.from == RouterConfig.WorkFrom) {
                 mBinding.inputContent.setInput(it.content)
-                finish()
             }
         })
 

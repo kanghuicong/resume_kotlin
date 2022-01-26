@@ -133,7 +133,7 @@ class EducationActivity : BaseActivity<ResumeEdcationActivityBinding, EducationM
             }
         })
         WriteLiveData.getInstance().observe(activity, {
-            if (it.from == RouterConfig.EducationFrom){
+            if (it?.from == RouterConfig.EducationFrom){
                 mBinding.inputExperience.setInput(it.content)
             }
         })

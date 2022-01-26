@@ -3,7 +3,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:layout_marginTop="@dimen/dp_5">
 
     <TextView
         android:id="@+id/tv_time0"
@@ -43,7 +44,7 @@
                 android:id="@+id/tv_company"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.2"
                 android:gravity="center"
                 android:singleLine="true"
                 android:textColor="@color/preview_color"
@@ -67,9 +68,38 @@
             android:id="@+id/tv_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_3"
+            android:layout_marginTop="@dimen/dp_5"
             android:textColor="@color/preview_content_color"
-            android:textSize="@dimen/preview_size" />
+            android:textSize="@dimen/preview_size"
+            android:lineSpacingExtra="@dimen/dp_3"/>
+
+        <LinearLayout
+            android:id="@+id/ll_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/hint_url"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/preview_content_color"
+                android:textStyle="bold"
+                android:textSize="@dimen/preview_size"
+                android:lineSpacingExtra="@dimen/dp_3"
+                android:text="项目地址："/>
+
+            <TextView
+                android:id="@+id/tv_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/preview_content_color"
+                android:textSize="@dimen/preview_size"
+                android:lineSpacingExtra="@dimen/dp_3"
+                android:textStyle="italic"/>
+        </LinearLayout>
 
     </LinearLayout>
 

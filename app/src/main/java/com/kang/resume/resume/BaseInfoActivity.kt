@@ -38,7 +38,7 @@ class BaseInfoActivity : BaseActivity<ResumeBaseInfoActivityBinding, BaseInfoMod
 
     override fun ResumeBaseInfoActivityBinding.initBinding() {
         //简历名字设置长度
-        mBinding.inputResumeName.setLength(10)
+        mBinding.inputResumeName.setLength(15)
         //手机号设置长度
         mBinding.inputPhone.setLength(11)
         //身高设置长度

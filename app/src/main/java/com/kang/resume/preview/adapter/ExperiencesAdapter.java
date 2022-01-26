@@ -18,6 +18,7 @@ import com.kang.resume.bean.ProjectBean;
 import com.kang.resume.bean.WorkExperienceBean;
 import com.kang.resume.preview.pro.IAdapter;
 import com.kang.resume.preview.pro.ITitle;
+import com.kang.resume.preview.utils.Config;
 import com.kang.resume.preview.utils.TextEmptyUtil;
 import com.kang.resume.utils.SwitchUtils;
 
@@ -98,24 +99,28 @@ public class ExperiencesAdapter extends RecyclerView.Adapter implements IAdapter
         String detail = "";
 
         if (bean instanceof WorkExperienceBean) {
-            time = ((WorkExperienceBean) bean).getStartTime() + ValueConfig.space + ((WorkExperienceBean) bean).getEndTime();
+            time = SwitchUtils.Companion.switchTime(((WorkExperienceBean) bean).getStartTime() + ValueConfig.space + ((WorkExperienceBean) bean).getEndTime());
             company = ((WorkExperienceBean) bean).getCompany();
             role = ((WorkExperienceBean) bean).getPosition();
             detail = ((WorkExperienceBean) bean).getWorkContent();
         } else if (bean instanceof ProjectBean) {
-            time = ((ProjectBean) bean).getStartTime() + ValueConfig.space + ((ProjectBean) bean).getEndTime();
-            company = ((ProjectBean) bean).getCompany();
-            role = ((ProjectBean) bean).getRole();
+            time = SwitchUtils.Companion.switchTime(((ProjectBean) bean).getStartTime() + ValueConfig.space + ((ProjectBean) bean).getEndTime());
+            company = ((ProjectBean) bean).getProjectName();
+            role = ((ProjectBean) bean).getCompany();
             detail = ((ProjectBean) bean).getDescription();
-
+            if (!TextEmptyUtil.isEmpty(((ProjectBean) bean).getUrl())) {
+                vh.llUrl.setVisibility(View.VISIBLE);
+                vh.tvUrl.setText(((ProjectBean) bean).getUrl());
+            } else {
+                vh.llUrl.setVisibility(View.GONE);
+            }
         } else if (bean instanceof EducationBean) {
-            time = ((EducationBean) bean).getStartTime() + ValueConfig.space + ((EducationBean) bean).getEndTime();
-            company = ((EducationBean) bean).getSchool();
+            time = SwitchUtils.Companion.switchTime(((EducationBean) bean).getStartTime() + ValueConfig.space + ((EducationBean) bean).getEndTime());
+            company = ((EducationBean) bean).getSchool() + "(" + ((EducationBean) bean).getRecord() + ")";
             role = ((EducationBean) bean).getMajor();
             detail = ((EducationBean) bean).getExperience();
         }
 
-        time = SwitchUtils.Companion.switchTime(time);
 
         switch (iTitle.getType()) {
             case 1:
@@ -131,29 +136,34 @@ public class ExperiencesAdapter extends RecyclerView.Adapter implements IAdapter
         vh.tvDetail.setText(detail);
 
         vh.tvTime0.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
+        if (bean instanceof ProjectBean && company.length() <= 20) {
+            vh.tvCompany.setTextSize(TypedValue.COMPLEX_UNIT_PX, size + 4);
+        } else {
+            vh.tvCompany.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
+        }
+
         vh.tvTime.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
-        vh.tvCompany.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
         vh.tvPosition.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
         vh.tvDetail.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
+        vh.tvUrl.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
+        vh.hintUrl.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
 
-//        vh.tvTime0.setTextColor(color);
-//        vh.tvTime.setTextColor(color);
-//        vh.tvCompany.setTextColor(color);
-//        vh.tvPosition.setTextColor(color);
-//        vh.tvDetail.setTextColor(Config.bodyColor);
 
         if (TextEmptyUtil.isEmpty(vh.tvDetail.getText().toString())) {
             vh.tvDetail.setVisibility(View.GONE);
         } else vh.tvDetail.setVisibility(View.VISIBLE);
 
         LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) vh.tvDetail.getLayoutParams();
-        lp.topMargin = size / 4;
+        lp.topMargin = size / 2;
         vh.tvDetail.setLayoutParams(lp);
 
         LinearLayout.LayoutParams lp1 = (LinearLayout.LayoutParams) vh.llItem.getLayoutParams();
         lp1.topMargin = position == 0 ? 0 : size;
         vh.llItem.setLayoutParams(lp1);
 
+        LinearLayout.LayoutParams lp2 = (LinearLayout.LayoutParams) vh.llUrl.getLayoutParams();
+        lp.topMargin = size / 2;
+        vh.llUrl.setLayoutParams(lp2);
     }
 
 
@@ -166,11 +176,14 @@ public class ExperiencesAdapter extends RecyclerView.Adapter implements IAdapter
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private LinearLayout llItem;
+        private LinearLayout llUrl;
         private TextView tvTime0;
         private TextView tvTime;
         private TextView tvCompany;
         private TextView tvPosition;
         private TextView tvDetail;
+        private TextView tvUrl;
+        private TextView hintUrl;
 
         public ViewHolder(@NonNull View rootView) {
             super(rootView);
@@ -181,6 +194,9 @@ public class ExperiencesAdapter extends RecyclerView.Adapter implements IAdapter
             tvCompany = rootView.findViewById(R.id.tv_company);
             tvPosition = rootView.findViewById(R.id.tv_position);
             tvDetail = rootView.findViewById(R.id.tv_detail);
+            llUrl = rootView.findViewById(R.id.ll_url);
+            tvUrl = rootView.findViewById(R.id.tv_url);
+            hintUrl = rootView.findViewById(R.id.hint_url);
         }
     }
 

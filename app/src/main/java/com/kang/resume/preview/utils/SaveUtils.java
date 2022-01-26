@@ -99,14 +99,14 @@ public class SaveUtils {
                                 }
                             }
                         } else {
-//                            toast("获取部分权限成功，但部分权限未正常授予");
+                            RxToast.normal("获取部分权限成功，但部分权限未正常授予");
                         }
                     }
 
                     @Override
                     public void onDenied(List<String> permissions, boolean never) {
                         if (never) {
-//                            toast("被永久拒绝授权，请手动授予录音和日历权限");
+                            RxToast.error("被永久拒绝授权，请手动授予手机存储权限");
                             // 如果是被永久拒绝就跳转到应用权限系统设置页面
                             XXPermissions.startPermissionActivity(context, permissions);
                         } else {
@@ -186,15 +186,14 @@ public class SaveUtils {
 //                        RxFileTool.deleteFile(f);
 
                         } else {
-//                            toast("获取部分权限成功，但部分权限未正常授予");
+                            RxToast.normal("获取部分权限成功，但部分权限未正常授予");
                         }
                     }
 
                     @Override
                     public void onDenied(List<String> permissions, boolean never) {
                         if (never) {
-//                            toast("被永久拒绝授权，请手动授予录音和日历权限");
-                            // 如果是被永久拒绝就跳转到应用权限系统设置页面
+                            RxToast.error("被永久拒绝授权，请手动授予手机存储权限");                            // 如果是被永久拒绝就跳转到应用权限系统设置页面
                             XXPermissions.startPermissionActivity(context, permissions);
                         } else {
                             RxToast.normal(context, "为了不影响您的使用体验，建议开启手机存储服务");

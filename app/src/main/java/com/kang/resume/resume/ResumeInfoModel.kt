@@ -30,15 +30,19 @@ import kotlinx.coroutines.withContext
 class ResumeInfoModel : BaseViewModel() {
 
     var resumeInfoList: ArrayList<ResumeInfoBean>? = arrayListOf()
+    var haseResume = EventMutableLiveData<Boolean>()
     var index = 0
     var resumeInfo = EventMutableLiveData<ResumeInfoBean>()
 
     init {
 
         if (ValuableConfig.resumeInfoList == null) {
+            haseResume.value = false
             queryResumeInfoList(false)
+
         } else {
             resumeInfoList = ValuableConfig.resumeInfoList!!
+            haseResume.value = true
             initResume(false)
         }
     }
@@ -73,12 +77,14 @@ class ResumeInfoModel : BaseViewModel() {
     private fun initResume(isLast: Boolean) {
         if (resumeInfoList != null && resumeInfoList!!.isNotEmpty()) {
 
+            haseResume.value = true
 
             if (index >= resumeInfoList!!.size) {
                 index = 0
             }
             resumeInfo.value = resumeInfoList!![index]
-        }
+        } else haseResume.value = false
+
     }
 
     //切换简历

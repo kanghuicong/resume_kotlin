@@ -182,5 +182,7 @@
     <string name="become_vip">成为VIP</string>
     <string name="cancel">取消</string>
     <string name="delete">删除</string>
+    <string name="tip_preview">头部/底部内容被裁剪？</string>
+    <string name="detail_hint_preview">如果遇到头部或底部的简历内容被裁剪的情况，可尝试使用这四个平移按钮，可以分别控制头部内容上/下移和底部内容上/下移</string>
 
 </resources>

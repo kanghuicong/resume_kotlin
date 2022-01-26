@@ -36,7 +36,7 @@ class ResumeInfoFragment : BaseFragment<ResumeFragmentBinding, ResumeInfoModel>(
         //监听简历更新
         UpdateResumeLiveData.getInstance().observe(this, {
             mVm.viewModelScope.launch {
-                if (it) {
+                if (it!!) {
                     mVm.queryResumeInfoList(false)
                 }
             }

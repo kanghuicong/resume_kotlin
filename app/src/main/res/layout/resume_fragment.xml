@@ -29,7 +29,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:visibility="@{vm.resumeInfoList.size()==0?View.VISIBLE:View.GONE}"
+            android:visibility="@{vm.haseResume?View.GONE:View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,10 +39,10 @@
                 android:id="@+id/tv_create"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/create_first"
                 android:padding="@dimen/dp_5"
-                android:textSize="@dimen/sp_20"
+                android:text="@string/create_first"
                 android:textColor="@color/black4A"
+                android:textSize="@dimen/sp_20"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -54,12 +54,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:visibility="@{vm.resumeInfoList.size()==0?View.GONE:View.VISIBLE}"
+            android:orientation="vertical"
+            android:visibility="@{vm.haseResume?View.VISIBLE:View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_view"
-            android:orientation="vertical">
+            app:layout_constraintTop_toBottomOf="@+id/title_view">
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -141,8 +141,8 @@
                         android:id="@+id/bt_delete_resume"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_30"
                         android:layout_marginStart="@dimen/dp_50"
+                        android:layout_marginTop="@dimen/dp_30"
                         android:layout_marginEnd="@dimen/dp_50"
                         android:layout_marginBottom="@dimen/dp_30"
                         android:background="@drawable/bt_red_5_press"
@@ -150,14 +150,12 @@
                         android:padding="@dimen/dp_10"
                         android:text="@string/delete_resume"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/sp_16"/>
+                        android:textSize="@dimen/sp_16" />
 
 
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

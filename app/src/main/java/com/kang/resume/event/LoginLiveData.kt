@@ -1,13 +1,14 @@
 package com.kang.resume.event
 
 import androidx.lifecycle.MutableLiveData
+import com.kang.resume.base.EventMutableLiveData
 import com.kang.resume.bean.UserInfoBean
 
 /**
  * 类描述：
  * author:kanghuicong
  */
-class LoginLiveData : MutableLiveData<LoginBean>() {
+class LoginLiveData : EventMutableLiveData<LoginBean>() {
 
     private object Holder {
         val INSTANCE: LoginLiveData = LoginLiveData()

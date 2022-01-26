@@ -103,9 +103,8 @@ class ProjectActivity : BaseActivity<ResumeProjectActivityBinding, ProjectModel>
         })
 
         WriteLiveData.getInstance().observe(activity, {
-            if (it.from == RouterConfig.ProjectFrom) {
+            if (it?.from == RouterConfig.ProjectFrom) {
                 mBinding.inputDescription.setInput(it.content)
-                finish()
             }
         })
 
