@@ -9,7 +9,7 @@ import com.vondear.rxtool.RxDeviceTool
  * 类描述：
  * author:kanghuicong
  */
-class MineAboutUsModel(val context: Context) : BaseViewModel() {
+class MineAboutUsModel(context: Context) : BaseViewModel() {
     var version = EventMutableLiveData<String>()
 
     var qq = "123456789"

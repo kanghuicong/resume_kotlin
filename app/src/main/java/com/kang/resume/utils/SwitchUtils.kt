@@ -31,21 +31,20 @@ class SwitchUtils {
                 val selectDay = cal[Calendar.DATE]
                 // 用当前年月日减去生日年月日
                 val yearMinus = yearNow - selectYear
-                val monthMinus = monthNow - selectMonth
-                val dayMinus = dayNow - selectDay
-                var age = yearMinus // 先大致赋值
 
-                if (yearMinus <= 0) {
-                    age = 0;
-                }
-                if (monthMinus < 0) {
-                    age -= 1;
-                } else if (monthMinus == 0) {
-                    if (dayMinus < 0) {
-                        age -= 1;
+                return if(yearMinus <= 0){
+                    "1";
+                }else{
+                    var months = yearMinus*12+monthNow-selectMonth
+
+                    print("months:$months")
+                    var age = months / 12
+                    if (months%12>=5){
+                        age += 1
                     }
+                    age.toString()
                 }
-                return age.toString()
+
             }
         }
 

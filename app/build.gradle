@@ -200,5 +200,8 @@ dependencies {
 
     implementation 'com.github.getActivity:XXPermissions:13.2'
 
+    //微信支付
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+
 }
 

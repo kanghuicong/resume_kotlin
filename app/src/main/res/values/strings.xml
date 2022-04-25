@@ -1,4 +1,8 @@
 <resources>
+
+
+    <string name="wechat_id">123</string>
+
     <string name="app_name">优简历</string>
     <string name="app_tip">做最优秀的简历，得最优秀的职位。</string>
 
@@ -166,6 +170,8 @@
     <string name="please_input_right_confirm_password">两次密码输入不一致</string>
     <string name="tip_expired">用户信息已过期，请重新登录</string>
     <string name="tip_login">请先登录</string>
+    <string name="join_member_with_days">开通会员（%1$s）</string>
+    <string name="join_member">开通会员</string>
 
     <string name="find_job_success">预祝找工作顺利</string>
     <string name="about_us">关于我们</string>

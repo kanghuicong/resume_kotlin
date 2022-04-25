@@ -4,13 +4,23 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.widget.LinearLayout;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.kang.resume.R;
+import com.kang.resume.base.ValuableConfig;
+import com.kang.resume.preview.pro.IView;
+import com.kang.resume.preview.utils.Config;
+import com.vondear.rxtool.RxLogTool;
+import com.vondear.rxtool.view.RxToast;
 
 /**
  * 类描述：
  * author:kanghuicong
  */
+
+
 public class ClipConstraintLayout extends ConstraintLayout {
     public ClipConstraintLayout(Context context) {
         this(context, null);
@@ -57,22 +67,26 @@ public class ClipConstraintLayout extends ConstraintLayout {
 
 
     //maxN: 如果像素点低于maxN说明这一行是空白
-    public ClipConstraintLayout setClipView(int x, int y, int mX, int mY, int maxN, IMove iMove) {
+    public ClipConstraintLayout setClipView(int x, int y, int mX, int mY, int maxN, int index, IMove iMove) {
         isFirst = false;
 
-        Bitmap bitmap = loadBitmapFromView(mX, mY);
+        if (mX != 0) Config.mX = mX;
+        if (mX == 0 && Config.mX != 0) mX = Config.mX;
+
+        RxLogTool.e("setClipView--x:" + x + "----y:" + y + "-----mX:" + mX + "-----mY:" + mY);
+
+//        Bitmap bitmap = loadBitmapFromView();
+
         //bitmap==null说明其实是空白页
-        if (bitmap == null) return null;
+//        if (bitmap == null) return null;
         moveY = 0;
         moveTopY = 0;
         //理论上头部是不需要计算的，但实际却出现了误差
         //为了保证计算绝对无误，将头部误差加入计算
-        int nY = getTopMoveX(bitmap, mX, y, maxN);
-
+//        int nY = getTopMoveX(bitmap, mX, y, maxN);
+        int nY = 0;
         //需要计算尾部是否分割了内容
-        if (mY <= getMeasuredHeight()) {
-            getBottomMoveX(bitmap, mX, mY, maxN);
-        }
+//        getBottomMoveX(bitmap, Config.mWidth - 1, Config.mWidth - 1, maxN);
 
 
         this.x = x;
@@ -84,6 +98,16 @@ public class ClipConstraintLayout extends ConstraintLayout {
         //返回最终上移的y
         iMove.moveY(moveY);
         invalidate();
+
+//        Bitmap bitmap = loadBitmapFromView();
+//        getBottomMoveX(bitmap, this.mX, this.mY, maxN);
+//
+//        this.x = x;
+//        this.y = y - nY;
+//        this.mX = mX;
+//        this.mY = mY - moveY;
+//        iMove.moveY(moveY);
+
         return this;
     }
 
@@ -125,19 +149,62 @@ public class ClipConstraintLayout extends ConstraintLayout {
         return moveTopY;
     }
 
-    public Bitmap loadBitmapFromView(int mX, int mY) {
+
+    public Bitmap loadBitmapFromView() {
+//        measure(0, 0);
         int width = getMeasuredWidth();
         int height = getMeasuredHeight();
-//        RxLogTool.e("loadBitmapFromView---width:" + width + "----height:" + height + "----mX:" + mX + "----mY:" + mY);
+
+        if (width != 0) Config.mWidth = width;
+        if (height != 0) Config.mHeight = height;
+        if (width == 0 && Config.mWidth != 0) width = Config.mWidth;
+        if (height == 0 && Config.mHeight != 0) height = Config.mHeight;
+
+        RxLogTool.e("setClipView---width:" + width + "----height:" + height);
         //因为切割，分页等各种原因，可能会出现多出一空白页的误差，需要特出处理
         if (width <= 0 || height <= 0) {
             return null;
         }
-        Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Bitmap b = Bitmap.createBitmap(width, 200, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(b);
         draw(c);
         return b;
     }
+
+    public int getXWidth() {
+//        measure(0, 0);
+        return getMeasuredWidth();
+    }
+
+    public void moveBY(boolean isAdd) {
+        if (isAdd) {
+            this.mY = this.mY - 10;
+        } else {
+            this.mY = this.mY + 10;
+        }
+        invalidate();
+    }
+
+    public void moveTY(boolean isAdd) {
+        LinearLayout.MarginLayoutParams lp = (LinearLayout.MarginLayoutParams) getLayoutParams();
+
+        if (isAdd) {
+            this.y = this.y - 10;
+            lp.topMargin = lp.topMargin + 10;
+        } else {
+            this.y = this.y + 10;
+            lp.topMargin = lp.topMargin - 10;
+        }
+        setLayoutParams(lp);
+
+        invalidate();
+    }
+
+    public void  moveY(int y){
+        this.y = this.y +y;
+
+    }
+
 
     public interface IMove {
         void moveY(int y);

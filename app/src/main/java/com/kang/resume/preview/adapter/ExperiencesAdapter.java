@@ -34,7 +34,7 @@ public class ExperiencesAdapter extends RecyclerView.Adapter implements IAdapter
     public int size;
     public int color;
     public ITitle iTitle;
-
+    
     public ExperiencesAdapter(List list, int color, int size, ITitle iTitle) {
         if (list == null) {
             this.list = new ArrayList<>();

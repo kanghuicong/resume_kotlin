@@ -120,4 +120,13 @@ interface ApiService {
     @GET("/resume/export/{resumeId}")
     suspend fun export(@Path("resumeId") resumeId: Int): ApiResponse<Any>
 
+    //查询支付配置
+    @POST("/vipConfig/getPayParams")
+    @FormUrlEncoded
+    suspend fun getPayParams(@Field("configId") configId: Int): ApiResponse<Any>
+
+    //查询vip价格列表
+    @GET("/vipConfig/queryVipPriceConfigList")
+    suspend fun queryVipPriceConfigList(): ApiResponse<List<VipBean>>
+
 }

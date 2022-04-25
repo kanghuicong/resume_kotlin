@@ -88,7 +88,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-import afu.org.checkerframework.checker.oigj.qual.O;
 import kotlin.Unit;
 import kotlin.coroutines.Continuation;
 
@@ -114,6 +113,11 @@ public class PreViewActivity extends BaseActivity<ViewPreviewBinding, PreviewVie
     private ImageView ivTheme;
     private LinearLayout llKeep;
     private ImageView ivKeep;
+    private ImageView ivBTop;
+    private ImageView ivBBottom;
+    private ImageView ivTTop;
+    private ImageView ivTBottom;
+    private ImageView ivQuestion;
 
     private FragmentManager fm;
     private AppFragment appFragment;
@@ -179,6 +183,11 @@ public class PreViewActivity extends BaseActivity<ViewPreviewBinding, PreviewVie
         scPreview = findViewById(R.id.sc_preview);
         tvPage = findViewById(R.id.tv_page);
         ivDefault = findViewById(R.id.iv_default);
+        ivBTop = findViewById(R.id.iv_b_top);
+        ivBBottom = findViewById(R.id.iv_b_bottom);
+        ivTTop = findViewById(R.id.iv_t_top);
+        ivTBottom = findViewById(R.id.iv_t_bottom);
+        ivQuestion = findViewById(R.id.iv_question);
 
 
         llApp = findViewById(R.id.ll_app);
@@ -206,6 +215,11 @@ public class PreViewActivity extends BaseActivity<ViewPreviewBinding, PreviewVie
         llApp.setOnClickListener(this);
         llTheme.setOnClickListener(this);
         llKeep.setOnClickListener(this);
+        ivBTop.setOnClickListener(this);
+        ivTTop.setOnClickListener(this);
+        ivBBottom.setOnClickListener(this);
+        ivTBottom.setOnClickListener(this);
+        ivQuestion.setOnClickListener(this);
 
         //注册EventBus
         EventBus.getDefault().register(this);
@@ -292,6 +306,9 @@ public class PreViewActivity extends BaseActivity<ViewPreviewBinding, PreviewVie
         }
     }
 
+    int index = 0;
+    int defaultEndY = 0;
+
     //数据
     private void initData(int position, TemplateBean templateBean) {
         this.position = position;
@@ -375,43 +392,54 @@ public class PreViewActivity extends BaseActivity<ViewPreviewBinding, PreviewVie
 
                 RxLogTool.e("size1:" + pageView.size());
                 moveY = 0;
+
+
                 for (int i = 0; i < pageView.size(); i++) {
                     //切割成views.size()份，每个view取对应的区域
                     RxLogTool.e("size2:" + pageView.size());
 
                     int finalI = i;
-                    RxTool.delayToDo(100, () -> {
-                        int maxY = A4height * (finalI + 1) - Config.A4Padding * ((finalI + 1) * 2) - moveY;
 
+                    RxTool.delayToDo(0, () -> {
+
+                        int startY;
+                        int endY;
+
+
+                        startY = A4height * finalI - (finalI * 2) * Config.A4Padding - moveY;
+//                        startY = 0;
+                        endY = A4height * (finalI + 1) - Config.A4Padding * ((finalI + 1) * 2) - moveY;
+//
+                        RxLogTool.e("endY:" + endY);
                         RxLogTool.e("maxY---A4height:" + A4height + "------Config.A4Padding:" + Config.A4Padding);
-                        RxLogTool.e("maxY:" + maxY + "------moveY:" + moveY);
+                        RxLogTool.e("maxY:" + endY + "------moveY:" + moveY);
 
                         //不为白色像素点数量小于maxN时，认为这一行为白色
                         if (finalI < pageView.size()) {
                             int maxN = ((IView) (pageView.get(finalI))).getLineWidth();
 
-                            ClipConstraintLayout layout = ((IView) (pageView.get(finalI))).getClipView().setClipView(0,
-                                    A4height * finalI - (finalI * 2) * Config.A4Padding - moveY,
+                            if (finalI == 4) {
+                                ((IView) (pageView.get(finalI))).getClipView().moveY(-50);
+                            }
+                            ClipConstraintLayout layout = ((IView) (pageView.get(finalI))).getClipView().setClipView(
+                                    0,
+                                    startY,
                                     //这里是切割的ClipView
-                                    ((IView) (pageView.get(finalI))).getClipView().getMeasuredWidth(),
-                                    maxY,
+                                    ((IView) (pageView.get(finalI))).getClipView().getXWidth(),
+                                    endY,
                                     maxN,
-                                    new ClipConstraintLayout.IMove() {
-                                        @Override
-                                        public void moveY(int y) {
-                                            moveY = moveY + y;
+                                    finalI,
+                                    y -> {
+                                        moveY = moveY + y;
+                                        RxLogTool.e("setClipView--moveY:" + moveY);
 
-                                            LinearLayout.MarginLayoutParams lp = (LinearLayout.MarginLayoutParams) ((IView) (pageView.get(finalI))).getClipView().getLayoutParams();
-                                            lp.topMargin = -(A4height * finalI
-                                                    - Config.A4Padding * ((finalI == 0 ? (((IView) (pageView.get(finalI))).needTopMargin() ? 1 : 0) : 1 + finalI * 2))
-                                                    - moveY);
-                                            RxLogTool.e("moveY:" + moveY);
-                                            ((IView) (pageView.get(finalI))).getClipView().setLayoutParams(lp);
-                                            //但是直接取区域可能会切割内容，所以再对view进行clipRect，
-
-                                        }
+                                        LinearLayout.MarginLayoutParams lp = (LinearLayout.MarginLayoutParams) ((IView) (pageView.get(finalI))).getClipView().getLayoutParams();
+                                        lp.topMargin = -(A4height * finalI
+                                                - Config.A4Padding * ((finalI == 0 ? (((IView) (pageView.get(finalI))).needTopMargin() ? 1 : 0) : 1 + finalI * 2))
+                                                - moveY);
+                                        RxLogTool.e("topMargin:" + lp.topMargin);
+                                        ((IView) (pageView.get(finalI))).getClipView().setLayoutParams(lp);
                                     });
-
 
                             //说明计算误差生成的空白页，需要删除
                             if (layout == null) {
@@ -448,8 +476,8 @@ public class PreViewActivity extends BaseActivity<ViewPreviewBinding, PreviewVie
 
                     @Override
                     public void onPageSelected(int position) {
-                        int index = position + 1;
-                        tvPage.setText(index + "/" + pageView.size());
+                        index = position;
+                        tvPage.setText(index + 1 + "/" + pageView.size());
                     }
 
                     @Override
@@ -616,15 +644,48 @@ public class PreViewActivity extends BaseActivity<ViewPreviewBinding, PreviewVie
 
                             @Override
                             public void savePdf(@NotNull String name) {
-                                doExport(true,name);
+                                doExport(true, name);
                             }
 
                             @Override
                             public void saveImg(@NotNull String name) {
-                                doExport(false,name);
+                                doExport(false, name);
                             }
                         }))
                         .show();
+                break;
+            case R.id.iv_b_top:
+                if (pageView != null && pageView.size() > index) {
+                    ((IView) (pageView.get(index))).getClipView().moveBY(true);
+                }
+                break;
+            case R.id.iv_b_bottom:
+                if (pageView != null && pageView.size() > index) {
+                    ((IView) (pageView.get(index))).getClipView().moveBY(false);
+                }
+                break;
+            case R.id.iv_t_top:
+                if (pageView != null && pageView.size() > index) {
+                    ((IView) (pageView.get(index))).getClipView().moveTY(true);
+                }
+                break;
+            case R.id.iv_t_bottom:
+                if (pageView != null && pageView.size() > index) {
+                    ((IView) (pageView.get(index))).getClipView().moveTY(false);
+                }
+                break;
+            case R.id.iv_question:
+                new XPopup.Builder(activity)
+                        .dismissOnBackPressed(false)
+                        .isDestroyOnDismiss(true)
+                        .dismissOnTouchOutside(false)
+                        .asConfirm(getString(R.string.tip_preview), getString(R.string.detail_hint_preview), new OnConfirmListener() {
+                            @Override
+                            public void onConfirm() {
+
+                            }
+                        }).show();
+
                 break;
             default:
                 break;
@@ -665,8 +726,6 @@ public class PreViewActivity extends BaseActivity<ViewPreviewBinding, PreviewVie
                     });
                 }
             });
-
-
         });
 
         return true;

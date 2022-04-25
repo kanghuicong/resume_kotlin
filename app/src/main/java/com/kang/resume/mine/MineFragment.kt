@@ -65,7 +65,7 @@ class MineFragment : BaseFragment<MineFragmentBinding, MineModel>(), View.OnClic
                     ).show()
             }
             R.id.item_vip->{
-                RouterNavigation.doIntentActivity(RouterConfig.MineVipRouter)
+                mVm.doVip()
             }
             R.id.tv_mine_name -> {
                 mVm.doLogin()
@@ -77,7 +77,7 @@ class MineFragment : BaseFragment<MineFragmentBinding, MineModel>(), View.OnClic
 
     override fun initViewModel(): MineModel {
         mBinding.vm =
-            ViewModelProviderFactory.getViewModel(this, MineModel())
+            ViewModelProviderFactory.getViewModel(this, MineModel(activity))
         return mBinding.vm!!
     }
 
